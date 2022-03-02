@@ -1,0 +1,17 @@
+<configuration>
+    <appender name="Lambda" class="com.vmware.saas.functional.test.aws.logback.LambdaAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%X{functionalTestRequestId}] %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="${ROOT_LOG_LEVEL:-INFO}">
+        <appender-ref ref="Lambda"/>
+    </root>
+
+    <logger name="com.vmware.saas.functional.test" level="${LOG_LEVEL:-INFO}"/>
+
+    <!-- Spring -->
+    <logger name="org.springframework" level="WARN"/>
+    <!-- Amazon -->
+    <logger name="com.amazonaws" level="WARN"/>
+</configuration>

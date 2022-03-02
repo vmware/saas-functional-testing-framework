@@ -1,4 +1,9 @@
 # Ignore everything in this directory
-*
+target/
+.idea/
+*.iml
+*.jar
+*.log
+.DS_Store
 # Except this file
 !.gitignore
