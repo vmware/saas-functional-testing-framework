@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="explicit order tests">
+    <test name="explicit order tests">
+        <classes>
+            <class name="com.aw.dpa.test.aws.local.dynamodb.DynamoDbTest" />
+            <class name="com.aw.dpa.test.aws.local.LocalContextTestLocalStack"/>
+            <class name="com.aw.dpa.test.aws.local.LocalContextTest"/>
+        </classes>
+    </test>
+</suite>

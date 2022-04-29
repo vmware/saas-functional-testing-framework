@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="parallel hierarchy test scope tests" parallel="classes">
+    <test name="parallel hierarchy test scope tests">
+        <classes>
+            <class name="com.aw.dpa.test.scope.TestClassScopeAnotherWithHierarchyTest" />
+            <class name="com.aw.dpa.test.scope.TestClassScopeWithHierarchyTest" />
+        </classes>
+    </test>
+</suite>

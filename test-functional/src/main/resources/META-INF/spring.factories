@@ -1,0 +1,4 @@
+com.aw.dpa.test.FunctionalTest=com.aw.dpa.test.FunctionalConfig
+org.springframework.test.context.TestExecutionListener=\
+  com.aw.dpa.test.FunctionalTestExecutionListener,\
+  com.aw.dpa.test.TestClassScopeExecutionListener

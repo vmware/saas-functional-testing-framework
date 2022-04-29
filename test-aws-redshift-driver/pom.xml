@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <parent>
+      <artifactId>test-functional-base</artifactId>
+      <groupId>com.vmware.saas.functional.test</groupId>
+      <version>1.0.0</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <artifactId>test-aws-redshift-driver</artifactId>
+   <dependencies>
+      <!-- ============================ -->
+      <!-- Provided scope dependencies  -->
+      <!-- ============================ -->
+      <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-lang3</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.hadoop</groupId>
+         <artifactId>hadoop-client</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.github.spotbugs</groupId>
+         <artifactId>spotbugs-annotations</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.postgresql</groupId>
+         <artifactId>postgresql</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <groupId>software.amazon.awssdk</groupId>
+         <artifactId>s3</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <!-- Parquet -->
+      <dependency>
+         <groupId>org.apache.parquet</groupId>
+         <artifactId>parquet-avro</artifactId>
+         <scope>provided</scope>
+      </dependency>
+      <!-- ============================ -->
+      <!-- Test scope dependencies      -->
+      <!-- ============================ -->
+      <dependency>
+         <groupId>com.vmware.saas.functional.test</groupId>
+         <artifactId>test-aws-local-autoconfig</artifactId>
+          <version>${project.version}</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.saas.functional.test</groupId>
+         <artifactId>test-functional-aws-v2</artifactId>
+          <version>${project.version}</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.zaxxer</groupId>
+         <artifactId>HikariCP</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.parquet</groupId>
+          <artifactId>parquet-jackson</artifactId>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.hbase.thirdparty</groupId>
+          <artifactId>hbase-noop-htrace</artifactId>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-inline</artifactId>
+         <scope>test</scope>
+      </dependency>
+        <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-jdbc</artifactId>
+           <scope>test</scope>
+        </dependency>
+   </dependencies>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+               <suiteXmlFiles>
+                  <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+               </suiteXmlFiles>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>

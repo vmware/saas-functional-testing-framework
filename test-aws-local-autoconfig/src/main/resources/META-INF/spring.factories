@@ -1,0 +1,5 @@
+com.aw.dpa.test.FunctionalTest=com.aw.dpa.test.aws.local.LocalAwsServicesAutoConfiguration,\
+  com.aw.dpa.test.aws.local.LocalServicesAutoConfiguration,\
+  com.aw.dpa.test.aws.local.lambda.sam.SamAutoConfiguration
+org.springframework.test.context.ContextCustomizerFactory=com.aw.dpa.test.aws.local.LocalContextCustomizer$Factory
+org.springframework.boot.SpringApplicationRunListener=com.aw.dpa.test.aws.local.ErrorLoggingSpringApplicationRunListener

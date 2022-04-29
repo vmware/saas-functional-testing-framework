@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [o:%X{orgId}, u:%X{username}] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="com.aw.dpa" level="WARN"/>
+    <logger name="com.aw.dpa.test" level="INFO"/>
+
+    <!-- Test Containers -->
+    <logger name="org.testcontainers" level="INFO"/>
+
+    <!-- SPRING LOGGERS -->
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework.jdbc" level="WARN"/>
+    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.web" level="WARN"/>
+    <logger name="org.apache.http" level="WARN" />
+</configuration>
