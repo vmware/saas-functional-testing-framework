@@ -1,4 +1,4 @@
-com.aw.dpa.test.FunctionalTest=com.aw.dpa.test.FunctionalConfig
+com.vmware.test.functional.saas.FunctionalTest=com.vmware.test.functional.saas.FunctionalConfig
 org.springframework.test.context.TestExecutionListener=\
-  com.aw.dpa.test.FunctionalTestExecutionListener,\
-  com.aw.dpa.test.TestClassScopeExecutionListener
+  com.vmware.test.functional.saas.FunctionalTestExecutionListener,\
+  com.vmware.test.functional.saas.TestClassScopeExecutionListener

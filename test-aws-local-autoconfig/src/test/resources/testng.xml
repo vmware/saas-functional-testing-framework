@@ -8,7 +8,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.aw.dpa.test.aws.local.*"/>
+            <package name="com.vmware.test.functional.saas.aws.local.*"/>
         </packages>
     </test>
 </suite>

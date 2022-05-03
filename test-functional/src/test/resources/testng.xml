@@ -9,7 +9,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.aw.dpa.*" />
+            <package name="com.vmware.test.functional.saas*" />
         </packages>
     </test>
 </suite>

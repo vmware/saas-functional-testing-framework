@@ -3,7 +3,7 @@
 <suite name="alltests">
     <test name="alltests">
         <packages>
-            <package name="com.aw.dpa.test.infrastructure.tools.*"/>
+            <package name="com.vmware.test.functional.saas.infrastructure.tools.*"/>
         </packages>
     </test>
 </suite>

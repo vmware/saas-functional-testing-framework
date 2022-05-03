@@ -1,1 +1,1 @@
-com.aw.dpa.test.SharedConfig=com.aw.dpa.test.scope.context.TestClassScopeParentContext
+com.vmware.test.functional.saas.SharedConfig=com.vmware.test.functional.saas.scope.context.TestClassScopeParentContext

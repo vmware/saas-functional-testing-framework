@@ -3,8 +3,8 @@
 <suite name="parallel tests" parallel="classes">
     <test name="parallel tests">
         <classes>
-            <class name="com.aw.dpa.test.scope.TestClassScopeAnotherTest" />
-            <class name="com.aw.dpa.test.scope.TestClassScopeTest" />
+            <class name="com.vmware.test.functional.saas.scope.TestClassScopeAnotherTest" />
+            <class name="com.vmware.test.functional.saas.scope.TestClassScopeTest" />
         </classes>
     </test>
 </suite>

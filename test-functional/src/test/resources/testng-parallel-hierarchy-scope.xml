@@ -3,8 +3,8 @@
 <suite name="parallel hierarchy test scope tests" parallel="classes">
     <test name="parallel hierarchy test scope tests">
         <classes>
-            <class name="com.aw.dpa.test.scope.TestClassScopeAnotherWithHierarchyTest" />
-            <class name="com.aw.dpa.test.scope.TestClassScopeWithHierarchyTest" />
+            <class name="com.vmware.test.functional.saas.scope.TestClassScopeAnotherWithHierarchyTest" />
+            <class name="com.vmware.test.functional.saas.scope.TestClassScopeWithHierarchyTest" />
         </classes>
     </test>
 </suite>
