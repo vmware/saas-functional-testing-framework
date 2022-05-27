@@ -31,7 +31,7 @@ public class TestContext {
         @Value("${lambda.code.uri}")
         private String lambdaCodeDir;
 
-        @Value("${test.lambda.timeout:5}")
+        @Value("${test.lambda.timeout:10}")
         private int functionTimeout;
 
         @Autowired
