@@ -10,6 +10,19 @@
     <root level="WARN">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="com.aw.dpa" level="WARN"/>
-    <logger name="com.aw.dpa.test" level="INFO"/>
+
+    <logger name="com.vmware.test.functional.saas" level="INFO"/>
+
+    <!-- Test Containers -->
+    <logger name="org.testcontainers" level="INFO"/>
+
+    <!-- Spring -->
+    <logger name="org.springframework" level="WARN"/>
+
+    <!-- Apache -->
+    <logger name="org.apache.http" level="WARN" />
+
+    <!-- Amazon -->
+    <logger name="com.amazonaws" level="WARN"/>
+
 </configuration>

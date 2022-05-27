@@ -43,8 +43,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  * <p>This customizer register a classpath resource property source which tries to load classpath entry named "local-test.properties".</p>
  *
- * <p>Note: Similar expression-driven approach will allow flexible integration with {@code com.aw.dpa.automation.api.support.TestEnvironment}.</p>
- *
  * <p>Installing an instance of the LocalstackServiceRegistrar is another responsibility of this customizer. Since the registrar is an implementation of
  * {@code BeanDefinitionRegistryPostProcessor} it is not appropriate to just list it as normal java bean because the latter will trigger early initialization of
  * the entire config - which may not be obvious - and may result in unpredictable behavior.</p>
