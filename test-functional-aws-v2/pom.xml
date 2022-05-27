@@ -32,6 +32,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <scope>compile</scope>
@@ -135,10 +140,6 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-serialization</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
         </dependency>
     </dependencies>
     <build>
