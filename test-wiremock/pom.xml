@@ -17,9 +17,15 @@
         <!-- Compile scope dependencies -->
         <!-- ============================ -->
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>com.vmware.saas.functional.test</groupId>
             <artifactId>test-functional</artifactId>
             <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
         <!-- Spring -->
         <dependency>
@@ -73,11 +79,6 @@
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
             <scope>compile</scope>
         </dependency>
         <!-- ============================ -->
