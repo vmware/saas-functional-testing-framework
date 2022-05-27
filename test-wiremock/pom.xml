@@ -16,6 +16,17 @@
         <!-- ============================ -->
         <!-- Compile scope dependencies -->
         <!-- ============================ -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.saas.functional.test</groupId>
+            <artifactId>test-functional</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -105,11 +116,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vmware.saas.functional.test</groupId>
-            <artifactId>test-functional</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

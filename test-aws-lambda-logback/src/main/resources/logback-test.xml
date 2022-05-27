@@ -1,5 +1,5 @@
 <configuration>
-    <appender name="Lambda" class="com.aw.test.aws.logback.LambdaAppender">
+    <appender name="Lambda" class="com.vmware.test.functional.saas.aws.logback.LambdaAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>[%X{functionalTestRequestId}] %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
         </encoder>

@@ -55,27 +55,6 @@ public class TestContext {
     @ServiceDependencies(Service.KMS)
     public static class StartKmsServiceContext {
 
-        @Bean
-        SmartLifecycle smartLifecycle() {
-            return new SmartLifecycle() {
-
-                @Override
-                public void start() {
-                    throw new RuntimeException("Smart lifecycle start failed");
-                }
-
-                @Override
-                public void stop() {
-
-                }
-
-                @Override
-                public boolean isRunning() {
-                    return false;
-                }
-            };
-        }
-
     }
 
     @Configuration
