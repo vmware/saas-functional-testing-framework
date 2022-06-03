@@ -8,16 +8,9 @@
         <appender-ref ref="Lambda"/>
     </root>
 
-    <logger name="com.aw.dpa" level="${LOG_LEVEL:-INFO}"/>
+    <logger name="com.vmware.test.functional.saas" level="${LOG_LEVEL:-INFO}"/>
 
-    <!-- Spring -->
-    <logger name="org.springframework" level="WARN"/>
     <!-- Amazon -->
     <logger name="com.amazonaws" level="WARN"/>
 
-    <!-- Prevent warn logs from appearing when no SENTRY_DSN is configured. -->
-    <logger name="io.sentry" level="ERROR"/>
-
-    <!-- INTEL-20547: Don't log errors when we have connectivity issues with Sentry. -->
-    <logger name="io.sentry.connection.AsyncConnection" level="FATAL"/>
 </configuration>

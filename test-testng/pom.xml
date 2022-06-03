@@ -3,13 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.vmware.saas.functional.test</groupId>
         <artifactId>test-functional-base</artifactId>
+        <groupId>com.vmware.saas.functional.test</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>test-aws-lambda-logback</artifactId>
-    <packaging>jar</packaging>
+
+    <artifactId>test-testng</artifactId>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -23,16 +28,15 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jlib</groupId>
-            <artifactId>jlib-awslambda-logback</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <build>
-    </build>
-
-    <reporting>
-    </reporting>
 
 </project>

@@ -18,6 +18,7 @@
     <modules>
         <module>test-aws-lambda-logback</module>
         <module>test-samples</module>
+        <module>test-testng</module>
         <module>test-aws-local-autoconfig</module>
         <module>test-functional</module>
         <module>test-functional-aws-v2</module>
@@ -693,8 +694,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -705,6 +706,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -719,8 +725,10 @@
                     <version>3.8.1</version>
                     <configuration>
                         <showWarnings>true</showWarnings>
+                        <encoding>US-ASCII</encoding>
                         <showDeprecation>true</showDeprecation>
                         <compilerArgument>-Xlint:all</compilerArgument>
+                        <compilerArgument>-Xlint:-processing</compilerArgument>
                         <forceJavacCompilerUse>true</forceJavacCompilerUse>
                     </configuration>
                 </plugin>

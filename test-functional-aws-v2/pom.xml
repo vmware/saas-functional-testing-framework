@@ -15,10 +15,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.spotbugs</groupId>
@@ -121,13 +128,8 @@
         <!-- Test scope dependencies -->
         <!-- ======================= -->
         <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>localstack</artifactId>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-lambda-java-serialization</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -137,8 +139,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-lambda-java-serialization</artifactId>
+            <groupId>com.vmware.saas.functional.test</groupId>
+            <artifactId>test-testng</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>localstack</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
