@@ -23,6 +23,9 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.env.Environment;
 
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
+
 /**
  * Utility class to retrieve AWS services, requested through {@link ServiceDependencies}.
  * Retrieve AWS services requested to be provisioned by LocalStack.

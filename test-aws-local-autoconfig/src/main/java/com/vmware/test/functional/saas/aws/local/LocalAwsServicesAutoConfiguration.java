@@ -16,6 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.dynamodb.DynamoDbFactory;
 import com.vmware.test.functional.saas.aws.local.dynamodb.DynamoDbResourceCreator;
 import com.vmware.test.functional.saas.aws.local.kinesis.KinesisFactory;
@@ -36,7 +37,6 @@ import com.vmware.test.functional.saas.aws.s3.S3ResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sns.SnsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sqs.SqsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.local.ConditionalOnService;
-import com.vmware.test.functional.saas.local.Service;
 
 /**
  * Local AWS Services AutoConfiguration. To be used by {@code FunctionalTest}.

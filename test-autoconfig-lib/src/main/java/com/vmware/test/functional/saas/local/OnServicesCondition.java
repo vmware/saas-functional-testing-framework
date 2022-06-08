@@ -15,6 +15,8 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.MethodMetadata;
 
+import com.vmware.test.functional.saas.Service;
+
 import lombok.Builder;
 import lombok.SneakyThrows;
 

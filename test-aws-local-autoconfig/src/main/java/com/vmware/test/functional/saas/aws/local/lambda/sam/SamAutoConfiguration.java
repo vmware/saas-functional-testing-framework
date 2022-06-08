@@ -16,10 +16,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.lambda.sam.process.SamProcessControl;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 import com.vmware.test.functional.saas.local.ConditionalOnService;
-import com.vmware.test.functional.saas.local.Service;
 import com.vmware.test.functional.saas.process.DpaTestAppDebug;
 
 /**

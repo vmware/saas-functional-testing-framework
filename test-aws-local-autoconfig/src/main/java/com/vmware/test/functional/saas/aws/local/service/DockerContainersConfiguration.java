@@ -29,6 +29,7 @@ import org.testcontainers.utility.MountableFile;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 import com.vmware.test.functional.saas.aws.local.constants.DockerContainerConstants;
 import com.vmware.test.functional.saas.aws.local.presto.PrestoContainerFactory;
@@ -37,7 +38,6 @@ import com.vmware.test.functional.saas.local.ContainerCondition;
 import com.vmware.test.functional.saas.local.DockerConfig;
 import com.vmware.test.functional.saas.local.GenericRunner;
 import com.vmware.test.functional.saas.local.LocalStackFactory;
-import com.vmware.test.functional.saas.local.Service;
 
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;

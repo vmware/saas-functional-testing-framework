@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestData;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 import com.vmware.test.functional.saas.aws.lambda.LambdaService;
 import com.vmware.test.functional.saas.aws.lambda.LambdaServiceHelper;
 import com.vmware.test.functional.saas.aws.lambda.LambdaServiceImpl;
-import com.vmware.test.functional.saas.local.Service;
-import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 public class TestContext {
 

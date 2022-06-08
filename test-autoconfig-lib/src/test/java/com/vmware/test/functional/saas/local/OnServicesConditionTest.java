@@ -16,6 +16,8 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.vmware.test.functional.saas.Service;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -40,7 +42,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, false))
-                    .thenReturn(Set.of(Service.PRESTO));
+                    .thenReturn(Set.of(LocalService.PRESTO));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }
@@ -52,7 +54,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, true))
-                    .thenReturn(Set.of(Service.S3));
+                    .thenReturn(Set.of(LocalService.S3));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }

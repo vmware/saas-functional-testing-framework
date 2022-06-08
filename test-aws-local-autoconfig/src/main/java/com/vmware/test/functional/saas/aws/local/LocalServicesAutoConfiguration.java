@@ -23,6 +23,7 @@ import org.testcontainers.containers.GenericContainer;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.es.ElasticsearchResourceCreator;
 import com.vmware.test.functional.saas.aws.local.es.JestClientFactory;
 import com.vmware.test.functional.saas.aws.local.pg.PostgresDatabaseCreator;
@@ -38,7 +39,6 @@ import com.vmware.test.functional.saas.aws.presto.PrestoCatalogAwaitingInitializ
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
 import com.vmware.test.functional.saas.local.ConditionalOnService;
-import com.vmware.test.functional.saas.local.Service;
 
 import io.searchbox.client.JestClient;
 import io.trino.jdbc.TrinoDriver;

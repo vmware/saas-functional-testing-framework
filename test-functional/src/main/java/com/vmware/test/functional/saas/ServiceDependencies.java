@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

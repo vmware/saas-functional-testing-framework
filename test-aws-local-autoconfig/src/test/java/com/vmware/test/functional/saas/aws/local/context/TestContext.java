@@ -26,6 +26,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.pg.PostgresDbSettings;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.aws.dynamodb.DynamoDbTableSettings;
@@ -39,8 +41,6 @@ import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
 import com.vmware.test.functional.saas.aws.sns.SnsTopicsSpecs;
 import com.vmware.test.functional.saas.aws.sqs.SqsQueuesSpec;
-import com.vmware.test.functional.saas.local.Service;
-import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 public class TestContext {
 

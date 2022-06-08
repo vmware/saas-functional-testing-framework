@@ -61,6 +61,8 @@ import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.AbstractFunctionalTests;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 import com.vmware.test.functional.saas.aws.local.dbms.JdbcTemplateFactory;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDataSourceConfig;
@@ -68,8 +70,6 @@ import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDataSourceFact
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
-import com.vmware.test.functional.saas.local.Service;
-import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

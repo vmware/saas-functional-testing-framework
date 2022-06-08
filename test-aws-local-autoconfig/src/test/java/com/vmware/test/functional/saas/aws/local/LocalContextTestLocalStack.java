@@ -20,11 +20,11 @@ import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.kms.KmsHealthHelper;
 import com.vmware.test.functional.saas.aws.local.service.DockerContainersConfiguration;
 import com.vmware.test.functional.saas.aws.local.utils.ServiceDependenciesHealthHelper;
-import com.vmware.test.functional.saas.local.Service;
-import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.*;

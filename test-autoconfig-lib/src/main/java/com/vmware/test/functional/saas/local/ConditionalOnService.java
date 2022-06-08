@@ -14,6 +14,9 @@ import java.lang.annotation.Target;
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.context.annotation.Conditional;
 
+import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceDependencies;
+
 /**
  * {@link Conditional @Conditional} that only matches when all {@link Service Services} are specified via
  * the {@link ServiceDependencies @ServiceDependencies} on bean definitions (usually {@link org.springframework.context.annotation.Configuration} classes) that have been processed by
