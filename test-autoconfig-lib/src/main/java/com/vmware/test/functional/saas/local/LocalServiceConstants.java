@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local.constants;
+package com.vmware.test.functional.saas.local;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 /**
  * Local Service Constants.
  */
+// legacy model
 public final class LocalServiceConstants {
 
     private LocalServiceConstants() {

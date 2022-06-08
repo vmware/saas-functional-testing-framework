@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
@@ -40,18 +41,18 @@ final class ServiceConditionUtil {
      * @param context {@link ConditionContext}
      * @return Set of required {@link Service}
      */
-    static Set<Service> getRequiredServiceDependencies(final ConditionContext context) {
+    static Set<LocalService> getRequiredServiceDependencies(final ConditionContext context) {
         return getRequiredServiceDependencies(context, false);
     }
 
-    static Set<Service> getRequiredServiceDependencies(final ConditionContext context, final boolean searchAll) {
+    static Set<LocalService> getRequiredServiceDependencies(final ConditionContext context, final boolean searchAll) {
         final ConfigurableListableBeanFactory listableBeanFactory = context.getBeanFactory();
         if (listableBeanFactory == null) {
             return Collections.emptySet();
         }
         final Set<Service> requestedServices = new HashSet<>();
         collectRequiredServiceDependencies(listableBeanFactory, searchAll, requestedServices);
-        return requestedServices;
+        return requestedServices.stream().map(e -> LocalService.valueOf(e.name())).collect(Collectors.toSet());
     }
 
     /**
@@ -60,10 +61,10 @@ final class ServiceConditionUtil {
      * @param listableBeanFactory {@link ConfigurableListableBeanFactory}
      * @return Set of required {@link Service}
      */
-    static Set<Service> getRequiredServiceDependencies(final ConfigurableListableBeanFactory listableBeanFactory) {
+    static Set<LocalService> getRequiredServiceDependencies(final ConfigurableListableBeanFactory listableBeanFactory) {
         final Set<Service> requestedServices = new HashSet<>();
         collectRequiredServiceDependencies(listableBeanFactory, false, requestedServices);
-        return requestedServices;
+        return requestedServices.stream().map(e -> LocalService.valueOf(e.name())).collect(Collectors.toSet());
     }
 
     /**

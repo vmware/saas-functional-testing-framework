@@ -42,14 +42,4 @@ public final class DockerContainerConstants {
 
         public static final String LOCALSTACK_REGION = "DEFAULT_REGION";
     }
-
-    /**
-     * UNKNOWN Docker Container Type values.
-     */
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static final class UnknownContainerTypeConfig {
-        public static final String NAME = "Unknown";
-        public static final int PORT = -1;
-    }
-
 }

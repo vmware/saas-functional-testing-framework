@@ -28,6 +28,8 @@ import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
 import com.vmware.test.functional.saas.aws.s3.S3HealthHelper;
 import com.vmware.test.functional.saas.aws.sqs.SqsHealthHelper;
 import com.vmware.test.functional.saas.aws.sqs.SqsQueuesSpec;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import static org.hamcrest.MatcherAssert.*;
 

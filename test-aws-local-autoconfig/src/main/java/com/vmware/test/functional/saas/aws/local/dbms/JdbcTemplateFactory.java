@@ -5,10 +5,10 @@
 
 package com.vmware.test.functional.saas.aws.local.dbms;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.sql.DataSource;
 
 /**
  * Jdbc Template Factory used for making operation on Postgres db.

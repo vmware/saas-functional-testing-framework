@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <S> Type of Dbms Settings to search for in the context.
  */
 @Slf4j
-public abstract class AbstractDatabaseCreator<S extends GenericDbmsSettings> extends AbstractAwsResourceCreator {
+public abstract class AbstractDatabaseCreator<S extends GenericDbmsSettings> extends AbstractResourceCreator {
 
     private final Class<S> dbmsSettingsClass;
 

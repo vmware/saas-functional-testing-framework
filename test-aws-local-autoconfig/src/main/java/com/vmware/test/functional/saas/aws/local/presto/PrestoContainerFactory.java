@@ -14,13 +14,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
-import com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer;
+import com.vmware.test.functional.saas.local.CustomDockerContainer;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
-import static com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer.createDockerContainer;
+import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
+import static com.vmware.test.functional.saas.local.CustomDockerContainer.createDockerContainer;
 
 /**
  * Class that 'registers' catalogs in presto before container startup.
@@ -37,7 +37,7 @@ public class PrestoContainerFactory implements FactoryBean<CustomDockerContainer
 
     private final Consumer<CustomDockerContainer> containerModifier;
 
-    @Autowired
+    @Autowired //FIXME must be defined in a valid spring bean!
     private PrestoCatalogCreator prestoCatalogCreator;
 
     @Value("${presto.catalog.directory:/etc/trino/catalog/}")

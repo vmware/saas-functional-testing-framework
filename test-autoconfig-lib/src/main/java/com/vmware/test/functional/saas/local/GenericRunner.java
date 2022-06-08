@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.util.ArrayList;
 import java.util.List;

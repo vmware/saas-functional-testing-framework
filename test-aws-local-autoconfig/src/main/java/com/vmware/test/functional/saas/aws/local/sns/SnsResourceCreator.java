@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.aws.sns.SnsTopicsSpecs;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  * when started.
  */
 @Slf4j
-public class SnsResourceCreator extends AbstractAwsResourceCreator {
+public class SnsResourceCreator extends AbstractResourceCreator {
 
     private final SnsClient snsClient;
 

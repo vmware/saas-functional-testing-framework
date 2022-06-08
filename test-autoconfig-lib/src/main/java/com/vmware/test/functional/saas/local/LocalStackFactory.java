@@ -2,7 +2,18 @@
  * Copyright 2021 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
+
+import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.testcontainers.containers.InternetProtocol;
+import org.testcontainers.containers.localstack.LocalStackContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,20 +22,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.testcontainers.containers.InternetProtocol;
-import org.testcontainers.containers.localstack.LocalStackContainer;
-import org.testcontainers.utility.DockerImageName;
-
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-
-import static com.vmware.test.functional.saas.aws.local.service.ServiceConditionUtil.getRequiredServiceDependencies;
+import static com.vmware.test.functional.saas.local.ServiceConditionUtil.getRequiredServiceDependencies;
 
 /**
  * Creates {@code LocalStackContainer} instances. The implementation keeps track of all
@@ -37,9 +35,9 @@ import static com.vmware.test.functional.saas.aws.local.service.ServiceCondition
  */
 @Slf4j
 @AllArgsConstructor
-class LocalStackFactory implements FactoryBean<LocalStackContainer> {
+public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
 
-    private static ConcurrentMap<LocalStackContainer, List<LocalStackServiceInfo>> localStackServicesByContainer = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<LocalStackContainer, List<LocalStackServiceInfo>> localStackServicesByContainer = new ConcurrentHashMap<>();
 
     private final ConfigurableListableBeanFactory listableBeanFactory;
     private final LocalServiceEndpoint localStackServiceEndpoint;
@@ -72,7 +70,7 @@ class LocalStackFactory implements FactoryBean<LocalStackContainer> {
         return LocalStackContainer.class;
     }
 
-    private String mapPortBinding(final Service service) {
+    private String mapPortBinding(final LocalService service) {
         final int serviceEndpointPort = this.listableBeanFactory
                 .getBean(service.getEndpoint(), LocalServiceEndpoint.class)
                 .getPort();

@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.constants;
+package com.vmware.test.functional.saas.local;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 /**
  * Docker configurations needed for container deployment.
  */
+// legacy model
 @Data
 @NoArgsConstructor
 @Configuration

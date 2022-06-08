@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +22,8 @@ public class ServicePortTest {
     @Test
     public void listServicePorts() {
 
-        final List<Integer> ports = Arrays.stream(Service.values())
-                .map(Service::getPort)
+        final List<Integer> ports = Arrays.stream(LocalService.values())
+                .map(LocalService::getPort)
                 .collect(Collectors.toList());
 
         final List<Integer> distinctPorts = ports

@@ -17,6 +17,7 @@
 
     <modules>
         <module>test-aws-lambda-logback</module>
+        <module>test-autoconfig-lib</module>
         <module>test-samples</module>
         <module>test-testng</module>
         <module>test-aws-local-autoconfig</module>

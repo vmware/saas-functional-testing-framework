@@ -24,9 +24,7 @@ import com.vmware.test.functional.saas.aws.local.kms.KmsFactory;
 import com.vmware.test.functional.saas.aws.local.lambda.LambdaFactory;
 import com.vmware.test.functional.saas.aws.local.s3.S3Factory;
 import com.vmware.test.functional.saas.aws.local.s3.S3ResourceCreator;
-import com.vmware.test.functional.saas.aws.local.service.ConditionalOnService;
 import com.vmware.test.functional.saas.aws.local.service.DockerContainersConfiguration;
-import com.vmware.test.functional.saas.aws.local.service.Service;
 import com.vmware.test.functional.saas.aws.local.ses.SesFactory;
 import com.vmware.test.functional.saas.aws.local.sns.SnsFactory;
 import com.vmware.test.functional.saas.aws.local.sns.SnsResourceCreator;
@@ -37,10 +35,13 @@ import com.vmware.test.functional.saas.aws.kinesis.KinesisResourceAwaitingInitia
 import com.vmware.test.functional.saas.aws.s3.S3ResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sns.SnsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sqs.SqsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.local.Service;
 
 /**
  * Local AWS Services AutoConfiguration. To be used by {@code FunctionalTest}.
  */
+// TODO split
 @Configuration
 @Import(DockerContainersConfiguration.class)
 @AutoConfigureOrder(Integer.MAX_VALUE)

@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 import com.vmware.test.functional.saas.aws.kinesis.KinesisStreamsSpec;
 
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  * when started.
  */
 @Slf4j
-public class KinesisResourceCreator extends AbstractAwsResourceCreator {
+public class KinesisResourceCreator extends AbstractResourceCreator {
 
     private final KinesisClient kinesisClient;
     private final KinesisSettings kinesisSettings;

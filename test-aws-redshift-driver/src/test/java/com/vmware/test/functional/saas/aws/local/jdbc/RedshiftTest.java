@@ -66,10 +66,10 @@ import com.vmware.test.functional.saas.aws.local.dbms.JdbcTemplateFactory;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDataSourceConfig;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDataSourceFactory;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDbSettings;
-import com.vmware.test.functional.saas.aws.local.service.Service;
-import com.vmware.test.functional.saas.aws.local.service.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

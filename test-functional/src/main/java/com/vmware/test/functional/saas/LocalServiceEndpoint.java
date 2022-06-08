@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Model for Local Service Endpoint.
  */
+// rename - ServiceEndpoint
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class LocalServiceEndpoint implements BeanNameAware, EnvironmentAware, InitializingBean {

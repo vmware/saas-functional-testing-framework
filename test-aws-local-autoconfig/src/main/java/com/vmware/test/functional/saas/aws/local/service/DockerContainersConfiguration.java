@@ -30,18 +30,24 @@ import org.testcontainers.utility.MountableFile;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
-import com.vmware.test.functional.saas.aws.local.constants.DockerConfig;
 import com.vmware.test.functional.saas.aws.local.constants.DockerContainerConstants;
 import com.vmware.test.functional.saas.aws.local.presto.PrestoContainerFactory;
+import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.local.ContainerCondition;
+import com.vmware.test.functional.saas.local.DockerConfig;
+import com.vmware.test.functional.saas.local.GenericRunner;
+import com.vmware.test.functional.saas.local.LocalStackFactory;
+import com.vmware.test.functional.saas.local.Service;
 
-import static com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
-import static com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
-import static com.vmware.test.functional.saas.aws.local.service.CustomDockerContainer.createDockerContainer;
+import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
+import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
+import static com.vmware.test.functional.saas.local.CustomDockerContainer.createDockerContainer;
 
 /**
  * Docker container configuration.
  * Define containers to be deployed and endpoint for respective services.
  */
+// TODO split
 @Configuration
 @PropertySource("classpath:docker-container.properties")
 @EnableConfigurationProperties(DockerConfig.class)
@@ -94,7 +100,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.KmsContainerCondition.class)
+    @ConditionalOnService(Service.KMS)
     @Lazy
     public Startable kmsContainer(@Lazy final LocalServiceEndpoint kmsEndpoint) {
         final String logWaitRegex = "(.*)(Local KMS started on)(.*)";
@@ -116,7 +122,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.RedisContainerCondition.class)
+    @ConditionalOnService(Service.REDIS)
     @Lazy
     public Startable redisContainer(@Lazy final LocalServiceEndpoint redisEndpoint) {
         return createDockerContainer(redisEndpoint,
@@ -130,7 +136,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.RedshiftContainerCondition.class)
+    @ConditionalOnService(Service.REDSHIFT)
     @Lazy
     public Startable redshiftContainer(@Lazy final LocalServiceEndpoint redshiftEndpoint) {
         final String logWaitRegex = "(.*)(database system is ready to accept connections)(.*)";
@@ -150,7 +156,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.PrestoContainerCondition.class)
+    @ConditionalOnService(Service.PRESTO)
     @Lazy
     public PrestoContainerFactory prestoContainer(@Lazy final LocalServiceEndpoint prestoEndpoint) {
         return new PrestoContainerFactory(prestoEndpoint, container -> { });
@@ -163,7 +169,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.PostgresContainerCondition.class)
+    @ConditionalOnService(Service.POSTGRES)
     @Lazy
     public Startable postgresContainer(@Lazy final LocalServiceEndpoint postgresEndpoint) {
         final String logWaitRegex = "(.*)(database system is ready to accept connections)(.*)";
@@ -182,7 +188,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.ElasticsearchContainerCondition.class)
+    @ConditionalOnService(Service.ELASTICSEARCH)
     @Lazy
     public Startable elasticsearchContainer(@Lazy final LocalServiceEndpoint elasticsearchEndpoint) {
         return createDockerContainer(elasticsearchEndpoint,

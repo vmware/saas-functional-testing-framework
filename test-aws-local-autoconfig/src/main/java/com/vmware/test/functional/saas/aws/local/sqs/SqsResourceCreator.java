@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.aws.sqs.SqsQueuesSpec;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * when started.
  */
 @Slf4j
-public class SqsResourceCreator extends AbstractAwsResourceCreator {
+public class SqsResourceCreator extends AbstractResourceCreator {
 
     private final SqsClient sqsClient;
 

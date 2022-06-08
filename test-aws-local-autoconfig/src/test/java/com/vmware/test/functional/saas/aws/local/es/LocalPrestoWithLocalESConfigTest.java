@@ -26,9 +26,9 @@ import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
-import com.vmware.test.functional.saas.aws.local.service.Service;
-import com.vmware.test.functional.saas.aws.local.service.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.es.ElasticsearchHealthHelper;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 import com.google.common.base.Preconditions;
 
 import io.searchbox.client.JestClient;

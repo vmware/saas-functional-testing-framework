@@ -3,15 +3,18 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local.constants;
+package com.vmware.test.functional.saas.local;
 
 import java.util.function.Function;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Enumerated class representing the available Docker Container types used for functional test execution.
  */
+// legacy model
 @Getter
 public enum DockerContainerType {
 
@@ -24,7 +27,7 @@ public enum DockerContainerType {
     PRESTO(DockerConfig::getPrestoImage, DockerConfig::getPrestoPort),
     REDIS(DockerConfig::getRedisImage, DockerConfig::getRedisPort),
     REDSHIFT(DockerConfig::getPostgresImage, DockerConfig::getPostgresPort),
-    UNKNOWN(c -> DockerContainerConstants.UnknownContainerTypeConfig.NAME, c -> DockerContainerConstants.UnknownContainerTypeConfig.PORT);
+    UNKNOWN(c -> UnknownContainerTypeConfig.NAME, c -> UnknownContainerTypeConfig.PORT);
 
     private final Function<DockerConfig, String> dockerImageNameMapper;
     private final Function<DockerConfig, Integer> internalDockerPortMapper;
@@ -32,5 +35,14 @@ public enum DockerContainerType {
     DockerContainerType(final Function<DockerConfig, String> dockerImageNameMapper, final Function<DockerConfig, Integer> internalDockerPortMapper) {
         this.dockerImageNameMapper = dockerImageNameMapper;
         this.internalDockerPortMapper = internalDockerPortMapper;
+    }
+
+    /**
+     * UNKNOWN Docker Container Type values.
+     */
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    static final class UnknownContainerTypeConfig {
+        public static final String NAME = "Unknown";
+        public static final int PORT = -1;
     }
 }

@@ -22,9 +22,9 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.aws.local.kms.KmsHealthHelper;
 import com.vmware.test.functional.saas.aws.local.service.DockerContainersConfiguration;
-import com.vmware.test.functional.saas.aws.local.service.Service;
-import com.vmware.test.functional.saas.aws.local.service.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.utils.ServiceDependenciesHealthHelper;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.MatcherAssert.*;
@@ -56,7 +56,6 @@ public class LocalContextTestLocalStack extends AbstractTestNGSpringContextTests
 
     /**
      * Add test for localstack provided kms when the following issue is fixed.
-     * https://jira-euc.eng.vmware.com/jira/browse/INTEL-21650
      */
 
     @Test

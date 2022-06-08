@@ -3,15 +3,13 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vmware.test.functional.saas.InternalContainerServiceConfig;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
-import com.vmware.test.functional.saas.aws.local.constants.DockerConfig;
-import com.vmware.test.functional.saas.aws.local.constants.DockerContainerType;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +30,13 @@ class LocalServiceEndpointFactoryBean implements FactoryBean<LocalServiceEndpoin
     protected final String host;
     protected final Integer port;
 
-    @Autowired
+    @Autowired //FIXME must be defined in a valid spring bean!
     private DockerConfig dockerConfig;
 
     LocalServiceEndpointFactoryBean(final DockerContainerType dockerContainerType,
-            final Integer containerNameSuffix,
-            final String schema,
-            final String host) {
+                                    final Integer containerNameSuffix,
+                                    final String schema,
+                                    final String host) {
         this(dockerContainerType, containerNameSuffix, schema, host, null);
     }
 

@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestData;
-import com.vmware.test.functional.saas.aws.local.service.Service;
-import com.vmware.test.functional.saas.aws.local.service.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 import com.vmware.test.functional.saas.aws.lambda.LambdaService;
 import com.vmware.test.functional.saas.aws.lambda.LambdaServiceHelper;
 import com.vmware.test.functional.saas.aws.lambda.LambdaServiceImpl;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 public class TestContext {
 
@@ -31,7 +31,7 @@ public class TestContext {
         @Value("${lambda.code.uri}")
         private String lambdaCodeDir;
 
-        @Value("${test.lambda.timeout:10}")
+        @Value("${test.lambda.timeout:100}")
         private int functionTimeout;
 
         @Autowired
@@ -89,7 +89,7 @@ public class TestContext {
         @Value("${lambda.code.uri}")
         private String lambdaCodeDir;
 
-        @Value("${test.lambda.timeout:10}")
+        @Value("${test.lambda.timeout:100}")
         private int functionTimeout;
 
         @Bean
@@ -111,7 +111,7 @@ public class TestContext {
         @Value("${lambda.code.uri}")
         private String lambdaCodeDir;
 
-        @Value("${test.lambda.timeout:10}")
+        @Value("${test.lambda.timeout:100}")
         private int functionTimeout;
 
         @Autowired

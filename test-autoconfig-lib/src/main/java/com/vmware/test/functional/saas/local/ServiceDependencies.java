@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -16,6 +16,7 @@ import org.springframework.core.annotation.AliasFor;
 /**
  * Configuration class for service dependencies. To be used by declaring functional tests service dependencies.
  */
+// move to test-functional
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

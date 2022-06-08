@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local;
+package com.vmware.test.functional.saas.local;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,8 +18,6 @@ import org.springframework.test.context.ContextConfigurationAttributes;
 import org.springframework.test.context.ContextCustomizer;
 import org.springframework.test.context.ContextCustomizerFactory;
 import org.springframework.test.context.MergedContextConfiguration;
-
-import com.vmware.test.functional.saas.aws.local.service.LocalstackServiceRegistrar;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -47,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
  * {@code BeanDefinitionRegistryPostProcessor} it is not appropriate to just list it as normal java bean because the latter will trigger early initialization of
  * the entire config - which may not be obvious - and may result in unpredictable behavior.</p>
  */
+// TODO move to autoconfig-lib
 @AllArgsConstructor
 @EqualsAndHashCode
 @Slf4j

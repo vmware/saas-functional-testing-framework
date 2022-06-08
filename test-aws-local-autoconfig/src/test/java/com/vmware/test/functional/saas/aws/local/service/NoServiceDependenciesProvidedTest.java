@@ -11,13 +11,14 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
+import com.vmware.test.functional.saas.local.GenericRunner;
 
 import static org.hamcrest.MatcherAssert.*;
 
 /**
  * Test for {@link DockerContainersConfiguration} and {@link GenericRunner}.
  * Test verifies the successful application context setup when a test
- * is configured with context where no {@link com.vmware.test.functional.saas.aws.local.service.ServiceDependencies} are provided.
+ * is configured with context where no {@link com.vmware.test.functional.saas.local.ServiceDependencies} are provided.
  */
 @ContextConfiguration(classes = NoServiceDependenciesProvidedTest.TestContext.class)
 @FunctionalTest

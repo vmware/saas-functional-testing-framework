@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
-import com.vmware.test.functional.saas.aws.local.service.Service;
-import com.vmware.test.functional.saas.aws.local.service.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
-import static com.vmware.test.functional.saas.aws.local.constants.LocalServiceConstants.Components.LAMBDA_ENDPOINT;
+import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.LAMBDA_ENDPOINT;
 
 public final class SamLambdaRequestContextFactoryTestConfigurations {
 

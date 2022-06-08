@@ -3,16 +3,11 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local;
-
-import javax.validation.constraints.NotNull;
+package com.vmware.test.functional.saas;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.SmartLifecycle;
-
-import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.SmartLifecyclePhases;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractAwsResourceCreator implements SmartLifecycle, ApplicationContextAware {
+public abstract class AbstractResourceCreator implements SmartLifecycle, ApplicationContextAware {
 
     @Getter
     private ApplicationContext context;
@@ -59,7 +54,7 @@ public abstract class AbstractAwsResourceCreator implements SmartLifecycle, Appl
     }
 
     @Override
-    public void setApplicationContext(@NotNull final ApplicationContext context) {
+    public void setApplicationContext(final ApplicationContext context) {
         this.context = context;
     }
 }

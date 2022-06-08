@@ -3,10 +3,11 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.context.annotation.Condition;
@@ -53,7 +54,9 @@ class OnServicesCondition implements Condition {
 
         public boolean matchesService(final Service service) {
             return ServiceConditionUtil.getRequiredServiceDependencies(this.context,
-                    this.search.equals(SearchStrategy.ALL)).contains(service);
+                    this.search.equals(SearchStrategy.ALL))
+                    .stream().map(LocalService::name).collect(Collectors.toSet())
+                    .contains(service.name());
         }
     }
 }

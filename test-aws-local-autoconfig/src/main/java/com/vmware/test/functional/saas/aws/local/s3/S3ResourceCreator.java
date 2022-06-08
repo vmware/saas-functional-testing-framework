@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * when started.
  */
 @Slf4j
-public class S3ResourceCreator extends AbstractAwsResourceCreator {
+public class S3ResourceCreator extends AbstractResourceCreator {
 
     private final AwsSettings awsSettings;
     private final S3Client s3Client;

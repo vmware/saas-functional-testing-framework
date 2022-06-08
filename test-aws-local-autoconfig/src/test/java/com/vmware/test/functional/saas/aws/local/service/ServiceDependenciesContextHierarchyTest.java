@@ -18,6 +18,8 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.AbstractFunctionalTests;
 import com.vmware.test.functional.saas.SharedConfig;
 import com.vmware.test.functional.saas.aws.local.utils.ServiceDependenciesHealthHelper;
+import com.vmware.test.functional.saas.local.Service;
+import com.vmware.test.functional.saas.local.ServiceDependencies;
 
 import static org.hamcrest.MatcherAssert.*;
 

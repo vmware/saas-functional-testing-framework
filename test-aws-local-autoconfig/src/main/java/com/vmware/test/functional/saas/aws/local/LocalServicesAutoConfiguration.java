@@ -31,14 +31,14 @@ import com.vmware.test.functional.saas.aws.local.pg.PostgresDbSettings;
 import com.vmware.test.functional.saas.aws.local.presto.PrestoCatalogCreator;
 import com.vmware.test.functional.saas.aws.local.redis.RedisTemplateFactory;
 import com.vmware.test.functional.saas.aws.local.redshift.RedshiftDbSettings;
-import com.vmware.test.functional.saas.aws.local.service.ConditionalOnService;
 import com.vmware.test.functional.saas.aws.local.service.DockerContainersConfiguration;
-import com.vmware.test.functional.saas.aws.local.service.Service;
 import com.vmware.test.functional.saas.aws.local.utils.PrestoCatalogUtils;
 import com.vmware.test.functional.saas.aws.es.ElasticsearchResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
+import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.local.Service;
 
 import io.searchbox.client.JestClient;
 import io.trino.jdbc.TrinoDriver;

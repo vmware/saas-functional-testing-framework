@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.aws.local.service;
+package com.vmware.test.functional.saas.local;
 
 import java.util.List;
 import java.util.Set;
@@ -21,14 +21,13 @@ import org.springframework.core.env.Environment;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
 import com.vmware.test.functional.saas.LocalServiceEndpoint;
-import com.vmware.test.functional.saas.aws.local.constants.DockerContainerType;
-import com.vmware.test.functional.saas.aws.local.constants.LocalServiceConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Register localstack services to be provisioned by LocalStack container.
  */
+// Refactor
 @Slf4j
 public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostProcessor, EnvironmentAware {
 
@@ -54,7 +53,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
             return;
         }
         final ConfigurableListableBeanFactory configurableListableBeanFactory = (ConfigurableListableBeanFactory)registry;
-        final Set<Service> requiredServiceDependencies = ServiceConditionUtil
+        final Set<LocalService> requiredServiceDependencies = ServiceConditionUtil
                 .getRequiredServiceDependencies(configurableListableBeanFactory).stream()
                 .filter(service -> !isEndpointDefined(service, configurableListableBeanFactory))
                 .collect(Collectors.toSet());
@@ -71,12 +70,12 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         });
     }
 
-    private boolean isRequiredLocalstackService(final Service service) {
+    private boolean isRequiredLocalstackService(final LocalService service) {
         final List<String> localstackServices = ServiceConditionUtil.getLocalstackServices(this.environment);
         return service.isLocalstackService() && localstackServices.contains(service.getService().getLocalStackName());
     }
 
-    private void addLocalStackContainerServiceBeanDefinition(final Service service, final BeanDefinitionRegistry registry) {
+    private void addLocalStackContainerServiceBeanDefinition(final LocalService service, final BeanDefinitionRegistry registry) {
         final String beanName = service.getService().getLocalStackName() + BEAN_NAME_SUFFIX;
         if (registry.containsBeanDefinition(beanName)) {
             return;
@@ -105,8 +104,8 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         registry.registerBeanDefinition(LocalServiceConstants.Components.LOCALSTACK_ENDPOINT, definitionEndpoint);
     }
 
-    private void addEndpointBeanDef(final Service service,
-            final BeanDefinitionRegistry registry) {
+    private void addEndpointBeanDef(final LocalService service,
+                                    final BeanDefinitionRegistry registry) {
         log.info("Adding local endpoint bean definition for service {}", service.name());
         final RootBeanDefinition definitionEndpoint = new RootBeanDefinition(LocalServiceEndpointFactoryBean.class);
         definitionEndpoint.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -126,7 +125,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         registry.registerBeanDefinition(service.getEndpoint(), definitionEndpoint);
     }
 
-    private boolean isEndpointDefined(final Service service, final ConfigurableListableBeanFactory configurableListableBeanFactory) {
+    private boolean isEndpointDefined(final LocalService service, final ConfigurableListableBeanFactory configurableListableBeanFactory) {
         ConfigurableListableBeanFactory parent = configurableListableBeanFactory;
         while (parent != null) {
             if (parent.containsBean(service.getEndpoint())) {

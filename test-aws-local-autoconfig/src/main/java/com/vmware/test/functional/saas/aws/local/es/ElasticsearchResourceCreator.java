@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.local.AbstractAwsResourceCreator;
+import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexBuildConfiguration;
 import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexSettings;
 
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * when started.
  */
 @Slf4j
-public class ElasticsearchResourceCreator extends AbstractAwsResourceCreator {
+public class ElasticsearchResourceCreator extends AbstractResourceCreator {
 
     private final JestClient jestClient;
 
