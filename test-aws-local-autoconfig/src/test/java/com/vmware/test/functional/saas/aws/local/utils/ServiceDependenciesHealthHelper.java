@@ -21,7 +21,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.util.CollectionUtils;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.kms.KmsHealthHelper;
 
 import io.trino.jdbc.TrinoDriver;
@@ -49,7 +49,7 @@ public final class ServiceDependenciesHealthHelper {
         return false;
     }
 
-    public static boolean isElasticsearchHealthy(final LocalServiceEndpoint elasticsearchEndpoint) {
+    public static boolean isElasticsearchHealthy(final ServiceEndpoint elasticsearchEndpoint) {
         try {
             final URL urlObj = new URL(elasticsearchEndpoint.getEndpoint() + "/_cat/health");
             final URLConnection connection = urlObj.openConnection();
@@ -69,7 +69,7 @@ public final class ServiceDependenciesHealthHelper {
         return redisTestObject.equals(redisTemplate.opsForList().index(redisHashKey, 0));
     }
 
-    public static boolean isPrestoHealthy(final LocalServiceEndpoint prestoEndpoint, final String catalog) {
+    public static boolean isPrestoHealthy(final ServiceEndpoint prestoEndpoint, final String catalog) {
         final String testPrestoDb = "test_presto_db";
         final String dropTestPrestoSchemaStmt = "drop schema if exists " + catalog + "." + testPrestoDb;
         final String createTestPrestoSchemaStmt = "create schema " + catalog + "." + testPrestoDb;
@@ -96,7 +96,7 @@ public final class ServiceDependenciesHealthHelper {
         return !CollectionUtils.isEmpty(databases);
     }
 
-    public static boolean isPostgresHealthy(final LocalServiceEndpoint postgresEndpoint, final String databaseName) {
+    public static boolean isPostgresHealthy(final ServiceEndpoint postgresEndpoint, final String databaseName) {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:" + postgresEndpoint.getPort() + "/postgres");

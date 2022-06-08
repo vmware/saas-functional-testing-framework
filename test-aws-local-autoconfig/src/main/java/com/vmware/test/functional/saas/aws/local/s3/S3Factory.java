@@ -15,7 +15,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -25,9 +25,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public final class S3Factory implements FactoryBean<S3Client> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint s3Endpoint;
+    private final ServiceEndpoint s3Endpoint;
 
-    public S3Factory(final LocalServiceEndpoint s3Endpoint, final AwsSettings awsSettings) {
+    public S3Factory(final ServiceEndpoint s3Endpoint, final AwsSettings awsSettings) {
         this.s3Endpoint = s3Endpoint;
         this.awsSettings = awsSettings;
     }

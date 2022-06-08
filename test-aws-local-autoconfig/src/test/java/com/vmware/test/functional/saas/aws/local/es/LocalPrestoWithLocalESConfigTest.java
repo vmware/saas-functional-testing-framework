@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.es.ElasticsearchHealthHelper;
 import com.google.common.base.Preconditions;
 
@@ -78,7 +78,7 @@ public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContex
     private JestClient jestClient;
 
     @Autowired
-    private LocalServiceEndpoint prestoEndpoint;
+    private ServiceEndpoint prestoEndpoint;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws IOException {

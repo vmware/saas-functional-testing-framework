@@ -20,10 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Model for Local Service Endpoint.
  */
-// rename - ServiceEndpoint
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class LocalServiceEndpoint implements BeanNameAware, EnvironmentAware, InitializingBean {
+public class ServiceEndpoint implements BeanNameAware, EnvironmentAware, InitializingBean {
 
     public static final String DEFAULT_SCHEME = "http";
     public static final String DEFAULT_HOSTNAME = "localhost";
@@ -46,28 +45,28 @@ public class LocalServiceEndpoint implements BeanNameAware, EnvironmentAware, In
     private Environment environment;
 
     // Dynamic port allocation
-    public LocalServiceEndpoint(final String scheme) {
+    public ServiceEndpoint(final String scheme) {
         this(new PortSupplier(), scheme, DEFAULT_HOSTNAME, null);
     }
 
-    public LocalServiceEndpoint(final String scheme, final String hostName) {
+    public ServiceEndpoint(final String scheme, final String hostName) {
         this(new PortSupplier(), scheme, hostName, null);
     }
 
-    public LocalServiceEndpoint(final String scheme, final String hostName, final InternalContainerServiceConfig containerConfig) {
+    public ServiceEndpoint(final String scheme, final String hostName, final InternalContainerServiceConfig containerConfig) {
         this(new PortSupplier(), scheme, hostName, containerConfig);
     }
 
     // Fixed port allocation
-    public LocalServiceEndpoint(final int port, final String scheme) {
+    public ServiceEndpoint(final int port, final String scheme) {
         this(new PortSupplier(port), scheme, DEFAULT_HOSTNAME, null);
     }
 
-    public LocalServiceEndpoint(final int port, final String scheme, final String hostName) {
+    public ServiceEndpoint(final int port, final String scheme, final String hostName) {
         this(new PortSupplier(port), scheme, hostName, null);
     }
 
-    public LocalServiceEndpoint(final int port, final String scheme, final String hostName, final InternalContainerServiceConfig containerConfig) {
+    public ServiceEndpoint(final int port, final String scheme, final String hostName, final InternalContainerServiceConfig containerConfig) {
         this(new PortSupplier(port), scheme, hostName, containerConfig);
     }
 

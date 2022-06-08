@@ -7,7 +7,7 @@ package com.vmware.test.functional.saas.aws.local.utils;
 
 import java.util.Map;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 /**
  * Utility methods for creating presto catalog settings.
@@ -21,7 +21,7 @@ public final class PrestoCatalogUtils {
      * @param elasticsearchEndpoint the local elasticsearch endpoint.
      * @return Map with properties.
      */
-    public static Map<String, String> elasticsearchCatalog(final LocalServiceEndpoint elasticsearchEndpoint) {
+    public static Map<String, String> elasticsearchCatalog(final ServiceEndpoint elasticsearchEndpoint) {
         return Map.ofEntries(
                 Map.entry("connector.name", "elasticsearch"),
                 Map.entry("elasticsearch.host", elasticsearchEndpoint.getContainerConfig().getName()),

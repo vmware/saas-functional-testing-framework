@@ -21,7 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.testcontainers.utility.MountableFile;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.SmartLifecyclePhases;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
 import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
@@ -46,12 +46,12 @@ public class PrestoCatalogCreator implements SmartLifecycle {
 
     private final List<PrestoCatalogSpecs> catalogSpecs;
 
-    private final LocalServiceEndpoint prestoEndpoint;
+    private final ServiceEndpoint prestoEndpoint;
 
     public PrestoCatalogCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
             final List<PrestoCatalogSpecs> catalogSpecs,
-            final LocalServiceEndpoint prestoEndpoint) {
+            final ServiceEndpoint prestoEndpoint) {
         this.functionalTestExecutionSettings = functionalTestExecutionSettings;
         this.catalogSpecs = catalogSpecs;
         this.prestoEndpoint = prestoEndpoint;

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 
@@ -52,8 +52,8 @@ public final class SamLambdaRequestContextFactoryTestConfigurations {
 
         @Bean
         @Qualifier(value = LAMBDA_ENDPOINT)
-        LocalServiceEndpoint lambdaServiceEndpoint() {
-            return new LocalServiceEndpoint("http", "localhost");
+        ServiceEndpoint lambdaServiceEndpoint() {
+            return new ServiceEndpoint("http", "localhost");
         }
 
         @Bean

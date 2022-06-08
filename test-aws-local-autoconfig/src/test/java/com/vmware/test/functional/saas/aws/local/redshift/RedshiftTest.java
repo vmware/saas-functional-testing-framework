@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextHierarchy;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AbstractFullContextTest;
 import com.vmware.test.functional.saas.aws.local.dbms.JdbcTemplateFactory;
 
@@ -45,7 +45,7 @@ public class RedshiftTest extends AbstractFullContextTest {
 
         @Bean
         @Lazy
-        RedshiftDataSourceFactory redshiftDataSourceFactory(@Lazy final LocalServiceEndpoint redshiftEndpoint,
+        RedshiftDataSourceFactory redshiftDataSourceFactory(@Lazy final ServiceEndpoint redshiftEndpoint,
                 final RedshiftDbSettings redshiftDbSettings,
                 final RedshiftDataSourceConfig redshiftDataSourceConfig) {
             return new RedshiftDataSourceFactory(redshiftEndpoint, redshiftDbSettings, redshiftDataSourceConfig);

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.lambda.sam.process.SamProcessControl;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
@@ -55,7 +55,7 @@ public class SamAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnService(value = Service.LAMBDA)
     SamProcessControl samProcessControl(final List<LambdaFunctionSpecs> lambdaFunctionSpecs,
-            final LocalServiceEndpoint lambdaEndpoint,
+            final ServiceEndpoint lambdaEndpoint,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         return SamProcessControl.builder()
                 .lambdaEndpoint(lambdaEndpoint)

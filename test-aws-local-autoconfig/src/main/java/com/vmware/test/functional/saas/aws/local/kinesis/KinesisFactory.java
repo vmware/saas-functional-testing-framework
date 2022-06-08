@@ -17,7 +17,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -27,9 +27,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public class KinesisFactory implements FactoryBean<KinesisClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint kinesisEndpoint;
+    private final ServiceEndpoint kinesisEndpoint;
 
-    public KinesisFactory(final LocalServiceEndpoint kinesisEndpoint, final AwsSettings awsSettings) {
+    public KinesisFactory(final ServiceEndpoint kinesisEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.kinesisEndpoint = kinesisEndpoint;
     }

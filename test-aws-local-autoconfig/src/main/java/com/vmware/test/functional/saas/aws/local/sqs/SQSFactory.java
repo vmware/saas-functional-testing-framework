@@ -17,7 +17,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -27,9 +27,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public class SQSFactory implements FactoryBean<SqsClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint sqsEndpoint;
+    private final ServiceEndpoint sqsEndpoint;
 
-    public SQSFactory(final LocalServiceEndpoint sqsEndpoint, final AwsSettings awsSettings) {
+    public SQSFactory(final ServiceEndpoint sqsEndpoint, final AwsSettings awsSettings) {
         this.sqsEndpoint = sqsEndpoint;
         this.awsSettings = awsSettings;
     }

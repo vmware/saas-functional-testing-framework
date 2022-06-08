@@ -33,7 +33,7 @@ import org.springframework.context.SmartLifecycle;
 import org.springframework.util.CollectionUtils;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.SmartLifecyclePhases;
 import com.vmware.test.functional.saas.aws.local.lambda.sam.data.SamFunctionTemplateData;
 import com.vmware.test.functional.saas.aws.local.lambda.sam.data.SamTemplateGenerator;
@@ -72,7 +72,7 @@ public class SamProcessControl implements SmartLifecycle {
     private final AtomicBoolean running = new AtomicBoolean();
 
     // Sam process specific properties to be set required to start sam local start-lambda process
-    private final LocalServiceEndpoint lambdaEndpoint;
+    private final ServiceEndpoint lambdaEndpoint;
     private final List<LambdaFunctionSpecs> lambdaFunctionSpecs;
     private final boolean debugModeEnabled;
     private final String debugPort;
@@ -91,7 +91,7 @@ public class SamProcessControl implements SmartLifecycle {
     private Supplier<Executor> executorSupplier;
 
     @Builder
-    public SamProcessControl(@NonNull final LocalServiceEndpoint lambdaEndpoint,
+    public SamProcessControl(@NonNull final ServiceEndpoint lambdaEndpoint,
             @NonNull final List<LambdaFunctionSpecs> lambdaFunctionSpecs,
             final boolean debugModeEnabled,
             final String debugPort,

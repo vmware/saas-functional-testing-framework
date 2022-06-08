@@ -22,7 +22,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.testcontainers.containers.GenericContainer;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.es.ElasticsearchResourceCreator;
 import com.vmware.test.functional.saas.aws.local.es.JestClientFactory;
@@ -56,7 +56,7 @@ public class LocalServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.ELASTICSEARCH)
     @Lazy
-    JestClientFactory jestClient(@Lazy final LocalServiceEndpoint elasticsearchEndpoint,
+    JestClientFactory jestClient(@Lazy final ServiceEndpoint elasticsearchEndpoint,
             final ConfigurableEnvironment env) {
         return new JestClientFactory(elasticsearchEndpoint, env);
     }
@@ -83,7 +83,7 @@ public class LocalServicesAutoConfiguration {
     @Lazy
     PostgresDatabaseCreator<PostgresDbSettings> postgresDatabaseCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            final LocalServiceEndpoint postgresEndpoint) {
+            final ServiceEndpoint postgresEndpoint) {
         return new PostgresDatabaseCreator<>(functionalTestExecutionSettings,
                 postgresEndpoint, PostgresDbSettings.class);
     }
@@ -100,7 +100,7 @@ public class LocalServicesAutoConfiguration {
     @Lazy
     PostgresDatabaseCreator<RedshiftDbSettings> redshiftDatabaseCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            final LocalServiceEndpoint redshiftEndpoint) {
+            final ServiceEndpoint redshiftEndpoint) {
         return new PostgresDatabaseCreator<>(functionalTestExecutionSettings,
                 redshiftEndpoint, RedshiftDbSettings.class);
     }
@@ -108,7 +108,7 @@ public class LocalServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(value = Service.PRESTO)
     @Lazy
-    JdbcTemplate trinoJdbcTemplate(final LocalServiceEndpoint prestoEndpoint) {
+    JdbcTemplate trinoJdbcTemplate(final ServiceEndpoint prestoEndpoint) {
         final SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(TrinoDriver.class);
         dataSource.setUrl("jdbc:trino://localhost:" + prestoEndpoint.getPort());
@@ -126,7 +126,7 @@ public class LocalServicesAutoConfiguration {
     @Bean
     @ConditionalOnService({ Service.PRESTO, Service.ELASTICSEARCH })
     @Lazy
-    public PrestoCatalogSpecs prestoCatalogSpecs(@Lazy final LocalServiceEndpoint elasticsearchEndpoint) {
+    public PrestoCatalogSpecs prestoCatalogSpecs(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
         return PrestoCatalogSpecs.builder()
                 .catalog(PrestoCatalogSettings.builder()
                         .name("elasticsearch")
@@ -141,7 +141,7 @@ public class LocalServicesAutoConfiguration {
     PrestoCatalogCreator prestoCatalogCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
             @Autowired(required = false) @Lazy final List<PrestoCatalogSpecs> catalogSpecs,
-            @Autowired @Lazy final LocalServiceEndpoint prestoEndpoint) {
+            @Autowired @Lazy final ServiceEndpoint prestoEndpoint) {
         return new PrestoCatalogCreator(functionalTestExecutionSettings, catalogSpecs, prestoEndpoint);
     }
 
@@ -156,7 +156,7 @@ public class LocalServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.REDIS)
     @Lazy
-    RedisTemplateFactory redisTemplateFactory(@Lazy final LocalServiceEndpoint redisEndpoint) {
+    RedisTemplateFactory redisTemplateFactory(@Lazy final ServiceEndpoint redisEndpoint) {
         return new RedisTemplateFactory(redisEndpoint);
     }
 }

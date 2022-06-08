@@ -12,7 +12,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.PortSupplier;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
@@ -33,7 +33,7 @@ public class SamProcessControlInvalidStartTest extends AbstractTestNGSpringConte
     @Test(expectedExceptions = RuntimeException.class)
     public void startSAMOnInvalidPort() {
         this.samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(0, LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(0, ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)
@@ -48,7 +48,7 @@ public class SamProcessControlInvalidStartTest extends AbstractTestNGSpringConte
     public void startSAMTwiceOnTheSamePort() {
         final int port = new PortSupplier().getAsInt();
         this.samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(port, LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(port, ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName("test")
                         .handlerClass("handler")

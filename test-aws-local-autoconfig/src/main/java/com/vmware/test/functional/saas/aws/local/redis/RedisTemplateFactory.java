@@ -17,7 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 /**
  * Redis Template Factory.
@@ -28,9 +28,9 @@ public class RedisTemplateFactory implements FactoryBean<RedisTemplate<String, ?
     private static final int REDIS_READ_TIMEOUT_MILLIS = 2000;
     private static final int REDIS_TIMEOUT_MILLIS = 2000;
 
-    private final LocalServiceEndpoint redisEndpoint;
+    private final ServiceEndpoint redisEndpoint;
 
-    public RedisTemplateFactory(final LocalServiceEndpoint redisEndpoint) {
+    public RedisTemplateFactory(final ServiceEndpoint redisEndpoint) {
         this.redisEndpoint = redisEndpoint;
     }
 

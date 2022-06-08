@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.dbms.AbstractDatabaseCreator;
 import com.vmware.test.functional.saas.aws.local.dbms.GenericDbmsSettings;
 
@@ -26,11 +26,11 @@ public class PostgresDatabaseCreator<S extends GenericDbmsSettings> extends Abst
     private static final String POSTGRES_DRIVER_CLASS_NAME = "org.postgresql.Driver";
     private static final String POSTGRES_DEFAULT_DATABASE = "postgres";
 
-    private final LocalServiceEndpoint postgresEndpoint;
+    private final ServiceEndpoint postgresEndpoint;
     private final JdbcTemplate defaultPostgresJdbcTemplate;
 
     public PostgresDatabaseCreator(final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            final LocalServiceEndpoint postgresEndpoint,
+            final ServiceEndpoint postgresEndpoint,
             final Class<S> dbmsSettingsClass) {
         super(functionalTestExecutionSettings, dbmsSettingsClass);
         this.postgresEndpoint = postgresEndpoint;

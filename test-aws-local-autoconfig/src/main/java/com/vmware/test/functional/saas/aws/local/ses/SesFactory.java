@@ -15,7 +15,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -25,9 +25,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public final class SesFactory implements FactoryBean<SesClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint sesEndpoint;
+    private final ServiceEndpoint sesEndpoint;
 
-    public SesFactory(final LocalServiceEndpoint sesEndpoint, final AwsSettings awsSettings) {
+    public SesFactory(final ServiceEndpoint sesEndpoint, final AwsSettings awsSettings) {
         this.sesEndpoint = sesEndpoint;
         this.awsSettings = awsSettings;
     }

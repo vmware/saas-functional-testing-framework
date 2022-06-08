@@ -19,7 +19,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategy;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -52,8 +52,8 @@ public class LocalAppProcessConfigTemplateTest extends AbstractTestNGSpringConte
 
         @Bean
         @Lazy
-        LocalServiceEndpoint pizzaAppEndpoint() {
-            return new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME);
+        ServiceEndpoint pizzaAppEndpoint() {
+            return new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME);
         }
 
         @Bean

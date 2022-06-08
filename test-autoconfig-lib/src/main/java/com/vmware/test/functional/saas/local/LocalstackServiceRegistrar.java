@@ -20,7 +20,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -97,8 +97,8 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         int argIndex = 0;
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, DockerContainerType.LOCALSTACK);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, this.containerNameSuffix);
-        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, LocalServiceEndpoint.DEFAULT_SCHEME);
-        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, LocalServiceEndpoint.DEFAULT_HOSTNAME);
+        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_SCHEME);
+        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_HOSTNAME);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex, LOCALSTACK_DEFAULT_SERVICE_PORT);
 
         registry.registerBeanDefinition(LocalServiceConstants.Components.LOCALSTACK_ENDPOINT, definitionEndpoint);
@@ -117,7 +117,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, service.getDefaultContainerType());
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, this.containerNameSuffix);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, service.getScheme());
-        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, LocalServiceEndpoint.DEFAULT_HOSTNAME);
+        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_HOSTNAME);
         if (this.environment.containsProperty(defaultPortsEnabledPropertyName) && this.environment.getRequiredProperty(defaultPortsEnabledPropertyName, Boolean.class)) {
             endpointConstructorArguments.addIndexedArgumentValue(argIndex, service.getPort());
         }

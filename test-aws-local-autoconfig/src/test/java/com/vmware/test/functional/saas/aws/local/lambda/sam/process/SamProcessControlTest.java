@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 
@@ -32,7 +32,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void startSAMProcessControl() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)
@@ -47,7 +47,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void startSAMWithoutLambdaFunctionSpecs() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .build();
         assertThat("SamProcessControl: has not started", samProcessControl.isRunning());
     }
@@ -67,7 +67,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void verifyTemplateFileIsCreated() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .lambdaCodeDir("/some/code/dir")
                         .functionName("TestLambda")
@@ -85,7 +85,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void startLambdaFunctionControlWithoutFunctionName() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .lambdaCodeDir(this.lambdaCodeUri)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)
@@ -98,7 +98,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void startLambdaFunctionControlWithoutCodeDir() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)
@@ -111,7 +111,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void startLambdaFunctionControlWithoutHandler() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .lambdaCodeDir(this.lambdaCodeUri)
@@ -124,7 +124,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void stopSAMProcessControl() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName("test")
                         .handlerClass("handler")
@@ -139,7 +139,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void stopSAMProcessControlTwice() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName("test")
                         .handlerClass("handler")
@@ -156,7 +156,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void startLambdaFunctionControlWithoutEnvironment() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .lambdaCodeDir(this.lambdaCodeUri)
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
@@ -173,7 +173,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void startLambdaFunctionControlWithoutRuntime() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .lambdaCodeDir(this.lambdaCodeUri)
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
@@ -189,7 +189,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void startLambdaFunctionControlWithoutTimeout() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .lambdaCodeDir(this.lambdaCodeUri)
@@ -206,7 +206,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test
     public void startLambdaFunctionControlWithoutMemorySize() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .lambdaCodeDir(this.lambdaCodeUri)
@@ -224,7 +224,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = RuntimeException.class)
     public void startSAMProcessControlWithJava8Runtime() {
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)
@@ -241,7 +241,7 @@ public class SamProcessControlTest extends AbstractTestNGSpringContextTests {
     public void samProcessControlDoesNotStartWhenSamExecutableFails() {
         final String exceptionMessage = "Simulating sam executable not working";
         final SamProcessControl samProcessControl = SamProcessControl.builder()
-                .lambdaEndpoint(new LocalServiceEndpoint(LocalServiceEndpoint.DEFAULT_SCHEME))
+                .lambdaEndpoint(new ServiceEndpoint(ServiceEndpoint.DEFAULT_SCHEME))
                 .lambdaFunctionSpecs(Collections.singletonList(LambdaFunctionSpecs.builder()
                         .functionName(TestConstants.TEST_LAMBDA_FUNCTION_NAME)
                         .handlerClass(TestConstants.TEST_LAMBDA_HANDLER_CLASS_NAME)

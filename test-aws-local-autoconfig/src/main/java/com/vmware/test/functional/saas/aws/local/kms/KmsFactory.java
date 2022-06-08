@@ -15,7 +15,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -25,9 +25,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public class KmsFactory implements FactoryBean<KmsClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint kmsEndpoint;
+    private final ServiceEndpoint kmsEndpoint;
 
-    public KmsFactory(final LocalServiceEndpoint kmsEndpoint, final AwsSettings awsSettings) {
+    public KmsFactory(final ServiceEndpoint kmsEndpoint, final AwsSettings awsSettings) {
         this.kmsEndpoint = kmsEndpoint;
         this.awsSettings = awsSettings;
     }

@@ -60,7 +60,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.AbstractFunctionalTests;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
@@ -130,7 +130,7 @@ public class RedshiftTest extends AbstractFunctionalTests {
         @Bean
         @ConfigurationProperties(prefix = "custom-redshift-db-settings")
         @Lazy
-        RedshiftDataSourceConfig redshiftDataSourceConfig(@Lazy final LocalServiceEndpoint s3Endpoint,
+        RedshiftDataSourceConfig redshiftDataSourceConfig(@Lazy final ServiceEndpoint s3Endpoint,
                 final AwsSettings awsSettings) {
             return RedshiftDataSourceConfig.builder()
                     .additionalDatasourceConfig(Map.of(
@@ -145,7 +145,7 @@ public class RedshiftTest extends AbstractFunctionalTests {
 
         @Bean
         @Lazy
-        RedshiftDataSourceFactory redshiftDataSourceFactory(@Lazy final LocalServiceEndpoint redshiftEndpoint,
+        RedshiftDataSourceFactory redshiftDataSourceFactory(@Lazy final ServiceEndpoint redshiftEndpoint,
                 final RedshiftDbSettings redshiftDbSettings,
                 final RedshiftDataSourceConfig redshiftDataSourceConfig) {
             return new RedshiftDataSourceFactory(redshiftEndpoint, redshiftDbSettings, redshiftDataSourceConfig);

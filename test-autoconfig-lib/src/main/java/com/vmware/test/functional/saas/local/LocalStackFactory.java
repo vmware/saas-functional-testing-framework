@@ -4,7 +4,7 @@
  */
 package com.vmware.test.functional.saas.local;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -40,7 +40,7 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
     private static final ConcurrentMap<LocalStackContainer, List<LocalStackServiceInfo>> localStackServicesByContainer = new ConcurrentHashMap<>();
 
     private final ConfigurableListableBeanFactory listableBeanFactory;
-    private final LocalServiceEndpoint localStackServiceEndpoint;
+    private final ServiceEndpoint localStackServiceEndpoint;
     private final List<LocalStackContainer.Service> localstackServices;
     private final Consumer<LocalStackContainer> containerModifier;
 
@@ -72,7 +72,7 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
 
     private String mapPortBinding(final LocalService service) {
         final int serviceEndpointPort = this.listableBeanFactory
-                .getBean(service.getEndpoint(), LocalServiceEndpoint.class)
+                .getBean(service.getEndpoint(), ServiceEndpoint.class)
                 .getPort();
         return String.format("%d:%d/%s", serviceEndpointPort, this.localStackServiceEndpoint.getContainerConfig().getPort(), InternetProtocol.TCP);
     }

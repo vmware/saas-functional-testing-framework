@@ -17,7 +17,7 @@ import java.time.Duration;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +31,9 @@ public class LambdaFactory implements FactoryBean<LambdaClient> {
 
     public static final int TIMEOUT_15_MINUTES = 15;
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint lambdaEndpoint;
+    private final ServiceEndpoint lambdaEndpoint;
 
-    public LambdaFactory(final LocalServiceEndpoint lambdaEndpoint, final AwsSettings awsSettings) {
+    public LambdaFactory(final ServiceEndpoint lambdaEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.lambdaEndpoint = lambdaEndpoint;
     }

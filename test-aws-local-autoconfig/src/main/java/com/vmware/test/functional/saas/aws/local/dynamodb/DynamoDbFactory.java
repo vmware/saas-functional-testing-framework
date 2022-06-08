@@ -14,7 +14,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -24,9 +24,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public class DynamoDbFactory implements FactoryBean<DynamoDbClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint dynamoDbEndpoint;
+    private final ServiceEndpoint dynamoDbEndpoint;
 
-    public DynamoDbFactory(final LocalServiceEndpoint dynamoDbEndpoint, final AwsSettings awsSettings) {
+    public DynamoDbFactory(final ServiceEndpoint dynamoDbEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.dynamoDbEndpoint = dynamoDbEndpoint;
     }

@@ -15,7 +15,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 
 /**
@@ -25,9 +25,9 @@ import com.vmware.test.functional.saas.aws.local.AwsSettings;
 public class SnsFactory implements FactoryBean<SnsClient> {
 
     private final AwsSettings awsSettings;
-    private final LocalServiceEndpoint snsEndpoint;
+    private final ServiceEndpoint snsEndpoint;
 
-    public SnsFactory(final LocalServiceEndpoint snsEndpoint, final AwsSettings awsSettings) {
+    public SnsFactory(final ServiceEndpoint snsEndpoint, final AwsSettings awsSettings) {
         this.snsEndpoint = snsEndpoint;
         this.awsSettings = awsSettings;
     }

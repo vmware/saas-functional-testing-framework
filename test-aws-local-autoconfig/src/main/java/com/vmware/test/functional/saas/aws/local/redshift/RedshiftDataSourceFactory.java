@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RedshiftDataSourceFactory implements FactoryBean<DataSource> {
 
-    private final LocalServiceEndpoint redshiftEndpoint;
+    private final ServiceEndpoint redshiftEndpoint;
     private final RedshiftDbSettings redshiftDbSettings;
     private final RedshiftDataSourceConfig redshiftDataSourceConfig;
 

@@ -10,7 +10,7 @@ import java.util.Set;
 
 import org.testcontainers.containers.localstack.LocalStackContainer;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.Getter;
 
@@ -74,11 +74,11 @@ public enum LocalService {
     }
 
     LocalService(final String endpointName, final DockerContainerType defaultContainerType, final int port) {
-        this(endpointName, defaultContainerType, null, port, LocalServiceEndpoint.DEFAULT_SCHEME);
+        this(endpointName, defaultContainerType, null, port, ServiceEndpoint.DEFAULT_SCHEME);
     }
 
     LocalService(final String endpointName, final DockerContainerType defaultContainerType, final LocalStackContainer.Service service, final int port) {
-        this(endpointName, defaultContainerType, service, port, LocalServiceEndpoint.DEFAULT_SCHEME);
+        this(endpointName, defaultContainerType, service, port, ServiceEndpoint.DEFAULT_SCHEME);
     }
 
     public boolean isLocalstackService() {

@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.AbstractFunctionalTests;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.SharedConfig;
 import com.vmware.test.functional.saas.aws.local.utils.ServiceDependenciesHealthHelper;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
@@ -38,7 +38,7 @@ import static org.hamcrest.MatcherAssert.*;
  * Test verifies service dependencies specified in context hierarchy(listed in 3 levels of parent and child contexts) are correctly loaded
  * and all service dependencies are started in docker containers.
  * Current test verifies that S3 and SQS, which are started in different contexts, are properly started in different localStack containers
- * and have the correct {@code InternalContainerServiceConfig} set for their respective {@link LocalServiceEndpoint}s.
+ * and have the correct {@code InternalContainerServiceConfig} set for their respective {@link ServiceEndpoint}s.
  * AutoConfiguration is specified in test/resources/META-INF/spring.factories which wires
  * SharedConfig.java to a single test contexts annotated with {@link ServiceDependencies} declaring KMS as a required service.
  * Extending AbstractFunctionalTests configures {@link SharedConfig} with autoconfigured test contexts to be loaded
@@ -59,7 +59,7 @@ public class LocalStackServiceDependenciesContextHierarchyTest extends AbstractF
     public static class StartS3ChildContext {
 
         @Bean
-        LocalServiceEndpoint s3ContextLocalStackEndpoint(final LocalServiceEndpoint localStackEndpoint) {
+        ServiceEndpoint s3ContextLocalStackEndpoint(final ServiceEndpoint localStackEndpoint) {
             return localStackEndpoint;
         }
 
@@ -94,16 +94,16 @@ public class LocalStackServiceDependenciesContextHierarchyTest extends AbstractF
     }
 
     @Autowired
-    LocalServiceEndpoint s3Endpoint;
+    ServiceEndpoint s3Endpoint;
 
     @Autowired
-    LocalServiceEndpoint sqsEndpoint;
+    ServiceEndpoint sqsEndpoint;
 
     @Autowired
-    LocalServiceEndpoint localStackEndpoint;
+    ServiceEndpoint localStackEndpoint;
 
     @Autowired
-    LocalServiceEndpoint s3ContextLocalStackEndpoint;
+    ServiceEndpoint s3ContextLocalStackEndpoint;
 
     @Autowired
     private S3Client s3Client;

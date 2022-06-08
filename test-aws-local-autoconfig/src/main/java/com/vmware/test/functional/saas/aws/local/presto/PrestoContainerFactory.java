@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.local.CustomDockerContainer;
 
 import lombok.SneakyThrows;
@@ -33,7 +33,7 @@ public class PrestoContainerFactory implements FactoryBean<CustomDockerContainer
 
     private static final int ADDITIONAL_WAIT_TIME = 2000;
 
-    private final LocalServiceEndpoint prestoEndpoint;
+    private final ServiceEndpoint prestoEndpoint;
 
     private final Consumer<CustomDockerContainer> containerModifier;
 
@@ -43,7 +43,7 @@ public class PrestoContainerFactory implements FactoryBean<CustomDockerContainer
     @Value("${presto.catalog.directory:/etc/trino/catalog/}")
     private String catalogDirectory;
 
-    public PrestoContainerFactory(final LocalServiceEndpoint prestoEndpoint,
+    public PrestoContainerFactory(final ServiceEndpoint prestoEndpoint,
             final Consumer<CustomDockerContainer> containerModifier) {
         this.prestoEndpoint = prestoEndpoint;
         this.containerModifier = containerModifier;

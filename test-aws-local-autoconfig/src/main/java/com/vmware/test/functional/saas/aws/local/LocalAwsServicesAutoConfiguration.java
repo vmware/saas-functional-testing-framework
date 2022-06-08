@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.dynamodb.DynamoDbFactory;
 import com.vmware.test.functional.saas.aws.local.dynamodb.DynamoDbResourceCreator;
@@ -55,7 +55,7 @@ public class LocalAwsServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.DYNAMO_DB)
     @Lazy
-    DynamoDbFactory dynamoDbFactory(@Lazy final LocalServiceEndpoint dynamoDbEndpoint) {
+    DynamoDbFactory dynamoDbFactory(@Lazy final ServiceEndpoint dynamoDbEndpoint) {
         return new DynamoDbFactory(dynamoDbEndpoint, this.awsSettings);
     }
 
@@ -79,7 +79,7 @@ public class LocalAwsServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.KINESIS)
     @Lazy
-    KinesisFactory kinesisFactory(@Lazy final LocalServiceEndpoint kinesisEndpoint) {
+    KinesisFactory kinesisFactory(@Lazy final ServiceEndpoint kinesisEndpoint) {
         return new KinesisFactory(kinesisEndpoint, this.awsSettings);
     }
 
@@ -104,21 +104,21 @@ public class LocalAwsServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.KMS)
     @Lazy
-    KmsFactory kmsFactory(@Lazy final LocalServiceEndpoint kmsEndpoint) {
+    KmsFactory kmsFactory(@Lazy final ServiceEndpoint kmsEndpoint) {
         return new KmsFactory(kmsEndpoint, this.awsSettings);
     }
 
     @Bean
     @ConditionalOnService(Service.LAMBDA)
     @Lazy
-    LambdaFactory lambdaFactory(@Lazy final LocalServiceEndpoint lambdaEndpoint) {
+    LambdaFactory lambdaFactory(@Lazy final ServiceEndpoint lambdaEndpoint) {
         return new LambdaFactory(lambdaEndpoint, this.awsSettings);
     }
 
     @Bean
     @ConditionalOnService(Service.S3)
     @Lazy
-    S3Factory s3Factory(@Lazy final LocalServiceEndpoint s3Endpoint) {
+    S3Factory s3Factory(@Lazy final ServiceEndpoint s3Endpoint) {
         return new S3Factory(s3Endpoint, this.awsSettings);
     }
 
@@ -143,14 +143,14 @@ public class LocalAwsServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.SES)
     @Lazy
-    SesFactory sesFactory(@Lazy final LocalServiceEndpoint sesEndpoint) {
+    SesFactory sesFactory(@Lazy final ServiceEndpoint sesEndpoint) {
         return new SesFactory(sesEndpoint, this.awsSettings);
     }
 
     @Bean
     @ConditionalOnService(Service.SNS)
     @Lazy
-    SnsFactory snsFactory(@Lazy final LocalServiceEndpoint snsEndpoint) {
+    SnsFactory snsFactory(@Lazy final ServiceEndpoint snsEndpoint) {
         return new SnsFactory(snsEndpoint, this.awsSettings);
     }
 
@@ -175,7 +175,7 @@ public class LocalAwsServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.SQS)
     @Lazy
-    SQSFactory sqsFactory(@Lazy final LocalServiceEndpoint sqsEndpoint) {
+    SQSFactory sqsFactory(@Lazy final ServiceEndpoint sqsEndpoint) {
         return new SQSFactory(sqsEndpoint, this.awsSettings);
     }
 

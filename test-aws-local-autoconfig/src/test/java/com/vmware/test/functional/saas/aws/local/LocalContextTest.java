@@ -43,7 +43,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.testng.annotations.Test;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.aws.local.context.TestContext;
 import com.vmware.test.functional.saas.aws.local.service.DockerContainersConfiguration;
 import com.vmware.test.functional.saas.aws.local.utils.ServiceDependenciesHealthHelper;
@@ -84,13 +84,13 @@ public class LocalContextTest extends AbstractFullContextTest {
     private KmsClient kmsClient;
 
     @Autowired
-    private LocalServiceEndpoint prestoEndpoint;
+    private ServiceEndpoint prestoEndpoint;
 
     @Autowired
-    private LocalServiceEndpoint postgresEndpoint;
+    private ServiceEndpoint postgresEndpoint;
 
     @Autowired
-    private LocalServiceEndpoint redshiftEndpoint;
+    private ServiceEndpoint redshiftEndpoint;
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

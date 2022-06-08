@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.GsonBuilder;
 
@@ -27,9 +27,9 @@ import io.searchbox.client.config.HttpClientConfig;
 public class JestClientFactory implements FactoryBean<JestClient> {
 
     private final ConfigurableEnvironment env;
-    private final LocalServiceEndpoint elasticsearchEndpoint;
+    private final ServiceEndpoint elasticsearchEndpoint;
 
-    public JestClientFactory(final LocalServiceEndpoint elasticsearchEndpoint, final ConfigurableEnvironment env) {
+    public JestClientFactory(final ServiceEndpoint elasticsearchEndpoint, final ConfigurableEnvironment env) {
         this.elasticsearchEndpoint = elasticsearchEndpoint;
         this.env = env;
     }

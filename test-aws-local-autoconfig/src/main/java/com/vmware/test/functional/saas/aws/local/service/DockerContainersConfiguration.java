@@ -28,7 +28,7 @@ import org.testcontainers.lifecycle.Startable;
 import org.testcontainers.utility.MountableFile;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.aws.local.AwsSettings;
 import com.vmware.test.functional.saas.aws.local.constants.DockerContainerConstants;
@@ -73,7 +73,7 @@ public class DockerContainersConfiguration {
     @Bean
     @Conditional(ContainerCondition.KinesisContainerCondition.class)
     @Lazy
-    public Startable kinesisContainer(@Lazy final LocalServiceEndpoint kinesisEndpoint) {
+    public Startable kinesisContainer(@Lazy final ServiceEndpoint kinesisEndpoint) {
         return createDockerContainer(kinesisEndpoint,
                 Wait.forListeningPort())
                         .withCommand(DockerContainerConstants.Command.SSL, Boolean.TRUE.toString());
@@ -88,7 +88,7 @@ public class DockerContainersConfiguration {
     @Bean
     @Conditional(ContainerCondition.DynamodbContainerCondition.class)
     @Lazy
-    public Startable dynamodbContainer(@Lazy final LocalServiceEndpoint dynamoDbEndpoint) {
+    public Startable dynamodbContainer(@Lazy final ServiceEndpoint dynamoDbEndpoint) {
         return createDockerContainer(dynamoDbEndpoint,
                 Wait.forListeningPort());
     }
@@ -102,7 +102,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.KMS)
     @Lazy
-    public Startable kmsContainer(@Lazy final LocalServiceEndpoint kmsEndpoint) {
+    public Startable kmsContainer(@Lazy final ServiceEndpoint kmsEndpoint) {
         final String logWaitRegex = "(.*)(Local KMS started on)(.*)";
 
         return createDockerContainer(kmsEndpoint,
@@ -124,7 +124,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.REDIS)
     @Lazy
-    public Startable redisContainer(@Lazy final LocalServiceEndpoint redisEndpoint) {
+    public Startable redisContainer(@Lazy final ServiceEndpoint redisEndpoint) {
         return createDockerContainer(redisEndpoint,
                 Wait.forListeningPort());
     }
@@ -138,7 +138,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.REDSHIFT)
     @Lazy
-    public Startable redshiftContainer(@Lazy final LocalServiceEndpoint redshiftEndpoint) {
+    public Startable redshiftContainer(@Lazy final ServiceEndpoint redshiftEndpoint) {
         final String logWaitRegex = "(.*)(database system is ready to accept connections)(.*)";
 
         // For Redshift a simple postgres container is started and used
@@ -158,7 +158,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.PRESTO)
     @Lazy
-    public PrestoContainerFactory prestoContainer(@Lazy final LocalServiceEndpoint prestoEndpoint) {
+    public PrestoContainerFactory prestoContainer(@Lazy final ServiceEndpoint prestoEndpoint) {
         return new PrestoContainerFactory(prestoEndpoint, container -> { });
     }
 
@@ -171,7 +171,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.POSTGRES)
     @Lazy
-    public Startable postgresContainer(@Lazy final LocalServiceEndpoint postgresEndpoint) {
+    public Startable postgresContainer(@Lazy final ServiceEndpoint postgresEndpoint) {
         final String logWaitRegex = "(.*)(database system is ready to accept connections)(.*)";
 
         return createDockerContainer(postgresEndpoint,
@@ -190,7 +190,7 @@ public class DockerContainersConfiguration {
     @Bean
     @ConditionalOnService(Service.ELASTICSEARCH)
     @Lazy
-    public Startable elasticsearchContainer(@Lazy final LocalServiceEndpoint elasticsearchEndpoint) {
+    public Startable elasticsearchContainer(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
         return createDockerContainer(elasticsearchEndpoint,
                 new HttpWaitStrategy()
                         .forPath("/_cat/health")
@@ -202,14 +202,14 @@ public class DockerContainersConfiguration {
     @Conditional(ContainerCondition.LocalStackContainerCondition.class)
     LocalStackFactory localStackContainer(@Autowired(required = false)
             final List<LocalStackContainer.Service> localstackServices, final ConfigurableListableBeanFactory listableBeanFactory,
-            final LocalServiceEndpoint localStackEndpoint) {
+            final ServiceEndpoint localStackEndpoint) {
         return new LocalStackFactory(listableBeanFactory,
                 localStackEndpoint,
                 localstackServices,
                 modifyLocalStackContainer(localStackEndpoint));
     }
 
-    private Consumer<LocalStackContainer> modifyLocalStackContainer(final LocalServiceEndpoint localStackEndpoint) {
+    private Consumer<LocalStackContainer> modifyLocalStackContainer(final ServiceEndpoint localStackEndpoint) {
         return container -> {
             container.setNetwork(localStackEndpoint.getContainerConfig().getNetworkInfo().getNetwork());
             container.setEnv(List.of(DockerContainerConstants.Environment.LOCALSTACK_REGION + "=" + this.awsSettings.getTestDefaultRegion()));

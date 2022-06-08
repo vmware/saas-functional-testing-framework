@@ -14,7 +14,7 @@ import org.testcontainers.containers.startupcheck.IsRunningStartupCheckStrategy;
 import org.testcontainers.containers.wait.strategy.WaitStrategy;
 import org.testcontainers.images.RemoteDockerImage;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,7 @@ public final class CustomDockerContainer extends GenericContainer<CustomDockerCo
     public static final Duration DEFAULT_WAIT_STRATEGY_TIMEOUT = Duration.ofSeconds(120);
 
     CustomDockerContainer(final RemoteDockerImage image,
-            final LocalServiceEndpoint serviceEndpoint) {
+            final ServiceEndpoint serviceEndpoint) {
         super(image);
 
         this.withCreateContainerCmdModifier(cmd -> cmd.withName(serviceEndpoint.getContainerConfig().getName()));
@@ -37,26 +37,26 @@ public final class CustomDockerContainer extends GenericContainer<CustomDockerCo
         this.setPortBindings(Collections.singletonList(configurePortBinding(serviceEndpoint)));
     }
 
-    private static String configurePortBinding(final LocalServiceEndpoint localServiceEndpoint) {
-        return String.format("%d:%d/%s", localServiceEndpoint.getPort(), localServiceEndpoint.getContainerConfig().getPort(), InternetProtocol.TCP);
+    private static String configurePortBinding(final ServiceEndpoint serviceEndpoint) {
+        return String.format("%d:%d/%s", serviceEndpoint.getPort(), serviceEndpoint.getContainerConfig().getPort(), InternetProtocol.TCP);
     }
 
-    private static RemoteDockerImage initImage(final LocalServiceEndpoint localServiceEndpoint) {
+    private static RemoteDockerImage initImage(final ServiceEndpoint serviceEndpoint) {
         // getDockerImage will lazy init docker driver
-        try (GenericContainer<?> container = new GenericContainer<>(localServiceEndpoint.getContainerConfig().getImageName())) {
+        try (GenericContainer<?> container = new GenericContainer<>(serviceEndpoint.getContainerConfig().getImageName())) {
             log.info("Configuring docker container [{}] from image [{}] on host port: [{}]",
-                    localServiceEndpoint.getContainerConfig().getName(), container.getDockerImageName(), localServiceEndpoint.getPort());
+                    serviceEndpoint.getContainerConfig().getName(), container.getDockerImageName(), serviceEndpoint.getPort());
             return container.getImage();
         }
     }
 
     /**
      * Returns a @code CustomDockerContainer} instance. The actual docker container is not started.
-     * @param serviceEndpoint the {@link LocalServiceEndpoint} that will be started in the container
+     * @param serviceEndpoint the {@link ServiceEndpoint} that will be started in the container
      * @param waitStrategy a custom {@link WaitStrategy} that is applied on container startup
      * @return a {@link CustomDockerContainer}
      */
-    public static CustomDockerContainer createDockerContainer(final LocalServiceEndpoint serviceEndpoint,
+    public static CustomDockerContainer createDockerContainer(final ServiceEndpoint serviceEndpoint,
             final WaitStrategy waitStrategy) {
         final RemoteDockerImage dockerImage = initImage(serviceEndpoint);
         try (CustomDockerContainer customDockerContainer = new CustomDockerContainer(

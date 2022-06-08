@@ -9,7 +9,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vmware.test.functional.saas.InternalContainerServiceConfig;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  * FactoryBean for LocalServiceEndpoint.
  */
 @RequiredArgsConstructor
-class LocalServiceEndpointFactoryBean implements FactoryBean<LocalServiceEndpoint> {
+class LocalServiceEndpointFactoryBean implements FactoryBean<ServiceEndpoint> {
 
     @NonNull
     protected final DockerContainerType dockerContainerType;
@@ -41,16 +41,16 @@ class LocalServiceEndpointFactoryBean implements FactoryBean<LocalServiceEndpoin
     }
 
     @Override
-    public LocalServiceEndpoint getObject() {
+    public ServiceEndpoint getObject() {
         if (this.port == null) {
-            return new LocalServiceEndpoint(this.schema, this.host, getInternalContainerServiceConfig());
+            return new ServiceEndpoint(this.schema, this.host, getInternalContainerServiceConfig());
         }
-        return new LocalServiceEndpoint(this.port, this.schema, this.host, getInternalContainerServiceConfig());
+        return new ServiceEndpoint(this.port, this.schema, this.host, getInternalContainerServiceConfig());
     }
 
     @Override
     public Class<?> getObjectType() {
-        return LocalServiceEndpoint.class;
+        return ServiceEndpoint.class;
     }
 
     @Override
