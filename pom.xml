@@ -75,7 +75,7 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <type>jar</type>
-                <version>2.13.1</version>
+                <version>2.13.2.1</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -308,73 +308,73 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-client</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-continuation</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-http</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-io</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-proxy</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-security</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-servlet</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-servlets</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-util</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-webapp</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-xml</artifactId>
                 <type>jar</type>
-                <version>9.2.28.v20190418</version>
+                <version>9.4.40.v20210413</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch</groupId>
