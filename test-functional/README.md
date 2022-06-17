@@ -10,5 +10,5 @@ environment (provided as a `Map`) and pass it to `defaultTestProcessBuilder`. An
 any pre-startup behaviors - create `appPreStartCallback()` which executes before the app/service container
 is started. That method can be used for such items as data source initialization, or creating service stubs/mocks.
 
-Examine the source and comments within `com.aw.dpa.test.process.LocalAppProcessConfigTemplate` for additional details.
+Examine the source and comments within `com.vmware.test.functional.saas.process.LocalAppProcessConfigTemplate` for additional details.
 

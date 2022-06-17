@@ -1,1 +1,1 @@
-com.aw.dpa.test.FunctionalTest=com.aw.dpa.test.wiremock.WireMockAutoConfiguration
+com.vmware.test.functional.saas.FunctionalTest=com.vmware.test.functional.saas.wiremock.WireMockAutoConfiguration

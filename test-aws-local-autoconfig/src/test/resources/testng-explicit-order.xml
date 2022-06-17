@@ -3,9 +3,9 @@
 <suite name="explicit order tests">
     <test name="explicit order tests">
         <classes>
-            <class name="com.aw.dpa.test.aws.local.dynamodb.DynamoDbTest" />
-            <class name="com.aw.dpa.test.aws.local.LocalContextTestLocalStack"/>
-            <class name="com.aw.dpa.test.aws.local.LocalContextTest"/>
+            <class name="com.vmware.test.functional.saas.aws.local.dynamodb.DynamoDbTest" />
+            <class name="com.vmware.test.functional.saas.aws.local.LocalContextTestLocalStack"/>
+            <class name="com.vmware.test.functional.saas.aws.local.LocalContextTest"/>
         </classes>
     </test>
 </suite>
