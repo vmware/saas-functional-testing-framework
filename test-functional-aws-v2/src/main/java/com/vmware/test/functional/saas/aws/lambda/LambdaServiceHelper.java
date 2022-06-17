@@ -72,6 +72,7 @@ public final class LambdaServiceHelper {
      * @param record generic record.
      * @param <T> generic type
      * @return ByteBuffer
+     * @throws JsonProcessingException when record cannot be written as JSON string
      */
     public static <T> ByteBuffer mapGenericRecord(final T record) throws JsonProcessingException {
         final String recordAsString = OBJECT_MAPPER.writeValueAsString(record);
