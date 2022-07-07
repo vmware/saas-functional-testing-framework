@@ -16,7 +16,6 @@ import org.springframework.core.annotation.AliasFor;
 /**
  * Configuration class for service dependencies. To be used by declaring functional tests service dependencies.
  */
-// move to test-functional
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

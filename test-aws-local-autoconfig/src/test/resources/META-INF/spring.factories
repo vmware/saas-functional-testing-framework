@@ -1,1 +1,1 @@
-com.vmware.test.functional.saas.SharedConfig=com.vmware.test.functional.saas.aws.local.context.TestContext$StartKmsServiceContext
+com.vmware.test.functional.saas.SharedConfig=com.vmware.test.functional.saas.local.context.TestContext$StartKmsServiceContext

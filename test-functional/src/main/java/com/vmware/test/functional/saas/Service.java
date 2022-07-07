@@ -6,7 +6,6 @@ package com.vmware.test.functional.saas;
 
 import lombok.Getter;
 
-
 /**
  * Enumerated class representing the type of services to be started locally. To be used by declaring functional tests service dependencies.
  */
