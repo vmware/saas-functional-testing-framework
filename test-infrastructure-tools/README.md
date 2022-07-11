@@ -6,7 +6,7 @@ Module provides some sort of a local dev env or some sort of a local cli.
 
 This is achieved by providing:
 
-- config option ``` default.ports.enabled ``` to bind services to default ports defined in the com.vmware.test.functional.saas.aws.local.service.Service
+- config option ``` default.ports.enabled ``` to bind services to default ports defined in the com.vmware.test.functional.saas.Service
 - config option ``` local.run.skip```  to allow functional tests to be executed locally without starting services, process or wiremock server``
 
 -Dlocal.run.skip=true

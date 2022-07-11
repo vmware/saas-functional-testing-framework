@@ -10,7 +10,7 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.AbstractFunctionalTests;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,10 +48,10 @@ public class InfrastructureTools extends AbstractFunctionalTests {
         if (this.applicationContext == null) {
             return;
         }
-        final String[] localServiceEndpointNames = this.applicationContext.getBeanNamesForType(LocalServiceEndpoint.class);
+        final String[] localServiceEndpointNames = this.applicationContext.getBeanNamesForType(ServiceEndpoint.class);
         for (String serviceName : localServiceEndpointNames) {
-            final LocalServiceEndpoint localServiceEndpoint = this.applicationContext.getBean(serviceName, LocalServiceEndpoint.class);
-            log.info("service endpoint [{}] with URL [{}]", serviceName, localServiceEndpoint.getEndpoint());
+            final ServiceEndpoint serviceEndpoint = this.applicationContext.getBean(serviceName, ServiceEndpoint.class);
+            log.info("service endpoint [{}] with URL [{}]", serviceName, serviceEndpoint.getEndpoint());
         }
     }
 }

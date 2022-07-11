@@ -16,7 +16,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategyBuilder;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,16 +46,16 @@ public class TestPortAllocationTest extends AbstractTestNGSpringContextTests {
 
         @Bean
         @Lazy
-        public LocalServiceEndpoint serviceEndpoint() {
+        public ServiceEndpoint serviceEndpoint() {
             if (!this.ready) {
                 throw new RuntimeException();
             }
             log.info("allocating port");
-            return new LocalServiceEndpoint("http");
+            return new ServiceEndpoint("http");
         }
 
         @Bean
-        LocalTestProcess testProcessToStart(@Lazy final LocalServiceEndpoint serviceEndpoint) {
+        LocalTestProcess testProcessToStart(@Lazy final ServiceEndpoint serviceEndpoint) {
             return LocalTestProcess.builder()
                     .lifecycleDelegate(LocalTestProcessCtl.builder()
                             .command(() -> TestCommand.createCommand(serviceEndpoint.getPort()))
@@ -70,7 +70,7 @@ public class TestPortAllocationTest extends AbstractTestNGSpringContextTests {
             this.ready = true;
         }
 
-        private HashMap<String, String> buildEnv(final LocalServiceEndpoint serviceEndpoint) {
+        private HashMap<String, String> buildEnv(final ServiceEndpoint serviceEndpoint) {
             final HashMap<String, String> env = new HashMap<>();
             env.put("TEST_ENDPOINT_VAR", "" + serviceEndpoint.getEndpoint());
             return env;

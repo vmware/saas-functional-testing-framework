@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -35,7 +35,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class WireMockAutoConfigurationTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    LocalServiceEndpoint wireMockEndpoint;
+    ServiceEndpoint wireMockEndpoint;
 
     @Test
     public void startWireMockServer() throws IOException {
