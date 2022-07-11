@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Parent class for all AWS initializers.
+ * Parent class for all resource initializers.
  */
 @Slf4j
 @RequiredArgsConstructor
