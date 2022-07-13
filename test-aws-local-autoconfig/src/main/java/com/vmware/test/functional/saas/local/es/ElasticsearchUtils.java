@@ -7,7 +7,7 @@ package com.vmware.test.functional.saas.local.es;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.vmware.test.functional.saas.aws.es.ElasticsearchHealthHelper;
+import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
 import com.google.common.base.Preconditions;
 
 import io.searchbox.client.JestClient;

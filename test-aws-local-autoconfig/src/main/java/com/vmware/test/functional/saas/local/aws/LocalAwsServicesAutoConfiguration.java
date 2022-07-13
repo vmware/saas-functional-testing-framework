@@ -23,6 +23,7 @@ import com.vmware.test.functional.saas.local.aws.kinesis.KinesisFactory;
 import com.vmware.test.functional.saas.local.aws.kinesis.KinesisResourceCreator;
 import com.vmware.test.functional.saas.local.aws.kms.KmsFactory;
 import com.vmware.test.functional.saas.local.aws.lambda.LambdaFactory;
+import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.local.aws.s3.S3Factory;
 import com.vmware.test.functional.saas.local.aws.s3.S3ResourceCreator;
 import com.vmware.test.functional.saas.local.aws.ses.SesFactory;
@@ -36,6 +37,7 @@ import com.vmware.test.functional.saas.aws.s3.S3ResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sns.SnsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sqs.SqsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 
 /**
  * Local AWS Services AutoConfiguration. To be used by {@code FunctionalTest}.
@@ -111,6 +113,16 @@ public class LocalAwsServicesAutoConfiguration {
     @Lazy
     LambdaFactory lambdaFactory(@Lazy final ServiceEndpoint lambdaEndpoint) {
         return new LambdaFactory(lambdaEndpoint, this.awsSettings);
+    }
+
+    @Bean
+    @ConditionalOnService(value = Service.REDSHIFT, search = SearchStrategy.ALL)
+    @Lazy
+    PostgresDatabaseCreator<RedshiftDbSettings> redshiftDatabaseCreator(
+          final FunctionalTestExecutionSettings functionalTestExecutionSettings,
+          final ServiceEndpoint redshiftEndpoint) {
+        return new PostgresDatabaseCreator<>(functionalTestExecutionSettings,
+              redshiftEndpoint, RedshiftDbSettings.class);
     }
 
     @Bean

@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local.presto;
+package com.vmware.test.functional.saas.local.trino;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,17 +23,17 @@ import org.testcontainers.utility.MountableFile;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.SmartLifecyclePhases;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSettings;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSpecs;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Lifecycle control that creates temporary files that define presto catalogs.
+ * Lifecycle control that creates temporary files that define trino catalogs.
  */
 @Slf4j
-public class PrestoCatalogCreator implements SmartLifecycle {
+public class TrinoCatalogCreator implements SmartLifecycle {
 
     private static final String CATALOG_NAME_FORMAT = "%s.properties";
 
@@ -44,17 +44,17 @@ public class PrestoCatalogCreator implements SmartLifecycle {
 
     private final FunctionalTestExecutionSettings functionalTestExecutionSettings;
 
-    private final List<PrestoCatalogSpecs> catalogSpecs;
+    private final List<TrinoCatalogSpecs> catalogSpecs;
 
-    private final ServiceEndpoint prestoEndpoint;
+    private final ServiceEndpoint trinoEndpoint;
 
-    public PrestoCatalogCreator(
+    public TrinoCatalogCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            final List<PrestoCatalogSpecs> catalogSpecs,
-            final ServiceEndpoint prestoEndpoint) {
+            final List<TrinoCatalogSpecs> catalogSpecs,
+            final ServiceEndpoint trinoEndpoint) {
         this.functionalTestExecutionSettings = functionalTestExecutionSettings;
         this.catalogSpecs = catalogSpecs;
-        this.prestoEndpoint = prestoEndpoint;
+        this.trinoEndpoint = trinoEndpoint;
         this.catalogFiles = new HashMap<>();
     }
 
@@ -65,23 +65,23 @@ public class PrestoCatalogCreator implements SmartLifecycle {
             return;
         }
         if (!this.running.compareAndSet(Boolean.FALSE, Boolean.TRUE)) {
-            log.warn("Presto catalog creator already started.");
+            log.warn("Trino catalog creator already started.");
             return;
         }
         if (CollectionUtils.isEmpty(this.catalogSpecs)) {
             log.info("No catalog specs provided.");
             return;
         }
-        // create all presto catalog files and attach them to the container.
+        // create all trino catalog files and attach them to the container.
         this.catalogSpecs.stream()
                 .flatMap(spec -> spec.getCatalogs().stream())
-                .forEach(this::createPrestoCatalog);
+                .forEach(this::createCatalog);
     }
 
-    private void createPrestoCatalog(final PrestoCatalogSettings catalogSettings) {
+    private void createCatalog(final TrinoCatalogSettings catalogSettings) {
         final String fileName = String.format(CATALOG_NAME_FORMAT, catalogSettings.getName());
         final File tmpCatalogPropertiesFile = new File(FileUtils.getTempDirectory(), fileName);
-        log.info("Creating catalog properties [{}] for container [{}]", fileName, this.prestoEndpoint.getContainerConfig().getName());
+        log.info("Creating catalog properties [{}] for container [{}]", fileName, this.trinoEndpoint.getContainerConfig().getName());
         try {
             FileUtils.forceDeleteOnExit(tmpCatalogPropertiesFile);
             final List<String> lines = catalogSettings.getProperties().entrySet().stream()
@@ -99,7 +99,7 @@ public class PrestoCatalogCreator implements SmartLifecycle {
     @Override
     public void stop() {
         if (!this.running.compareAndSet(Boolean.TRUE, Boolean.FALSE)) {
-            log.warn("Presto catalog creator already stopped");
+            log.warn("Trino catalog creator already stopped");
         }
     }
 
@@ -109,10 +109,10 @@ public class PrestoCatalogCreator implements SmartLifecycle {
     }
 
     // Run phase for this is the smallest because we want it to run before any containers are started
-    // by the GenericRunner class. That's because presto catalogs must be defined as properties files
-    // and available to Presto before it's started.
+    // by the GenericRunner class. That's because trino catalogs must be defined as properties files
+    // and available to Trino before it's started.
     @Override
     public int getPhase() {
-        return SmartLifecyclePhases.PRESTO_CATALOG_CREATOR.getPhase();
+        return SmartLifecyclePhases.TRINO_CATALOG_CREATOR.getPhase();
     }
 }

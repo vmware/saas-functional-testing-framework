@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.es;
+package com.vmware.test.functional.saas.es;
 
 import io.searchbox.client.JestClient;
 import io.searchbox.indices.IndicesExists;

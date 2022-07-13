@@ -19,7 +19,7 @@ public enum Service {
     KMS,
     LAMBDA,
     POSTGRES,
-    PRESTO,
+    TRINO,
     REDIS,
     REDSHIFT,
     S3,

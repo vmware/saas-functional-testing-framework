@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws;
+package com.vmware.test.functional.saas.common;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

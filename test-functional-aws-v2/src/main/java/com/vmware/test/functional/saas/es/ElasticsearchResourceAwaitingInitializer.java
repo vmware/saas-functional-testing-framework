@@ -3,14 +3,14 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.es;
+package com.vmware.test.functional.saas.es;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractAwsResourceAwaitingInitializer;
 
 import io.searchbox.client.JestClient;
 

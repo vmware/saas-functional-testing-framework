@@ -85,7 +85,7 @@ public class LocalContextTest extends AbstractFullContextTest {
     private KmsClient kmsClient;
 
     @Autowired
-    private ServiceEndpoint prestoEndpoint;
+    private ServiceEndpoint trinoEndpoint;
 
     @Autowired
     private ServiceEndpoint postgresEndpoint;
@@ -127,9 +127,9 @@ public class LocalContextTest extends AbstractFullContextTest {
     }
 
     @Test
-    public void localPrestoAutoconfiguration() {
-        assertThat("Presto service is running OK.", ServiceDependenciesHealthHelper.isPrestoHealthy(
-                this.prestoEndpoint, TestContext.FullTestContext.MEMORY_CATALOG_NAME));
+    public void localTrinoAutoconfiguration() {
+        assertThat("Trino service is running OK.", ServiceDependenciesHealthHelper.isTrinoHealthy(
+                this.trinoEndpoint, TestContext.FullTestContext.MEMORY_CATALOG_NAME));
     }
 
     @Test

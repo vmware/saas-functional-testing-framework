@@ -7,7 +7,6 @@ package com.vmware.test.functional.saas.local;
 
 import java.util.Map;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,8 @@ import org.testcontainers.lifecycle.Startable;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.local.presto.PrestoContainerFactory;
+import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
+import com.vmware.test.functional.saas.local.trino.TrinoContainerFactory;
 
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.createDockerContainer;
@@ -63,16 +63,17 @@ public class DockerContainersConfiguration {
     }
 
     /**
-     * Presto container factory. To be used by auto config.
+     * Trino container factory. To be used by auto config.
      *
-     * @param prestoEndpoint endpoint spec for the presto dpa service
+     * @param trinoEndpoint endpoint spec for the trino dpa service
      * @return {@link Startable}
      */
     @Bean
-    @ConditionalOnService(Service.PRESTO)
+    @ConditionalOnService(Service.TRINO)
     @Lazy
-    public PrestoContainerFactory prestoContainer(@Lazy final ServiceEndpoint prestoEndpoint) {
-        return new PrestoContainerFactory(prestoEndpoint, container -> { });
+    public TrinoContainerFactory trinoContainer(@Lazy final ServiceEndpoint trinoEndpoint,
+          TrinoCatalogCreator trinoCatalogCreator) {
+        return new TrinoContainerFactory(trinoEndpoint, trinoCatalogCreator, container -> { });
     }
 
     /**

@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.presto;
+package com.vmware.test.functional.saas.trino;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import lombok.Data;
 import lombok.Singular;
 
 /**
- * Configuration for local presto catalog creation.
+ * Configuration for local trino catalog creation.
  */
 @Builder
 @Data
-public class PrestoCatalogSpecs {
+public class TrinoCatalogSpecs {
 
     @Singular
-    private List<PrestoCatalogSettings> catalogs;
+    private List<TrinoCatalogSettings> catalogs;
 
 }

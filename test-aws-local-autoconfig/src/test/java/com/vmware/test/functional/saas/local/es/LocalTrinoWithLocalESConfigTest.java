@@ -28,7 +28,7 @@ import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.ServiceEndpoint;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchHealthHelper;
+import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
 import com.vmware.test.functional.saas.local.aws.DockerContainersConfiguration;
 
 import com.google.common.base.Preconditions;
@@ -46,12 +46,12 @@ import static org.hamcrest.Matchers.*;
 
 /**
  * Test for {@link DockerContainersConfiguration}.
- * Test verifies local presto is configured to work with local ES.
+ * Test verifies local trino is configured to work with local ES.
  */
-@ContextHierarchy(@ContextConfiguration(classes = LocalPrestoWithLocalESConfigTest.TestContext.class))
+@ContextHierarchy(@ContextConfiguration(classes = LocalTrinoWithLocalESConfigTest.TestContext.class))
 @FunctionalTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContextTests {
+public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContextTests {
 
     private static final String ES_TEST_DATA_FIELD = "data_field";
     private static final String ES_CATALOG = "elasticsearch";
@@ -71,7 +71,7 @@ public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContex
     private String testData;
     private String testEsIndex;
 
-    @ServiceDependencies({ Service.PRESTO, Service.ELASTICSEARCH })
+    @ServiceDependencies({ Service.TRINO, Service.ELASTICSEARCH })
     public static class TestContext {
 
     }
@@ -80,7 +80,7 @@ public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContex
     private JestClient jestClient;
 
     @Autowired
-    private ServiceEndpoint prestoEndpoint;
+    private ServiceEndpoint trinoEndpoint;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws IOException {
@@ -123,17 +123,17 @@ public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContex
     }
 
     @Test(enabled = true)
-    public void localPrestoConfigWithLocalES() {
+    public void localTrinoConfigWithLocalES() {
         final SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(TrinoDriver.class);
-        dataSource.setUrl("jdbc:trino://localhost:" + this.prestoEndpoint.getPort());
+        dataSource.setUrl("jdbc:trino://localhost:" + this.trinoEndpoint.getPort());
         dataSource.setCatalog(ES_CATALOG);
         dataSource.setSchema(ES_SCHEMA);
         dataSource.setUsername("test");
 
         final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        // List tables in ES from presto
+        // List tables in ES from trino
         final List<String> tables = jdbcTemplate.query(SHOW_TABLES_CMD, resultSetObj -> {
             final List<String> databasesList = new ArrayList<>();
             while (resultSetObj.next()) {
@@ -147,7 +147,7 @@ public class LocalPrestoWithLocalESConfigTest extends AbstractTestNGSpringContex
         assertThat(tables, is(not(nullValue())));
         assertThat(tables.size(), is(1));
 
-        // Get record in ES from presto
+        // Get record in ES from trino
         final String getRecordsCommand = String.format(SELECT_FROM_TABLE_CMD, ES_TEST_DATA_FIELD, this.testEsIndex);
         final List<ResultSet> records = jdbcTemplate.query(getRecordsCommand, resultSetObj -> {
             final List<ResultSet> recordsList = new ArrayList<>();

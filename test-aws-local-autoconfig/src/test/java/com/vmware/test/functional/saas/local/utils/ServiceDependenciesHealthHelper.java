@@ -53,25 +53,25 @@ public final class ServiceDependenciesHealthHelper {
         return redisTestObject.equals(redisTemplate.opsForList().index(redisHashKey, 0));
     }
 
-    public static boolean isPrestoHealthy(final ServiceEndpoint prestoEndpoint, final String catalog) {
-        final String testPrestoDb = "test_presto_db";
-        final String dropTestPrestoSchemaStmt = "drop schema if exists " + catalog + "." + testPrestoDb;
-        final String createTestPrestoSchemaStmt = "create schema " + catalog + "." + testPrestoDb;
+    public static boolean isTrinoHealthy(final ServiceEndpoint trinoEndpoint, final String catalog) {
+        final String testDb = "test_trino_db";
+        final String dropTestSchemaStmt = "drop schema if exists " + catalog + "." + testDb;
+        final String createTestSchemaStmt = "create schema " + catalog + "." + testDb;
         final String showSchemasStmt = "show schemas";
 
         final SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(TrinoDriver.class);
-        dataSource.setUrl("jdbc:trino://localhost:" + prestoEndpoint.getPort() + "/" + catalog);
+        dataSource.setUrl("jdbc:trino://localhost:" + trinoEndpoint.getPort() + "/" + catalog);
         dataSource.setUsername("test");
 
         final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        jdbcTemplate.execute(dropTestPrestoSchemaStmt);
-        jdbcTemplate.execute(createTestPrestoSchemaStmt);
+        jdbcTemplate.execute(dropTestSchemaStmt);
+        jdbcTemplate.execute(createTestSchemaStmt);
         final List<String> databases = jdbcTemplate.query(showSchemasStmt, resultSetObj -> {
             final List<String> databasesList = new ArrayList<>();
             while (resultSetObj.next()) {
-                if (resultSetObj.getString(1).equals(testPrestoDb)) {
+                if (resultSetObj.getString(1).equals(testDb)) {
                     databasesList.add(resultSetObj.getString(1));
                 }
             }

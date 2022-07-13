@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractAwsResourceAwaitingInitializer;
 
 import lombok.extern.slf4j.Slf4j;
 

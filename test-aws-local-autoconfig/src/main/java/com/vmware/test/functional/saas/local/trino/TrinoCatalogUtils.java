@@ -3,21 +3,21 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local.presto;
+package com.vmware.test.functional.saas.local.trino;
 
 import java.util.Map;
 
 import com.vmware.test.functional.saas.ServiceEndpoint;
 
 /**
- * Utility methods for creating presto catalog settings.
+ * Utility methods for creating trino catalog settings.
  */
-public final class PrestoCatalogUtils {
+public final class TrinoCatalogUtils {
 
-    private PrestoCatalogUtils() { }
+    private TrinoCatalogUtils() { }
 
     /**
-     * Returns default presto catalog properties for ElasticSearch.
+     * Returns default trino catalog properties for ElasticSearch.
      * @param elasticsearchEndpoint the local elasticsearch endpoint.
      * @return Map with properties.
      */

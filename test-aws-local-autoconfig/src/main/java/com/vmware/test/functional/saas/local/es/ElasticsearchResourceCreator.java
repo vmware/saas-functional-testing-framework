@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.AbstractResourceCreator;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexBuildConfiguration;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexSettings;
+import com.vmware.test.functional.saas.es.ElasticsearchIndexBuildConfiguration;
+import com.vmware.test.functional.saas.es.ElasticsearchIndexSettings;
 
 import io.searchbox.client.JestClient;
 

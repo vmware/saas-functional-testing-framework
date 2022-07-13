@@ -3,7 +3,7 @@
 <suite name="alltests">
     <test name="alltests">
         <packages>
-            <package name="com.vmware.test.functional.saas.aws.local.jdbc.*"/>
+            <package name="com.vmware.test.functional.saas.local.aws.jdbc.*"/>
         </packages>
     </test>
 </suite>

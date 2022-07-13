@@ -30,14 +30,13 @@ import com.vmware.test.functional.saas.local.es.JestClientFactory;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseInitializer;
 import com.vmware.test.functional.saas.local.pg.PostgresDbSettings;
-import com.vmware.test.functional.saas.local.presto.PrestoCatalogCreator;
+import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
 import com.vmware.test.functional.saas.local.redis.RedisTemplateFactory;
-import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;
-import com.vmware.test.functional.saas.local.presto.PrestoCatalogUtils;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchResourceAwaitingInitializer;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogAwaitingInitializer;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
+import com.vmware.test.functional.saas.local.trino.TrinoCatalogUtils;
+import com.vmware.test.functional.saas.es.ElasticsearchResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.trino.TrinoCatalogAwaitingInitializer;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSettings;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSpecs;
 
 import io.searchbox.client.JestClient;
 import io.trino.jdbc.TrinoDriver;
@@ -95,61 +94,51 @@ public class LocalServicesAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnService(value = Service.REDSHIFT, search = SearchStrategy.ALL)
+    @ConditionalOnService(value = Service.TRINO)
     @Lazy
-    PostgresDatabaseCreator<RedshiftDbSettings> redshiftDatabaseCreator(
-            final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            final ServiceEndpoint redshiftEndpoint) {
-        return new PostgresDatabaseCreator<>(functionalTestExecutionSettings,
-                redshiftEndpoint, RedshiftDbSettings.class);
-    }
-
-    @Bean
-    @ConditionalOnService(value = Service.PRESTO)
-    @Lazy
-    JdbcTemplate trinoJdbcTemplate(final ServiceEndpoint prestoEndpoint) {
+    JdbcTemplate trinoJdbcTemplate(final ServiceEndpoint trinoEndpoint) {
         final SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(TrinoDriver.class);
-        dataSource.setUrl("jdbc:trino://localhost:" + prestoEndpoint.getPort());
+        dataSource.setUrl("jdbc:trino://localhost:" + trinoEndpoint.getPort());
         dataSource.setUsername("test");
 
         return new JdbcTemplate(dataSource);
     }
 
     /**
-     * Presto Elasticsearch catalog spec.
+     * Trino Elasticsearch catalog spec.
      *
      * @param elasticsearchEndpoint endpoint spec for the elasticsearch service
-     * @return {@link PrestoCatalogSpecs}
+     * @return {@link TrinoCatalogSpecs}
      */
     @Bean
-    @ConditionalOnService({ Service.PRESTO, Service.ELASTICSEARCH })
+    @ConditionalOnService({ Service.TRINO, Service.ELASTICSEARCH })
     @Lazy
-    public PrestoCatalogSpecs prestoCatalogSpecs(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
-        return PrestoCatalogSpecs.builder()
-                .catalog(PrestoCatalogSettings.builder()
+    public TrinoCatalogSpecs trinoCatalogSpecs(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
+        return TrinoCatalogSpecs.builder()
+                .catalog(TrinoCatalogSettings.builder()
                         .name("elasticsearch")
-                        .properties(PrestoCatalogUtils.elasticsearchCatalog(elasticsearchEndpoint))
+                        .properties(TrinoCatalogUtils.elasticsearchCatalog(elasticsearchEndpoint))
                         .build())
                 .build();
     }
 
     @Bean
-    @ConditionalOnService(Service.PRESTO)
+    @ConditionalOnService(Service.TRINO)
     @Lazy
-    PrestoCatalogCreator prestoCatalogCreator(
+    TrinoCatalogCreator trinoCatalogCreator(
             final FunctionalTestExecutionSettings functionalTestExecutionSettings,
-            @Autowired(required = false) @Lazy final List<PrestoCatalogSpecs> catalogSpecs,
-            @Autowired @Lazy final ServiceEndpoint prestoEndpoint) {
-        return new PrestoCatalogCreator(functionalTestExecutionSettings, catalogSpecs, prestoEndpoint);
+            @Autowired(required = false) @Lazy final List<TrinoCatalogSpecs> catalogSpecs,
+            @Autowired @Lazy final ServiceEndpoint trinoEndpoint) {
+        return new TrinoCatalogCreator(functionalTestExecutionSettings, catalogSpecs, trinoEndpoint);
     }
 
     @Bean
-    @ConditionalOnService(value = Service.PRESTO, search = SearchStrategy.ALL)
+    @ConditionalOnService(value = Service.TRINO, search = SearchStrategy.ALL)
     @Lazy
-    PrestoCatalogAwaitingInitializer prestoCatalogAwaitingInitializer(final FunctionalTestExecutionSettings functionalTestExecutionSettings,
+    TrinoCatalogAwaitingInitializer trinoCatalogAwaitingInitializer(final FunctionalTestExecutionSettings functionalTestExecutionSettings,
             final JdbcTemplate trinoJdbcTemplate) {
-        return new PrestoCatalogAwaitingInitializer(functionalTestExecutionSettings, trinoJdbcTemplate);
+        return new TrinoCatalogAwaitingInitializer(functionalTestExecutionSettings, trinoJdbcTemplate);
     }
 
     @Bean

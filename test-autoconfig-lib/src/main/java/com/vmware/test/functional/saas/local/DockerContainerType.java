@@ -24,7 +24,7 @@ public enum DockerContainerType {
     KMS(DockerConfig::getKmsImage, DockerConfig::getKmsPort),
     LOCALSTACK(DockerConfig::getLocalstackImageName, DockerConfig::getLocalstackDefaultServicePort),
     POSTGRES(DockerConfig::getPostgresImage, DockerConfig::getPostgresPort),
-    PRESTO(DockerConfig::getPrestoImage, DockerConfig::getPrestoPort),
+    TRINO(DockerConfig::getTrinoImage, DockerConfig::getTrinoPort),
     REDIS(DockerConfig::getRedisImage, DockerConfig::getRedisPort),
     REDSHIFT(DockerConfig::getPostgresImage, DockerConfig::getPostgresPort),
     UNKNOWN(c -> UnknownContainerTypeConfig.NAME, c -> UnknownContainerTypeConfig.PORT);
