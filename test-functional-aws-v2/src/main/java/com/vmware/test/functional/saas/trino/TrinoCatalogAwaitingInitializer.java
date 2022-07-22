@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.CollectionUtils;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.common.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractResourceAwaitingInitializer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +24,7 @@ import static org.awaitility.Awaitility.await;
  * exist when started.
  */
 @Slf4j
-public class TrinoCatalogAwaitingInitializer extends AbstractAwsResourceAwaitingInitializer {
+public class TrinoCatalogAwaitingInitializer extends AbstractResourceAwaitingInitializer {
 
     private final JdbcTemplate jdbcTemplate;
 

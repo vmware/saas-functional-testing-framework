@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.common.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractResourceAwaitingInitializer;
 
 import io.searchbox.client.JestClient;
 
@@ -23,7 +23,7 @@ import static org.awaitility.Awaitility.await;
  * exist when started.
  */
 @Slf4j
-public class ElasticsearchResourceAwaitingInitializer extends AbstractAwsResourceAwaitingInitializer {
+public class ElasticsearchResourceAwaitingInitializer extends AbstractResourceAwaitingInitializer {
 
     private final JestClient jestClient;
 

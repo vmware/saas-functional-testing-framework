@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractAwsResourceAwaitingInitializer implements SmartLifecycle, ApplicationContextAware {
+public abstract class AbstractResourceAwaitingInitializer implements SmartLifecycle, ApplicationContextAware {
 
     @Getter
     private ApplicationContext context;
