@@ -12,7 +12,7 @@ import org.apache.commons.exec.CommandLine;
 import org.apache.commons.lang3.StringUtils;
 
 import com.amazonaws.SDKGlobalConfiguration;
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategy;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategyBuilder;
 
@@ -30,7 +30,7 @@ public final class LocalAppProcessConfigTemplate {
 
     private final DpaTestApp dpaTestApp;
     private final DpaTestAppDebug dpaTestAppDebug;
-    private final LocalServiceEndpoint appEndpoint;
+    private final ServiceEndpoint appEndpoint;
     @Builder.Default
     private final List<String> additionalAppCommandLineArgs = List.of();
 
@@ -78,13 +78,13 @@ public final class LocalAppProcessConfigTemplate {
         return commandLine;
     }
 
-    WaitStrategy createDefaultAppHealthEndpointWaitStrategy(final LocalServiceEndpoint endpoint) {
+    WaitStrategy createDefaultAppHealthEndpointWaitStrategy(final ServiceEndpoint endpoint) {
         if (Objects.isNull(endpoint)) {
             throw new IllegalArgumentException("App/service endpoint cannot be null");
         }
 
         return new WaitStrategyBuilder()
-                .forHttp(() -> endpoint.getEndpoint() + LocalServiceEndpoint.DEFAULT_HEALTH_ENDPOINT_PATH)
+                .forHttp(() -> endpoint.getEndpoint() + ServiceEndpoint.DEFAULT_HEALTH_ENDPOINT_PATH)
                 .build();
     }
 }

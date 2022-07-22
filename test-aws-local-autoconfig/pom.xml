@@ -29,6 +29,12 @@
         </dependency>
         <dependency>
             <groupId>com.vmware.saas.functional.test</groupId>
+            <artifactId>test-autoconfig-lib</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.vmware.saas.functional.test</groupId>
             <artifactId>test-functional-aws-v2</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

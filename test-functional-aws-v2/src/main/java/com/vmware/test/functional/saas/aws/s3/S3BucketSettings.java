@@ -8,7 +8,7 @@ package com.vmware.test.functional.saas.aws.s3;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.google.common.base.Preconditions;
 
 import lombok.Builder;
@@ -43,7 +43,7 @@ public class S3BucketSettings {
      * @param s3Endpoint s3 endpoint
      * @return configured base url
      */
-    public static String lookupBaseUrl(final LocalServiceEndpoint s3Endpoint) {
+    public static String lookupBaseUrl(final ServiceEndpoint s3Endpoint) {
         return s3Endpoint.getEndpoint();
     }
 }

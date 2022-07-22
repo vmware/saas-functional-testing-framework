@@ -15,13 +15,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
-import com.vmware.test.functional.saas.LocalServiceEndpoint;
+import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.PortSupplier;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static com.vmware.test.functional.saas.LocalServiceEndpoint.DEFAULT_SCHEME;
+import static com.vmware.test.functional.saas.ServiceEndpoint.DEFAULT_SCHEME;
 
 /**
  * Wiremock server autoconfiguration.
@@ -49,13 +49,13 @@ public class WireMockAutoConfiguration {
     private boolean defaultPortsEnabled;
 
     @Bean
-    LocalServiceEndpoint wireMockEndpoint() {
-        return new LocalServiceEndpoint(computeWireMockPort(), DEFAULT_SCHEME);
+    ServiceEndpoint wireMockEndpoint() {
+        return new ServiceEndpoint(computeWireMockPort(), DEFAULT_SCHEME);
     }
 
     @Bean
     @Conditional(WireMockClient.class)
-    SmartLifecycle wireMockClientConfigurer(final LocalServiceEndpoint wireMockEndpoint) {
+    SmartLifecycle wireMockClientConfigurer(final ServiceEndpoint wireMockEndpoint) {
         log.info("install wiremock client configurer");
         return new SmartLifecycle() {
             private volatile boolean running;
@@ -84,7 +84,7 @@ public class WireMockAutoConfiguration {
     }
 
     @Bean
-    WireMockConfigurationCustomizer wireMockConfigurationCustomizer(final LocalServiceEndpoint wireMockEndpoint) {
+    WireMockConfigurationCustomizer wireMockConfigurationCustomizer(final ServiceEndpoint wireMockEndpoint) {
         return (config ->  {
             log.info("configure wiremock for server");
             config.port(wireMockEndpoint.getPort());
