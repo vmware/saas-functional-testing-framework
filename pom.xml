@@ -24,7 +24,7 @@
         <module>test-testng</module>
         <module>test-local-autoconfig</module>
         <module>test-functional</module>
-        <module>test-functional-aws-v2</module>
+        <module>test-functional-sdk</module>
         <module>test-wiremock</module>
         <module>test-aws-redshift-driver</module>
         <module>test-infrastructure-tools</module>
