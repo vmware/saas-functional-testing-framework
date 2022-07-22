@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.presto;
+package com.vmware.test.functional.saas.trino;
 
 import java.util.Map;
 
@@ -14,11 +14,11 @@ import lombok.Getter;
 import lombok.NonNull;
 
 /**
- * Local presto catalog configuration properties.
+ * Local trino catalog configuration properties.
  */
 @Builder
 @Getter
-public class PrestoCatalogSettings {
+public class TrinoCatalogSettings {
 
     @NonNull
     private final String name;
@@ -28,20 +28,21 @@ public class PrestoCatalogSettings {
     /**
      * Custom builder implementation that overrides the build method.
      */
-    public static class PrestoCatalogSettingsBuilder {
+    public static class TrinoCatalogSettingsBuilder {
 
         private String name;
         private Map<String, String> properties;
 
         /**
          * Verifies the properties map contains a required property for any catalog.
-         * @return {@code PrestoCatalogSettings}
+         * @return {@link TrinoCatalogSettings}
          */
-        public PrestoCatalogSettings build() {
+        public TrinoCatalogSettings build() {
             if (!this.properties.containsKey("connector.name") || StringUtils.isBlank(this.properties.get("connector.name"))) {
-                throw new RuntimeException(String.format("Presto catalog settings [%s] missing required property field 'connector.name'", this.name));
+                throw new RuntimeException(String.format("Trino catalog settings [%s] missing required property field "
+                      + "'connector.name'", this.name));
             }
-            return new PrestoCatalogSettings(this.name, this.properties);
+            return new TrinoCatalogSettings(this.name, this.properties);
         }
     }
 

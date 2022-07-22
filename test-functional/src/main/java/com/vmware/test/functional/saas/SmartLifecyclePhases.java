@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 public enum SmartLifecyclePhases {
 
-    PRESTO_CATALOG_CREATOR(Integer.MIN_VALUE),
+    TRINO_CATALOG_CREATOR(Integer.MIN_VALUE),
     SAM_PROCESS_CONTROL(Integer.MIN_VALUE),
     GENERIC_RUNNER(-200),
     RESOURCE_CREATORS(1),

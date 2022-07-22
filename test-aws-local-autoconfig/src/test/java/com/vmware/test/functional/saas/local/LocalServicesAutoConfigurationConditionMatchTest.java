@@ -13,15 +13,15 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.local.aws.AbstractFullContextTest;
 import com.vmware.test.functional.saas.local.es.ElasticsearchResourceCreator;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
-import com.vmware.test.functional.saas.local.presto.PrestoCatalogCreator;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
+import com.vmware.test.functional.saas.es.ElasticsearchResourceAwaitingInitializer;
 
 import io.searchbox.client.JestClient;
 
 import static org.hamcrest.MatcherAssert.*;
 
 /**
- * Test verifies that if a service (i.e. Service.Presto) is specified in a test context configuration,
+ * Test verifies that if a service (i.e. Service.Trino) is specified in a test context configuration,
  * then the required client needed for working with the service is created.
  */
 public class LocalServicesAutoConfigurationConditionMatchTest extends AbstractFullContextTest {
@@ -39,8 +39,9 @@ public class LocalServicesAutoConfigurationConditionMatchTest extends AbstractFu
                 ElasticsearchResourceAwaitingInitializer.class).size() == 1);
         assertThat("PostgresDatabaseCreator has NOT been created - unexpected",
                 this.context.getBeansOfType(PostgresDatabaseCreator.class).size() == 2);
-        assertThat("PrestoCatalogCreator has NOT been created - unexpected based on condition.", this.context.getBeansOfType(
-                PrestoCatalogCreator.class).size() == 1);
+        assertThat("TrinoCatalogCreator has NOT been created - unexpected based on condition.",
+              this.context.getBeansOfType(
+                TrinoCatalogCreator.class).size() == 1);
         assertThat("RedisTemplate has NOT been created - unexpected based on condition.", this.context.getBeansOfType(
                 RedisTemplate.class).size() == 1);
     }

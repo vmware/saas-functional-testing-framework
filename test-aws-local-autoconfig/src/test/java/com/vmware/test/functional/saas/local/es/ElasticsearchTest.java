@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.local.aws.AbstractFullContextTest;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchHealthHelper;
+import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
 
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Search;

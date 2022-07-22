@@ -30,8 +30,8 @@ public class DockerConfig {
     private int kmsPort;
     private String redisImage;
     private int redisPort;
-    private String prestoImage;
-    private int prestoPort;
+    private String trinoImage;
+    private int trinoPort;
     private String postgresImage;
     private int postgresPort;
     private String elasticsearchImage;

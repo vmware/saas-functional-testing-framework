@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractResourceAwaitingInitializer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +23,7 @@ import static org.awaitility.Awaitility.await;
  * exist when started.
  */
 @Slf4j
-public class SnsResourceAwaitingInitializer extends AbstractAwsResourceAwaitingInitializer {
+public class SnsResourceAwaitingInitializer extends AbstractResourceAwaitingInitializer {
 
     private final SnsClient snsClient;
 

@@ -6,4 +6,4 @@
 /**
  * Classes for interacting with the elasticsearch API.
  */
-package com.vmware.test.functional.saas.aws.es;
+package com.vmware.test.functional.saas.es;

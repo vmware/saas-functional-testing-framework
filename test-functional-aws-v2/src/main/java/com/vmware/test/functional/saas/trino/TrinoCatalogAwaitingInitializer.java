@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws.presto;
+package com.vmware.test.functional.saas.trino;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,22 +13,22 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.CollectionUtils;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
-import com.vmware.test.functional.saas.aws.AbstractAwsResourceAwaitingInitializer;
+import com.vmware.test.functional.saas.common.AbstractResourceAwaitingInitializer;
 
 import lombok.extern.slf4j.Slf4j;
 
 import static org.awaitility.Awaitility.await;
 
 /**
- * Lifecycle control that verifies presto catalogs, provided by {@link PrestoCatalogSpecs},
+ * Lifecycle control that verifies trino catalogs, provided by {@link TrinoCatalogSpecs},
  * exist when started.
  */
 @Slf4j
-public class PrestoCatalogAwaitingInitializer extends AbstractAwsResourceAwaitingInitializer {
+public class TrinoCatalogAwaitingInitializer extends AbstractResourceAwaitingInitializer {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public PrestoCatalogAwaitingInitializer(final FunctionalTestExecutionSettings functionalTestExecutionSettings,
+    public TrinoCatalogAwaitingInitializer(final FunctionalTestExecutionSettings functionalTestExecutionSettings,
             final JdbcTemplate jdbcTemplate) {
         super(functionalTestExecutionSettings);
         this.jdbcTemplate = jdbcTemplate;
@@ -36,29 +36,29 @@ public class PrestoCatalogAwaitingInitializer extends AbstractAwsResourceAwaitin
 
     @Override
     public void doStart() {
-        final List<PrestoCatalogSpecs> prestoCatalogSpecs = new ArrayList<>(getContext().getBeansOfType(PrestoCatalogSpecs.class).values());
-        if (!prestoCatalogSpecs.isEmpty()) {
-            log.debug("Verifying Presto catalogs exist from {}", prestoCatalogSpecs);
-            prestoCatalogSpecs.stream()
-                    .map(PrestoCatalogSpecs::getCatalogs)
+        final List<TrinoCatalogSpecs> trinoCatalogSpecs = new ArrayList<>(getContext().getBeansOfType(TrinoCatalogSpecs.class).values());
+        if (!trinoCatalogSpecs.isEmpty()) {
+            log.debug("Verifying Trino catalogs exist from {}", trinoCatalogSpecs);
+            trinoCatalogSpecs.stream()
+                    .map(TrinoCatalogSpecs::getCatalogs)
                     .flatMap(Collection::stream)
                     .distinct()
                     .forEach(this::verifyCatalog);
         }
     }
 
-    private void verifyCatalog(final PrestoCatalogSettings prestoCatalogSettings) {
-        await().until(() -> checkCatalogExists(prestoCatalogSettings));
-        log.info("Verified Presto Catalog [{}] exists", prestoCatalogSettings.getName());
+    private void verifyCatalog(final TrinoCatalogSettings trinoCatalogSettings) {
+        await().until(() -> checkCatalogExists(trinoCatalogSettings));
+        log.info("Verified Trino Catalog [{}] exists", trinoCatalogSettings.getName());
     }
 
-    private boolean checkCatalogExists(final PrestoCatalogSettings prestoCatalogSettings) {
+    private boolean checkCatalogExists(final TrinoCatalogSettings trinoCatalogSettings) {
         final String showSchemasStmt = "show catalogs";
 
         final List<String> databases = this.jdbcTemplate.query(showSchemasStmt, resultSetObj -> {
             final List<String> databasesList = new ArrayList<>();
             while (resultSetObj.next()) {
-                if (resultSetObj.getString(1).equals(prestoCatalogSettings.getName())) {
+                if (resultSetObj.getString(1).equals(trinoCatalogSettings.getName())) {
                     databasesList.add(resultSetObj.getString(1));
                 }
             }

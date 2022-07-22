@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.aws;
+package com.vmware.test.functional.saas.common;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractAwsResourceAwaitingInitializer implements SmartLifecycle, ApplicationContextAware {
+public abstract class AbstractResourceAwaitingInitializer implements SmartLifecycle, ApplicationContextAware {
 
     @Getter
     private ApplicationContext context;

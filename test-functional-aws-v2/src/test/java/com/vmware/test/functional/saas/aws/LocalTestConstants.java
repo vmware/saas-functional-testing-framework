@@ -19,10 +19,6 @@ public final class LocalTestConstants {
     public static final int KINESALITE_PORT = 4567;
     public static final int KINESALITE_HOST_PORT = new PortSupplier().getAsInt();
 
-    public static final String LOCALSTACK_DOCKER_IMAGE_NAME = "localstack/localstack:0.12.5";
-    public static final int LAMBDA_HOST_PORT = new PortSupplier().getAsInt();
-    public static final int LAMBDA_SERVICE_PORT = 4566;
-
     private LocalTestConstants() {
 
     }

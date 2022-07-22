@@ -32,11 +32,11 @@ import com.vmware.test.functional.saas.local.pg.PostgresDbSettings;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.aws.dynamodb.DynamoDbTableSettings;
 import com.vmware.test.functional.saas.aws.dynamodb.DynamoDbTablesSpecs;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexBuildConfiguration;
-import com.vmware.test.functional.saas.aws.es.ElasticsearchIndexSettings;
+import com.vmware.test.functional.saas.es.ElasticsearchIndexBuildConfiguration;
+import com.vmware.test.functional.saas.es.ElasticsearchIndexSettings;
 import com.vmware.test.functional.saas.aws.kinesis.KinesisStreamsSpec;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSettings;
-import com.vmware.test.functional.saas.aws.presto.PrestoCatalogSpecs;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSettings;
+import com.vmware.test.functional.saas.trino.TrinoCatalogSpecs;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSettings;
 import com.vmware.test.functional.saas.aws.s3.S3BucketSpecs;
 import com.vmware.test.functional.saas.aws.sns.SnsTopicsSpecs;
@@ -69,7 +69,7 @@ public class TestContext {
             Service.KMS,
             Service.LAMBDA,
             Service.POSTGRES,
-            Service.PRESTO,
+            Service.TRINO,
             Service.REDIS,
             Service.REDSHIFT,
             Service.S3,
@@ -179,9 +179,9 @@ public class TestContext {
         }
 
         @Bean
-        public PrestoCatalogSpecs memoryCatalog() {
-            return PrestoCatalogSpecs.builder()
-                    .catalog(PrestoCatalogSettings.builder()
+        public TrinoCatalogSpecs memoryCatalog() {
+            return TrinoCatalogSpecs.builder()
+                    .catalog(TrinoCatalogSettings.builder()
                             .name(MEMORY_CATALOG_NAME)
                             .properties(Map.of(
                                     "connector.name", MEMORY_CATALOG_NAME,
