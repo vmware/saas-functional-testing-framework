@@ -1,6 +1,6 @@
 /*
  * Copyright 2022 VMware, Inc.
- * All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.aws.kinesis.event;
 
