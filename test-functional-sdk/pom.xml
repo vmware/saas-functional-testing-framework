@@ -6,8 +6,8 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>test-functional-aws-v2</artifactId>
-    <name>Test Functional AWS V2</name>
+    <artifactId>test-functional-sdk</artifactId>
+    <name>Test Functional SDK</name>
     <dependencies>
         <!-- ======================= -->
         <!-- Compile scope dependencies -->
