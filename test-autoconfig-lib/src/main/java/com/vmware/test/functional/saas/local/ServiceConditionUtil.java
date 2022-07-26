@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,14 @@ import org.testcontainers.containers.localstack.LocalStackContainer;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.DYNAMODB;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.KINESIS;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.REDSHIFT;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.S3;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SES;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SNS;
+import static org.testcontainers.containers.localstack.LocalStackContainer.Service.SQS;
+
 /**
  * Utility class to retrieve AWS services, requested through {@link ServiceDependencies}.
  * Retrieve AWS services requested to be provisioned by LocalStack.
@@ -36,7 +45,15 @@ import com.vmware.test.functional.saas.ServiceDependencies;
 final class ServiceConditionUtil {
 
     private static final String SERVICES_PROVIDED_BY_LOCALSTACK = "services.provided.by.localstack";
-
+    private static final Map<Service, LocalStackContainer.Service> LOCALSTACK_SERVICE_MAPPING = Map.of(
+          Service.DYNAMO_DB, DYNAMODB,
+          Service.KINESIS, KINESIS,
+          Service.REDSHIFT, REDSHIFT,
+          Service.S3, S3,
+          Service.SES, SES,
+          Service.SNS, SNS,
+          Service.SQS, SQS
+    );
     private ServiceConditionUtil() {
 
     }
@@ -81,7 +98,7 @@ final class ServiceConditionUtil {
      */
     static Set<LocalService.BeanInfo> lookupRequiredServiceDependenciesInfo(final ConfigurableListableBeanFactory listableBeanFactory) {
         return getRequiredServiceDependencies(listableBeanFactory).stream()
-              .map(e -> localService(e, listableBeanFactory))
+              .map(ServiceConditionUtil::localService)
               .collect(Collectors.toSet());
     }
 
@@ -111,6 +128,10 @@ final class ServiceConditionUtil {
         return localstackServices;
     }
 
+    static LocalStackContainer.Service mapLocalStackService(final Service service) {
+        return LOCALSTACK_SERVICE_MAPPING.get(service);
+    }
+
     private static void collectRequiredServiceDependencies(final ConfigurableListableBeanFactory listableBeanFactory, final boolean searchAll, final Set<Service> requestedServices) {
         final String[] beanNames = listableBeanFactory.getBeanNamesForAnnotation(ServiceDependencies.class);
         for (String beanName : beanNames) {
@@ -127,29 +148,17 @@ final class ServiceConditionUtil {
         }
     }
 
-    private static LocalService.BeanInfo localService(Service service,
-          ConfigurableListableBeanFactory configurableListableBeanFactory) {
-
-        final BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(service.name());
-        final TypedStringValue endpointNameArgumentValue = (TypedStringValue) beanDefinition.getConstructorArgumentValues()
-              .getArgumentValue(1, String.class).getValue();
-        final TypedStringValue localstackServiceArgumentValue = (TypedStringValue) beanDefinition.getConstructorArgumentValues()
-              .getArgumentValue(3, LocalStackContainer.Service.class).getValue();
-
+    private static LocalService.BeanInfo localService(Service service) {
         return LocalService.BeanInfo.builder()
               .beanRef(new RuntimeBeanReference(service.name()))
-              .name(service.name())
-              .localstackService(isLocalstackService(localstackServiceArgumentValue))
-              .endpointName(getEndpointName(endpointNameArgumentValue))
+              .service(service)
+              .localstackService(isLocalstackService(service))
+              .endpointName(service.getEndpointName())
               .build();
     }
 
-    private static boolean isLocalstackService(TypedStringValue localstackServiceArgumentValue) {
-        if (localstackServiceArgumentValue == null) {
-            return false;
-        }
-        return LocalStackContainer.Service.class.getCanonicalName().equals(
-              localstackServiceArgumentValue.getTargetTypeName());
+    private static boolean isLocalstackService(Service service) {
+        return LOCALSTACK_SERVICE_MAPPING.containsKey(service);
     }
 
     private static String getEndpointName(TypedStringValue endpointNameArgumentValue) {

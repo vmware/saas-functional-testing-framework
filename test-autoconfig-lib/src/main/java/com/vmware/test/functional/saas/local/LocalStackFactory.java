@@ -24,6 +24,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static com.vmware.test.functional.saas.local.ServiceConditionUtil.getRequiredServiceDependencies;
+import static com.vmware.test.functional.saas.local.ServiceConditionUtil.mapLocalStackService;
 
 /**
  * Creates {@code LocalStackContainer} instances. The implementation keeps track of all
@@ -49,9 +50,8 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
     public LocalStackContainer getObject() {
         // check if initialized localstack containers have required services started on the correct ports!--
         final List<LocalStackServiceInfo> requestedLocalStackServices = getRequiredServiceDependencies(this.listableBeanFactory).stream()
-                .map(this::toLocalService)
-                .filter(srv -> this.localstackServices.contains(srv.getService()))
-                .map(s -> new LocalStackServiceInfo(s.getService(), mapPortBinding(s)))
+                .filter(this::isLocalstackService)
+                .map(this::toLocalstackServiceInfo)
                 .collect(Collectors.toList());
         final List<LocalStackServiceInfo> services =  diffServices(requestedLocalStackServices);
 
@@ -67,18 +67,22 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
         return init(services);
     }
 
+    private LocalStackServiceInfo toLocalstackServiceInfo(Service srv) {
+        return new LocalStackServiceInfo(mapLocalStackService(srv), mapPortBinding(srv));
+    }
+
+    private boolean isLocalstackService(Service srv) {
+        return this.localstackServices.contains(mapLocalStackService(srv));
+    }
+
     @Override
     public Class<?> getObjectType() {
         return LocalStackContainer.class;
     }
 
-    private LocalService toLocalService(Service service) {
-        return this.listableBeanFactory.getBean(service.name(), LocalService.class);
-    }
-
-    private String mapPortBinding(final LocalService service) {
+    private String mapPortBinding(final Service service) {
         final int serviceEndpointPort = this.listableBeanFactory
-                .getBean(service.getEndpoint(), ServiceEndpoint.class)
+                .getBean(service.getEndpointName(), ServiceEndpoint.class)
                 .getPort();
         return String.format("%d:%d/%s", serviceEndpointPort, this.localStackServiceEndpoint.getContainerConfig().getPort(), InternetProtocol.TCP);
     }

@@ -72,21 +72,21 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         });
     }
 
-    private boolean isRequiredLocalstackService(final LocalService.BeanInfo service) {
+    private boolean isRequiredLocalstackService(final LocalService.BeanInfo serviceInfo) {
         final List<String> localstackServices = ServiceConditionUtil.getLocalstackServices(this.environment);
-        return service.isLocalstackService() && localstackServices.contains(service.getName());
+        return serviceInfo.isLocalstackService() && localstackServices.contains(serviceInfo.getName());
     }
 
-    private void addLocalStackContainerServiceBeanDefinition(final LocalService.BeanInfo service,
+    private void addLocalStackContainerServiceBeanDefinition(final LocalService.BeanInfo serviceInfo,
           final BeanDefinitionRegistry registry) {
-        final String beanName = service.name + BEAN_NAME_SUFFIX;
+        final String beanName = serviceInfo.getName() + BEAN_NAME_SUFFIX;
         if (registry.containsBeanDefinition(beanName)) {
             return;
         }
         final RootBeanDefinition definition = new RootBeanDefinition(LocalStackContainerServiceFactoryBean.class);
         definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         final ConstructorArgumentValues constructorArguments = definition.getConstructorArgumentValues();
-        constructorArguments.addIndexedArgumentValue(0, service.getBeanRef());
+        constructorArguments.addIndexedArgumentValue(0, serviceInfo.getService());
         registry.registerBeanDefinition(beanName, definition);
     }
 
@@ -96,8 +96,6 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         definitionService.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         final ConstructorArgumentValues serviceConstructorArguments = definitionService.getConstructorArgumentValues();
         int argIndex = 0;
-        serviceConstructorArguments.addIndexedArgumentValue(argIndex++, "_LOCALSTACK");
-        serviceConstructorArguments.addIndexedArgumentValue(argIndex++, LocalServiceConstants.Components.LOCALSTACK_ENDPOINT);
         serviceConstructorArguments.addIndexedArgumentValue(argIndex++,
               new InternalContainerServiceConfig(
                     LOCALSTACK_IMAGE_NAME,
@@ -117,12 +115,12 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, this.containerNameSuffix);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_HOSTNAME);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex, true);
-        registry.registerBeanDefinition(LocalServiceConstants.Components.LOCALSTACK_ENDPOINT, definitionEndpoint);
+        registry.registerBeanDefinition(LocalServiceConstants.LOCALSTACK_ENDPOINT, definitionEndpoint);
     }
 
-    private void addEndpointBeanDef(final LocalService.BeanInfo service,
+    private void addEndpointBeanDef(final LocalService.BeanInfo serviceInfo,
                                     final BeanDefinitionRegistry registry) {
-        log.info("Adding local endpoint bean definition for service {}", service.getName());
+        log.info("Adding local endpoint bean definition for service {}", serviceInfo.getName());
         final RootBeanDefinition definitionEndpoint = new RootBeanDefinition(LocalServiceEndpointFactoryBean.class);
         definitionEndpoint.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 
@@ -133,12 +131,12 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
               && this.environment.getRequiredProperty(defaultPortsEnabledPropertyName, Boolean.class);
 
         int argIndex = 0;
-        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, service.getBeanRef());
+        endpointConstructorArguments.addIndexedArgumentValue(argIndex++, serviceInfo.getBeanRef());
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, this.containerNameSuffix);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_HOSTNAME);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex, defaultPortsEnabled);
 
-        registry.registerBeanDefinition(service.getEndpointName(), definitionEndpoint);
+        registry.registerBeanDefinition(serviceInfo.getEndpointName(), definitionEndpoint);
     }
 
     private boolean isEndpointDefined(final LocalService.BeanInfo service,
