@@ -2,13 +2,16 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_DEFAULT_SERVICE_PORT;
+import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_IMAGE_NAME;
 
 /**
  * Docker configurations needed for container deployment.
@@ -19,8 +22,6 @@ import lombok.NoArgsConstructor;
 @Configuration
 @ConfigurationProperties(prefix = "docker")
 public class DockerConfig {
-
-    public static final String LOCALSTACK_VERSION = "0.12.5";
 
     private String dynamoDbImage;
     private int dynamoDbPort;
@@ -36,10 +37,12 @@ public class DockerConfig {
     private int postgresPort;
     private String elasticsearchImage;
     private int elasticsearchPort;
-    private String localstackImageNameFormat;
-    private int localstackDefaultServicePort;
 
-    public String getLocalstackImageName() {
-        return String.format(getLocalstackImageNameFormat(), LOCALSTACK_VERSION);
+    public String getLocalstackImage() {
+        return LOCALSTACK_IMAGE_NAME;
+    }
+
+    public int getLocalstackPort() {
+        return LOCALSTACK_DEFAULT_SERVICE_PORT;
     }
 }

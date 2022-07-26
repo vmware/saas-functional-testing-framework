@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
-import com.vmware.test.functional.saas.local.aws.DockerContainersConfiguration;
+import com.vmware.test.functional.saas.local.aws.config.DockerContainersConfiguration;
 import com.vmware.test.functional.saas.local.aws.kms.KmsHealthHelper;
 import com.vmware.test.functional.saas.local.utils.ServiceDependenciesHealthHelper;
 
@@ -35,7 +35,7 @@ import static org.hamcrest.Matchers.*;
  */
 @ContextConfiguration(classes = LocalContextTestLocalStack.TestContext.class)
 @FunctionalTest
-@TestPropertySource(properties = "services.provided.by.localstack=dynamodb,secretsmanager")
+@TestPropertySource(properties = "services.provided.by.localstack=DYNAMO_DB,secretsmanager")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @Test(groups = "explicitOrderTestClass")
 public class LocalContextTestLocalStack extends AbstractTestNGSpringContextTests {

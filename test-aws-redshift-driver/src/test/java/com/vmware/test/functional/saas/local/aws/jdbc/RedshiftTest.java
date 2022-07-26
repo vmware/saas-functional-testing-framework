@@ -63,7 +63,7 @@ import com.vmware.test.functional.saas.AbstractFunctionalTests;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
-import com.vmware.test.functional.saas.local.aws.AwsSettings;
+import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDataSourceConfig;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDataSourceFactory;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;

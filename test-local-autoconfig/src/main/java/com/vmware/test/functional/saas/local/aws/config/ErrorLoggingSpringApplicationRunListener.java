@@ -2,7 +2,7 @@
  * Copyright 2021 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.local.aws;
+package com.vmware.test.functional.saas.local.aws.config;
 
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 

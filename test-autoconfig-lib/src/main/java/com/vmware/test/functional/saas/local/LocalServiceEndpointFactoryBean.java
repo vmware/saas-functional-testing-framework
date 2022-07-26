@@ -5,8 +5,9 @@
 
 package com.vmware.test.functional.saas.local;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vmware.test.functional.saas.InternalContainerServiceConfig;
 import com.vmware.test.functional.saas.ServiceEndpoint;
@@ -20,32 +21,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 class LocalServiceEndpointFactoryBean implements FactoryBean<ServiceEndpoint> {
 
-    @NonNull
-    protected final DockerContainerType dockerContainerType;
+    @NotNull
+    protected final LocalService localService;
     @NonNull
     protected final Integer containerNameSuffix;
     @NonNull
-    protected final String schema;
-    @NonNull
     protected final String host;
-    protected final Integer port;
-
-    @Autowired //FIXME must be defined in a valid spring bean!
-    private DockerConfig dockerConfig;
-
-    LocalServiceEndpointFactoryBean(final DockerContainerType dockerContainerType,
-                                    final Integer containerNameSuffix,
-                                    final String schema,
-                                    final String host) {
-        this(dockerContainerType, containerNameSuffix, schema, host, null);
-    }
+    @NonNull
+    protected final Boolean defaultPortsEnabled;
 
     @Override
     public ServiceEndpoint getObject() {
-        if (this.port == null) {
-            return new ServiceEndpoint(this.schema, this.host, getInternalContainerServiceConfig());
+        if (this.defaultPortsEnabled) {
+            return new ServiceEndpoint(this.localService.getPort(), this.localService.getScheme(), this.host,
+                  getInternalContainerServiceConfig());
+
         }
-        return new ServiceEndpoint(this.port, this.schema, this.host, getInternalContainerServiceConfig());
+        return new ServiceEndpoint(this.localService.getScheme(), this.host, getInternalContainerServiceConfig());
     }
 
     @Override
@@ -59,11 +51,14 @@ class LocalServiceEndpointFactoryBean implements FactoryBean<ServiceEndpoint> {
     }
 
     protected final InternalContainerServiceConfig getInternalContainerServiceConfig() {
-        final int internalContainerPort = this.dockerContainerType.getInternalDockerPortMapper().apply(this.dockerConfig);
-        final String containerImageName = this.dockerContainerType.getDockerImageNameMapper().apply(this.dockerConfig);
-        return new InternalContainerServiceConfig(
-                containerImageName,
-                this.dockerContainerType.name().toLowerCase() + "-" + this.containerNameSuffix,
-                internalContainerPort);
+        final InternalContainerServiceConfig explicitContainerServiceConfig = this.localService.getInternalContainerServiceConfig();
+        if (explicitContainerServiceConfig != null) {
+            return new InternalContainerServiceConfig(
+                  explicitContainerServiceConfig.getImageName(),
+                  explicitContainerServiceConfig.getName() + "-" + containerNameSuffix,
+                  explicitContainerServiceConfig.getPort()
+            );
+        }
+        return new InternalContainerServiceConfig("Unknown", "unknown", -1);
     }
 }

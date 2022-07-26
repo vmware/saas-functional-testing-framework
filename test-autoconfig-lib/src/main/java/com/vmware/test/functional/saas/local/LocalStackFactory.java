@@ -4,6 +4,7 @@
  */
 package com.vmware.test.functional.saas.local;
 
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +49,7 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
     public LocalStackContainer getObject() {
         // check if initialized localstack containers have required services started on the correct ports!--
         final List<LocalStackServiceInfo> requestedLocalStackServices = getRequiredServiceDependencies(this.listableBeanFactory).stream()
+                .map(this::toLocalService)
                 .filter(srv -> this.localstackServices.contains(srv.getService()))
                 .map(s -> new LocalStackServiceInfo(s.getService(), mapPortBinding(s)))
                 .collect(Collectors.toList());
@@ -68,6 +70,10 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
     @Override
     public Class<?> getObjectType() {
         return LocalStackContainer.class;
+    }
+
+    private LocalService toLocalService(Service service) {
+        return this.listableBeanFactory.getBean(service.name(), LocalService.class);
     }
 
     private String mapPortBinding(final LocalService service) {

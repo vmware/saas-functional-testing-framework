@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local.aws;
+package com.vmware.test.functional.saas.local.aws.config;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -30,9 +30,9 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.local.ConditionalOnService;
 import com.vmware.test.functional.saas.local.ContainerCondition;
-import com.vmware.test.functional.saas.local.DockerConfig;
 import com.vmware.test.functional.saas.local.GenericRunner;
 import com.vmware.test.functional.saas.local.LocalStackFactory;
+import com.vmware.test.functional.saas.local.config.DockerConfig;
 
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
@@ -141,7 +141,8 @@ public class DockerContainersConfiguration {
     LocalStackFactory localStackContainer(@Autowired(required = false)
             final List<LocalStackContainer.Service> localstackServices, final ConfigurableListableBeanFactory listableBeanFactory,
             final ServiceEndpoint localStackEndpoint) {
-        return new LocalStackFactory(listableBeanFactory,
+        return new LocalStackFactory(
+                listableBeanFactory,
                 localStackEndpoint,
                 localstackServices,
                 modifyLocalStackContainer(localStackEndpoint));

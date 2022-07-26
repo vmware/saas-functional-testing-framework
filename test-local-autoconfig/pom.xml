@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.vmware.saas.functional.test</groupId>
-            <artifactId>test-functional-aws-v2</artifactId>
+            <artifactId>test-functional-sdk</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

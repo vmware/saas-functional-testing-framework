@@ -57,7 +57,7 @@ class OnServicesCondition implements Condition {
         public boolean matchesService(final Service service) {
             return ServiceConditionUtil.getRequiredServiceDependencies(this.context,
                     this.search.equals(SearchStrategy.ALL))
-                    .stream().map(LocalService::name).collect(Collectors.toSet())
+                    .stream().map(Service::name).collect(Collectors.toSet())
                     .contains(service.name());
         }
     }

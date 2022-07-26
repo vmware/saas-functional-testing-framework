@@ -19,9 +19,12 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
+import org.springframework.beans.factory.config.TypedStringValue;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.env.Environment;
+import org.testcontainers.containers.localstack.LocalStackContainer;
 
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
@@ -44,18 +47,18 @@ final class ServiceConditionUtil {
      * @param context {@link ConditionContext}
      * @return Set of required {@link Service}
      */
-    static Set<LocalService> getRequiredServiceDependencies(final ConditionContext context) {
+    static Set<Service> getRequiredServiceDependencies(final ConditionContext context) {
         return getRequiredServiceDependencies(context, false);
     }
 
-    static Set<LocalService> getRequiredServiceDependencies(final ConditionContext context, final boolean searchAll) {
+    static Set<Service> getRequiredServiceDependencies(final ConditionContext context, final boolean searchAll) {
         final ConfigurableListableBeanFactory listableBeanFactory = context.getBeanFactory();
         if (listableBeanFactory == null) {
             return Collections.emptySet();
         }
         final Set<Service> requestedServices = new HashSet<>();
         collectRequiredServiceDependencies(listableBeanFactory, searchAll, requestedServices);
-        return requestedServices.stream().map(e -> LocalService.valueOf(e.name())).collect(Collectors.toSet());
+        return requestedServices;
     }
 
     /**
@@ -64,10 +67,22 @@ final class ServiceConditionUtil {
      * @param listableBeanFactory {@link ConfigurableListableBeanFactory}
      * @return Set of required {@link Service}
      */
-    static Set<LocalService> getRequiredServiceDependencies(final ConfigurableListableBeanFactory listableBeanFactory) {
+    static Set<Service> getRequiredServiceDependencies(final ConfigurableListableBeanFactory listableBeanFactory) {
         final Set<Service> requestedServices = new HashSet<>();
         collectRequiredServiceDependencies(listableBeanFactory, false, requestedServices);
-        return requestedServices.stream().map(e -> LocalService.valueOf(e.name())).collect(Collectors.toSet());
+        return requestedServices;
+    }
+
+    /**
+     * Utility method to retrieve required service dependencies and their info from the context.
+     *
+     * @param listableBeanFactory {@link ConfigurableListableBeanFactory}
+     * @return Set of required {@link Service}
+     */
+    static Set<LocalService.BeanInfo> lookupRequiredServiceDependenciesInfo(final ConfigurableListableBeanFactory listableBeanFactory) {
+        return getRequiredServiceDependencies(listableBeanFactory).stream()
+              .map(e -> localService(e, listableBeanFactory))
+              .collect(Collectors.toSet());
     }
 
     /**
@@ -111,4 +126,34 @@ final class ServiceConditionUtil {
             collectRequiredServiceDependencies((ConfigurableListableBeanFactory)parentBeanFactory, true, requestedServices);
         }
     }
+
+    private static LocalService.BeanInfo localService(Service service,
+          ConfigurableListableBeanFactory configurableListableBeanFactory) {
+
+        final BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(service.name());
+        final TypedStringValue endpointNameArgumentValue = (TypedStringValue) beanDefinition.getConstructorArgumentValues()
+              .getArgumentValue(1, String.class).getValue();
+        final TypedStringValue localstackServiceArgumentValue = (TypedStringValue) beanDefinition.getConstructorArgumentValues()
+              .getArgumentValue(3, LocalStackContainer.Service.class).getValue();
+
+        return LocalService.BeanInfo.builder()
+              .beanRef(new RuntimeBeanReference(service.name()))
+              .name(service.name())
+              .localstackService(isLocalstackService(localstackServiceArgumentValue))
+              .endpointName(getEndpointName(endpointNameArgumentValue))
+              .build();
+    }
+
+    private static boolean isLocalstackService(TypedStringValue localstackServiceArgumentValue) {
+        if (localstackServiceArgumentValue == null) {
+            return false;
+        }
+        return LocalStackContainer.Service.class.getCanonicalName().equals(
+              localstackServiceArgumentValue.getTargetTypeName());
+    }
+
+    private static String getEndpointName(TypedStringValue endpointNameArgumentValue) {
+        return endpointNameArgumentValue.getValue();
+    }
+
 }

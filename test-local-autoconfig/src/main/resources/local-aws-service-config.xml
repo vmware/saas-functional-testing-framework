@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+   <alias name="docker-com.vmware.test.functional.saas.local.config.DockerConfig" alias="dockerConfig" />
+   <bean id="localstackContainerConfig" class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+      <constructor-arg index="0" value="#{ dockerConfig.localstackImage }"/>
+      <constructor-arg index="1" value="localstack"/>
+      <constructor-arg index="2" value="#{ dockerConfig.localstackPort }"/>
+   </bean>
+<!--       DYNAMO_DB(DYNAMODB_ENDPOINT, DockerContainerType.DYNAMODB, LocalStackContainer.Service.DYNAMODB, 10151) -->
+   <bean name="DYNAMO_DB" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="DYNAMO_DB"/>
+      <constructor-arg index="1" value="dynamoDbEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.dynamoDbImage }"/>
+            <constructor-arg index="1" value="dynamo_db"/>
+            <constructor-arg index="2" value="#{ dockerConfig.dynamoDbPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">DYNAMODB</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10151"/>
+   </bean>
+<!--       KINESIS(KINESIS_ENDPOINT, DockerContainerType.KINESIS, LocalStackContainer.Service.KINESIS, 10153, "https"),-->
+   <bean name="KINESIS" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="KINESIS"/>
+      <constructor-arg index="1" value="kinesisEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.kinesisImage }"/>
+            <constructor-arg index="1" value="kinesis"/>
+            <constructor-arg index="2" value="#{ dockerConfig.kinesisPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">KINESIS</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10153"/>
+      <constructor-arg index="5" value="https"/>
+   </bean>
+<!--       KMS(KMS_ENDPOINT, DockerContainerType.KMS, 10154),-->
+   <bean name="KMS" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="KMS"/>
+      <constructor-arg index="1" value="kmsEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.kmsImage }"/>
+            <constructor-arg index="1" value="kms"/>
+            <constructor-arg index="2" value="#{ dockerConfig.kmsPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3" value="10154"/>
+   </bean>
+<!--       LAMBDA(LAMBDA_ENDPOINT, DockerContainerType.UNKNOWN, null, 10163),-->
+   <bean name="LAMBDA" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="LAMBDA"/>
+      <constructor-arg index="1" value="lambdaEndpoint"/>
+      <constructor-arg index="2">
+         <null />
+      </constructor-arg>
+      <constructor-arg index="3" value="10163"/>
+   </bean>
+<!--       REDSHIFT(REDSHIFT_ENDPOINT, DockerContainerType.REDSHIFT, 10162),-->
+   <bean name="REDSHIFT" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="REDSHIFT"/>
+      <constructor-arg index="1" value="redshiftEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.postgresImage }"/>
+            <constructor-arg index="1" value="redshift"/>
+            <constructor-arg index="2" value="#{ dockerConfig.postgresPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">REDSHIFT</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10162"/>
+   </bean>
+<!--       S3(S3_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.S3, 10158),-->
+   <bean name="S3" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="S3"/>
+      <constructor-arg index="1" value="s3Endpoint"/>
+      <constructor-arg index="2" ref="localstackContainerConfig" />
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">S3</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10158"/>
+   </bean>
+<!--       SES(SES_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SES, 10161),-->
+   <bean name="SES" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="SES"/>
+      <constructor-arg index="1" value="sesEndpoint"/>
+      <constructor-arg index="2" ref="localstackContainerConfig" />
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">SES</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10161"/>
+   </bean>
+<!--       SNS(SNS_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SNS, 10159),-->
+   <bean name="SNS" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="SNS"/>
+      <constructor-arg index="1" value="snsEndpoint"/>
+      <constructor-arg index="2" ref="localstackContainerConfig" />
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">SNS</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10159"/>
+   </bean>
+<!--       SQS(SQS_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SQS, 10160);-->
+   <bean name="SQS" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="SQS"/>
+      <constructor-arg index="1" value="sqsEndpoint"/>
+      <constructor-arg index="2" ref="localstackContainerConfig" />
+      <constructor-arg index="3">
+         <value type="org.testcontainers.containers.localstack.LocalStackContainer.Service">SQS</value>
+      </constructor-arg>
+      <constructor-arg index="4" value="10160"/>
+   </bean>
+</beans>

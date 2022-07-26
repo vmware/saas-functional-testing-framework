@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.config;
 
 import java.util.Map;
 
@@ -20,6 +20,8 @@ import org.testcontainers.lifecycle.Startable;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.local.GenericRunner;
 import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
 import com.vmware.test.functional.saas.local.trino.TrinoContainerFactory;
 

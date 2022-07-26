@@ -16,7 +16,7 @@ import java.net.URI;
 import org.springframework.beans.factory.FactoryBean;
 
 import com.vmware.test.functional.saas.ServiceEndpoint;
-import com.vmware.test.functional.saas.local.aws.AwsSettings;
+import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
 
 /**
  * SNS Factory.

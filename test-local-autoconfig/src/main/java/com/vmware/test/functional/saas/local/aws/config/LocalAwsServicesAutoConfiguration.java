@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * All rights reserved.
  */
-package com.vmware.test.functional.saas.local.aws;
+package com.vmware.test.functional.saas.local.aws.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -23,6 +23,7 @@ import com.vmware.test.functional.saas.local.aws.kinesis.KinesisFactory;
 import com.vmware.test.functional.saas.local.aws.kinesis.KinesisResourceCreator;
 import com.vmware.test.functional.saas.local.aws.kms.KmsFactory;
 import com.vmware.test.functional.saas.local.aws.lambda.LambdaFactory;
+import com.vmware.test.functional.saas.local.aws.lambda.sam.SamAutoConfiguration;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.local.aws.s3.S3Factory;
 import com.vmware.test.functional.saas.local.aws.s3.S3ResourceCreator;

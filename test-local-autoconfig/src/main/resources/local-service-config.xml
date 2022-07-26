@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+   <alias name="docker-com.vmware.test.functional.saas.local.config.DockerConfig" alias="dockerConfig" />
+
+<!--       ELASTICSEARCH(ELASTICSEARCH_ENDPOINT, DockerContainerType.ELASTICSEARCH, 10152),-->
+   <bean name="ELASTICSEARCH" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="ELASTICSEARCH"/>
+      <constructor-arg index="1" value="elasticsearchEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.elasticsearchImage }"/>
+            <constructor-arg index="1" value="elasticsearch"/>
+            <constructor-arg index="2" value="#{ dockerConfig.elasticsearchPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3" value="10152"/>
+   </bean>
+<!--       POSTGRES(POSTGRES_ENDPOINT, DockerContainerType.POSTGRES, 10155),-->
+   <bean name="POSTGRES" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="POSTGRES"/>
+      <constructor-arg index="1" value="postgresEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.postgresImage }"/>
+            <constructor-arg index="1" value="postgres"/>
+            <constructor-arg index="2" value="#{ dockerConfig.postgresPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3" value="10155"/>
+   </bean>
+<!--       TRINO(TRINO_ENDPOINT, DockerContainerType.TRINO, 10156),-->
+   <bean name="TRINO" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="TRINO"/>
+      <constructor-arg index="1" value="trinoEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.trinoImage }"/>
+            <constructor-arg index="1" value="trino"/>
+            <constructor-arg index="2" value="#{ dockerConfig.trinoPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3" value="10156"/>
+   </bean>
+<!--       REDIS(REDIS_ENDPOINT, DockerContainerType.REDIS, 10157),-->
+   <bean name="REDIS" class="com.vmware.test.functional.saas.local.LocalService" >
+      <constructor-arg index="0" value="REDIS"/>
+      <constructor-arg index="1" value="redisEndpoint"/>
+      <constructor-arg index="2">
+         <bean class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+            <constructor-arg index="0" value="#{ dockerConfig.redisImage }"/>
+            <constructor-arg index="1" value="redis"/>
+            <constructor-arg index="2" value="#{ dockerConfig.redisPort }"/>
+         </bean>
+      </constructor-arg>
+      <constructor-arg index="3" value="10157"/>
+   </bean>
+</beans>

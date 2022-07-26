@@ -12,7 +12,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.testcontainers.containers.localstack.LocalStackContainer;
+
+import com.vmware.test.functional.saas.Service;
 
 /**
  * Determine which containers should be started locally.
@@ -31,8 +32,8 @@ public final class ContainerCondition {
 
         @Override
         public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(LocalService.DYNAMO_DB)
-                    && !ServiceConditionUtil.getLocalstackServices(context).contains(LocalStackContainer.Service.DYNAMODB.getLocalStackName());
+            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(Service.DYNAMO_DB)
+                    && !ServiceConditionUtil.getLocalstackServices(context).contains(Service.DYNAMO_DB.name());
         }
     }
 
@@ -43,8 +44,8 @@ public final class ContainerCondition {
 
         @Override
         public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(LocalService.KINESIS)
-                    && !ServiceConditionUtil.getLocalstackServices(context).contains(LocalStackContainer.Service.KINESIS.getLocalStackName());
+            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(Service.KINESIS)
+                    && !ServiceConditionUtil.getLocalstackServices(context).contains(Service.KINESIS.name());
         }
     }
 
@@ -55,11 +56,10 @@ public final class ContainerCondition {
 
         @Override
         public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            final List<String> localstackServices = ServiceConditionUtil.getRequiredServiceDependencies(context)
+            final List<String> localstackServices = ServiceConditionUtil.lookupRequiredServiceDependenciesInfo(context.getBeanFactory())
                     .stream()
-                    .filter(LocalService::isLocalstackService)
-                    .map(LocalService::getService)
-                    .map(LocalStackContainer.Service::getLocalStackName)
+                    .filter(LocalService.BeanInfo::isLocalstackService)
+                    .map(LocalService.BeanInfo::getName)
                     .collect(Collectors.toList());
 
             return ServiceConditionUtil.getLocalstackServices(context).stream()

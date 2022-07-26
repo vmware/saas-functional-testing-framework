@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.AbstractResourceCreator;
-import com.vmware.test.functional.saas.local.aws.AwsSettings;
 import com.vmware.test.functional.saas.aws.kinesis.KinesisStreamsSpec;
+import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -6,4 +6,4 @@
 /**
  * Local Autoconfiguration.
  */
-package com.vmware.test.functional.saas.local.aws;
+package com.vmware.test.functional.saas.local.config;

@@ -42,7 +42,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, false))
-                    .thenReturn(Set.of(LocalService.TRINO));
+                    .thenReturn(Set.of(Service.TRINO));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }
@@ -54,7 +54,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, true))
-                    .thenReturn(Set.of(LocalService.S3));
+                    .thenReturn(Set.of(Service.S3));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }

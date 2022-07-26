@@ -59,7 +59,7 @@
       <!-- ============================ -->
       <dependency>
          <groupId>com.vmware.saas.functional.test</groupId>
-         <artifactId>test-aws-local-autoconfig</artifactId>
+         <artifactId>test-local-autoconfig</artifactId>
           <version>${project.version}</version>
          <scope>test</scope>
       </dependency>
@@ -71,7 +71,7 @@
        </dependency>
       <dependency>
          <groupId>com.vmware.saas.functional.test</groupId>
-         <artifactId>test-functional-aws-v2</artifactId>
+         <artifactId>test-functional-sdk</artifactId>
           <version>${project.version}</version>
           <scope>test</scope>
       </dependency>

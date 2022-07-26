@@ -1,4 +1,5 @@
-com.vmware.test.functional.saas.FunctionalTest=com.vmware.test.functional.saas.local.aws.LocalAwsServicesAutoConfiguration,\
-  com.vmware.test.functional.saas.local.LocalServicesAutoConfiguration,\
+com.vmware.test.functional.saas.FunctionalTest=com.vmware.test.functional.saas.local.config.LocalServicesXmlConfiguration,\
+  com.vmware.test.functional.saas.local.aws.config.LocalAwsServicesAutoConfiguration,\
+  com.vmware.test.functional.saas.local.config.LocalServicesAutoConfiguration,\
   com.vmware.test.functional.saas.local.aws.lambda.sam.SamAutoConfiguration
-org.springframework.boot.SpringApplicationRunListener=com.vmware.test.functional.saas.local.aws.ErrorLoggingSpringApplicationRunListener
+org.springframework.boot.SpringApplicationRunListener=com.vmware.test.functional.saas.local.aws.config.ErrorLoggingSpringApplicationRunListener
