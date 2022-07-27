@@ -54,10 +54,6 @@ public class LocalContextTestLocalStack extends AbstractTestNGSpringContextTests
     @Autowired
     private LocalStackContainer localStackContainer;
 
-    /**
-     * Add test for localstack provided kms when the following issue is fixed.
-     */
-
     @Test
     public void localKMSDockerContainerProvided() {
         final String testAliasName = "alias/testing";

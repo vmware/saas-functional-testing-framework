@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_DEFAULT_SERVICE_PORT;
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_IMAGE_NAME;
-
 /**
  * Docker configurations needed for container deployment.
  */
@@ -37,12 +34,4 @@ public class DockerConfig {
     private int postgresPort;
     private String elasticsearchImage;
     private int elasticsearchPort;
-
-    public String getLocalstackImage() {
-        return LOCALSTACK_IMAGE_NAME;
-    }
-
-    public int getLocalstackPort() {
-        return LOCALSTACK_DEFAULT_SERVICE_PORT;
-    }
 }

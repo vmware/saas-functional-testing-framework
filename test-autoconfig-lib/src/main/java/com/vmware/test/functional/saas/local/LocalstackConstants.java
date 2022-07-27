@@ -8,9 +8,9 @@ package com.vmware.test.functional.saas.local;
 /**
  * Local Service Constants.
  */
-public final class LocalServiceConstants {
+public final class LocalstackConstants {
 
-    private LocalServiceConstants() {
+    private LocalstackConstants() {
     }
     public static final String LOCALSTACK_VERSION = "0.12.5";
 

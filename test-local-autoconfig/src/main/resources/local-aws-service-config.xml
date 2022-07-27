@@ -4,10 +4,10 @@
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
    <alias name="docker-com.vmware.test.functional.saas.local.config.DockerConfig" alias="dockerConfig" />
-   <bean id="localstackContainerConfig" class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
-      <constructor-arg index="0" value="#{ dockerConfig.localstackImage }"/>
+   <bean id="_localstackContainerConfig" class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
+      <constructor-arg index="0" value="#{ T(com.vmware.test.functional.saas.local.LocalstackConstants).LOCALSTACK_IMAGE_NAME }"/>
       <constructor-arg index="1" value="localstack"/>
-      <constructor-arg index="2" value="#{ dockerConfig.localstackPort }"/>
+      <constructor-arg index="2" value="#{ T(com.vmware.test.functional.saas.local.LocalstackConstants).LOCALSTACK_DEFAULT_SERVICE_PORT }"/>
    </bean>
 <!--       DYNAMO_DB(DYNAMODB_ENDPOINT, DockerContainerType.DYNAMODB, LocalStackContainer.Service.DYNAMODB, 10151) -->
    <bean name="DYNAMO_DB" class="com.vmware.test.functional.saas.local.LocalService" >
@@ -63,22 +63,22 @@
    </bean>
 <!--       S3(S3_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.S3, 10158),-->
    <bean name="S3" class="com.vmware.test.functional.saas.local.LocalService" >
-      <constructor-arg index="0" ref="localstackContainerConfig" />
+      <constructor-arg index="0" ref="_localstackContainerConfig" />
       <constructor-arg index="1" value="10158"/>
    </bean>
 <!--       SES(SES_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SES, 10161),-->
    <bean name="SES" class="com.vmware.test.functional.saas.local.LocalService" >
-      <constructor-arg index="0" ref="localstackContainerConfig" />
+      <constructor-arg index="0" ref="_localstackContainerConfig" />
       <constructor-arg index="1" value="10161"/>
    </bean>
 <!--       SNS(SNS_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SNS, 10159),-->
    <bean name="SNS" class="com.vmware.test.functional.saas.local.LocalService" >
-      <constructor-arg index="0" ref="localstackContainerConfig" />
+      <constructor-arg index="0" ref="_localstackContainerConfig" />
       <constructor-arg index="1" value="10159"/>
    </bean>
 <!--       SQS(SQS_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.SQS, 10160);-->
    <bean name="SQS" class="com.vmware.test.functional.saas.local.LocalService" >
-      <constructor-arg index="0" ref="localstackContainerConfig" />
+      <constructor-arg index="0" ref="_localstackContainerConfig" />
       <constructor-arg index="1" value="10160"/>
    </bean>
 </beans>

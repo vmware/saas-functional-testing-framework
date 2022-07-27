@@ -25,8 +25,8 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_DEFAULT_SERVICE_PORT;
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.LOCALSTACK_IMAGE_NAME;
+import static com.vmware.test.functional.saas.local.LocalstackConstants.LOCALSTACK_DEFAULT_SERVICE_PORT;
+import static com.vmware.test.functional.saas.local.LocalstackConstants.LOCALSTACK_IMAGE_NAME;
 
 /**
  * Register localstack services to be provisioned by LocalStack container.
@@ -83,7 +83,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         if (registry.containsBeanDefinition(beanName)) {
             return;
         }
-        final RootBeanDefinition definition = new RootBeanDefinition(LocalStackContainerServiceFactoryBean.class);
+        final RootBeanDefinition definition = new RootBeanDefinition(LocalstackContainerServiceFactoryBean.class);
         definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         final ConstructorArgumentValues constructorArguments = definition.getConstructorArgumentValues();
         constructorArguments.addIndexedArgumentValue(0, serviceInfo.getService());
@@ -115,7 +115,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, this.containerNameSuffix);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex++, ServiceEndpoint.DEFAULT_HOSTNAME);
         endpointConstructorArguments.addIndexedArgumentValue(argIndex, true);
-        registry.registerBeanDefinition(LocalServiceConstants.LOCALSTACK_ENDPOINT, definitionEndpoint);
+        registry.registerBeanDefinition(LocalstackConstants.LOCALSTACK_ENDPOINT, definitionEndpoint);
     }
 
     private void addEndpointBeanDef(final LocalService.BeanInfo serviceInfo,

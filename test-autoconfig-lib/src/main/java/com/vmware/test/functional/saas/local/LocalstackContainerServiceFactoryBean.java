@@ -18,7 +18,7 @@ import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStack
 
 
 @RequiredArgsConstructor
-public class LocalStackContainerServiceFactoryBean implements FactoryBean<LocalStackContainer.Service> {
+public class LocalstackContainerServiceFactoryBean implements FactoryBean<LocalStackContainer.Service> {
 
    @NotNull
    protected final Service service;

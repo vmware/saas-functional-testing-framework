@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 VMware, Inc.
+ * All rights reserved.
+ */
+
 package com.vmware.test.functional.saas.local;
 
 import java.util.List;
@@ -17,7 +22,7 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
 
 @Configuration
-public class LocalStackContainerConfig {
+public class LocalstackContainerConfig {
 
    @Value("${aws.testDefaultRegion}")
    private String testDefaultRegion;
@@ -25,10 +30,10 @@ public class LocalStackContainerConfig {
 
    @Bean
    @Conditional(ContainerCondition.LocalStackContainerCondition.class)
-   LocalStackFactory localStackContainer(@Autowired(required = false)
+   LocalstackContainerFactory localStackContainer(@Autowired(required = false)
    final List<LocalStackContainer.Service> localstackServices, final ConfigurableListableBeanFactory listableBeanFactory,
          final ServiceEndpoint localStackEndpoint) {
-      return new LocalStackFactory(
+      return new LocalstackContainerFactory(
             listableBeanFactory,
             localStackEndpoint,
             localstackServices,

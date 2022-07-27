@@ -37,7 +37,7 @@ import static com.vmware.test.functional.saas.ServiceConditionUtil.getRequiredSe
  */
 @Slf4j
 @AllArgsConstructor
-public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
+public class LocalstackContainerFactory implements FactoryBean<LocalStackContainer> {
 
     private static final ConcurrentMap<LocalStackContainer, List<LocalStackServiceInfo>> localStackServicesByContainer = new ConcurrentHashMap<>();
 
