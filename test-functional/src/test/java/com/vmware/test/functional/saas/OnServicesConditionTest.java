@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,8 +15,6 @@ import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import com.vmware.test.functional.saas.Service;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;

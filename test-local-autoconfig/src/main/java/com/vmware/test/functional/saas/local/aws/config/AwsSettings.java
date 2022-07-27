@@ -5,7 +5,6 @@
 package com.vmware.test.functional.saas.local.aws.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import com.vmware.test.functional.saas.local.aws.kinesis.KinesisSettings;
 import com.vmware.test.functional.saas.local.aws.kms.KmsSettings;
@@ -18,7 +17,6 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@Configuration
 @ConfigurationProperties (prefix = "aws")
 public class AwsSettings {
 

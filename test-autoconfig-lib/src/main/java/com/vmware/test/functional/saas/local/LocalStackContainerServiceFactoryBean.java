@@ -14,7 +14,7 @@ import com.vmware.test.functional.saas.Service;
 
 import lombok.RequiredArgsConstructor;
 
-import static com.vmware.test.functional.saas.local.ServiceConditionUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStackService;
 
 
 @RequiredArgsConstructor

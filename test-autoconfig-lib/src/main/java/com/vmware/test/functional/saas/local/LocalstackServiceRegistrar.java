@@ -55,7 +55,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
             return;
         }
         final ConfigurableListableBeanFactory configurableListableBeanFactory = (ConfigurableListableBeanFactory)registry;
-        final Set<LocalService.BeanInfo> requiredServiceDependencies = ServiceConditionUtil
+        final Set<LocalService.BeanInfo> requiredServiceDependencies = LocalstackUtil
                 .lookupRequiredServiceDependenciesInfo(configurableListableBeanFactory).stream()
                 .filter(service -> !isEndpointDefined(service, configurableListableBeanFactory))
                 .collect(Collectors.toSet());
@@ -73,7 +73,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
     }
 
     private boolean isRequiredLocalstackService(final LocalService.BeanInfo serviceInfo) {
-        final List<String> localstackServices = ServiceConditionUtil.getLocalstackServices(this.environment);
+        final List<String> localstackServices = LocalstackUtil.getLocalstackServices(this.environment);
         return serviceInfo.isLocalstackService() && localstackServices.contains(serviceInfo.getName());
     }
 

@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.vmware.test.functional.saas.local.ServiceConditionUtil.getRequiredServiceDependencies;
-import static com.vmware.test.functional.saas.local.ServiceConditionUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.ServiceConditionUtil.getRequiredServiceDependencies;
 
 /**
  * Creates {@code LocalStackContainer} instances. The implementation keeps track of all

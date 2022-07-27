@@ -5,12 +5,8 @@
 
 package com.vmware.test.functional.saas.local.aws.config;
 
-import java.util.List;
-import java.util.function.Consumer;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -18,8 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
-import org.testcontainers.containers.localstack.LocalStackContainer;
-import org.testcontainers.containers.startupcheck.IsRunningStartupCheckStrategy;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.lifecycle.Startable;
@@ -28,13 +22,11 @@ import org.testcontainers.utility.MountableFile;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.ContainerCondition;
 import com.vmware.test.functional.saas.local.GenericRunner;
-import com.vmware.test.functional.saas.local.LocalStackFactory;
 import com.vmware.test.functional.saas.local.config.DockerConfig;
 
-import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.DEFAULT_WAIT_STRATEGY_TIMEOUT;
 import static com.vmware.test.functional.saas.local.CustomDockerContainer.createDockerContainer;
 
@@ -51,8 +43,6 @@ public class DockerContainersConfiguration {
 
     public static final String KMS_REGION = "KMS_REGION";
     public static final String KMS_ACCOUNT_ID = "KMS_ACCOUNT_ID";
-
-    public static final String LOCALSTACK_REGION = "DEFAULT_REGION";
 
     @Autowired
     private AwsSettings awsSettings;
@@ -72,7 +62,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.KinesisContainerCondition.class)
+    @Conditional(KinesisContainerCondition.class)
     @Lazy
     public Startable kinesisContainer(@Lazy final ServiceEndpoint kinesisEndpoint) {
         return createDockerContainer(kinesisEndpoint,
@@ -87,7 +77,7 @@ public class DockerContainersConfiguration {
      * @return {@link Startable}
      */
     @Bean
-    @Conditional(ContainerCondition.DynamodbContainerCondition.class)
+    @Conditional(DynamodbContainerCondition.class)
     @Lazy
     public Startable dynamodbContainer(@Lazy final ServiceEndpoint dynamoDbEndpoint) {
         return createDockerContainer(dynamoDbEndpoint,
@@ -136,24 +126,25 @@ public class DockerContainersConfiguration {
                         .withStartupTimeout(DEFAULT_WAIT_STRATEGY_TIMEOUT));
     }
 
-    @Bean
-    @Conditional(ContainerCondition.LocalStackContainerCondition.class)
-    LocalStackFactory localStackContainer(@Autowired(required = false)
-            final List<LocalStackContainer.Service> localstackServices, final ConfigurableListableBeanFactory listableBeanFactory,
-            final ServiceEndpoint localStackEndpoint) {
-        return new LocalStackFactory(
-                listableBeanFactory,
-                localStackEndpoint,
-                localstackServices,
-                modifyLocalStackContainer(localStackEndpoint));
+    /**
+     * Determine if Dynamodb service should be started locally.
+     */
+    static class DynamodbContainerCondition extends ContainerCondition.SimpleServiceCondition {
+
+        @Override
+        protected Service getService() {
+            return Service.DYNAMO_DB;
+        }
     }
 
-    private Consumer<LocalStackContainer> modifyLocalStackContainer(final ServiceEndpoint localStackEndpoint) {
-        return container -> {
-            container.setNetwork(localStackEndpoint.getContainerConfig().getNetworkInfo().getNetwork());
-            container.setEnv(List.of(LOCALSTACK_REGION + "=" + this.awsSettings.getTestDefaultRegion()));
-            container.withCreateContainerCmdModifier(cmd -> cmd.withName(localStackEndpoint.getContainerConfig().getName()));
-            container.withStartupCheckStrategy(new IsRunningStartupCheckStrategy().withTimeout(DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT));
-        };
+    /**
+     * Determine if Kinesis service should be started locally.
+     */
+    static class KinesisContainerCondition extends ContainerCondition.SimpleServiceCondition {
+
+        @Override
+        protected Service getService() {
+            return Service.KINESIS;
+        }
     }
 }

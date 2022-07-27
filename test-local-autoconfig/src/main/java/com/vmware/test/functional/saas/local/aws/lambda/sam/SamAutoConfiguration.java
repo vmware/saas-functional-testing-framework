@@ -19,7 +19,7 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.local.aws.lambda.sam.process.SamProcessControl;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
-import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.process.DpaTestAppDebug;
 
 /**

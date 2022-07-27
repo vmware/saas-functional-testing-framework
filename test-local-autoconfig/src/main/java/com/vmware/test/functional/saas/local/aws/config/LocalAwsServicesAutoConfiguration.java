@@ -23,7 +23,6 @@ import com.vmware.test.functional.saas.local.aws.kinesis.KinesisFactory;
 import com.vmware.test.functional.saas.local.aws.kinesis.KinesisResourceCreator;
 import com.vmware.test.functional.saas.local.aws.kms.KmsFactory;
 import com.vmware.test.functional.saas.local.aws.lambda.LambdaFactory;
-import com.vmware.test.functional.saas.local.aws.lambda.sam.SamAutoConfiguration;
 import com.vmware.test.functional.saas.local.aws.redshift.RedshiftDbSettings;
 import com.vmware.test.functional.saas.local.aws.s3.S3Factory;
 import com.vmware.test.functional.saas.local.aws.s3.S3ResourceCreator;
@@ -37,7 +36,7 @@ import com.vmware.test.functional.saas.aws.kinesis.KinesisResourceAwaitingInitia
 import com.vmware.test.functional.saas.aws.s3.S3ResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sns.SnsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sqs.SqsResourceAwaitingInitializer;
-import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 
 /**

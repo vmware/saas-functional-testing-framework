@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,9 +13,6 @@ import java.lang.annotation.Target;
 
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 import org.springframework.context.annotation.Conditional;
-
-import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.ServiceDependencies;
 
 /**
  * {@link Conditional @Conditional} that only matches when all {@link Service Services} are specified via

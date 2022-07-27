@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,8 +15,6 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.MethodMetadata;
 
-import com.vmware.test.functional.saas.Service;
-
 import lombok.Builder;
 import lombok.SneakyThrows;
 
@@ -27,8 +25,6 @@ class OnServicesCondition implements Condition {
 
     @SneakyThrows
     @Override
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE",
-            justification = "Objects.requireNonNull - handle never returns null ")
     public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
         final ConditionalOnService conditionalOnService = metadata.getAnnotations().get(ConditionalOnService.class).synthesize();
         if (conditionalOnService.conditionalOnMissingBean()) {

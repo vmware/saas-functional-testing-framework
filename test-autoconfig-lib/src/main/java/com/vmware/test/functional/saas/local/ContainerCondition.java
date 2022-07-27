@@ -5,6 +5,7 @@
 package com.vmware.test.functional.saas.local;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ServiceConditionUtil;
 
 /**
  * Determine which containers should be started locally.
@@ -25,44 +27,32 @@ public final class ContainerCondition {
 
     }
 
-    /**
-     * Determine if Dynamodb service should be started locally.
-     */
-    public static class DynamodbContainerCondition implements Condition {
+    public static abstract class SimpleServiceCondition implements Condition {
 
-        @Override
-        public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(Service.DYNAMO_DB)
-                    && !ServiceConditionUtil.getLocalstackServices(context).contains(Service.DYNAMO_DB.name());
+        public final boolean matches(@NotNull final ConditionContext context,
+              @NotNull final AnnotatedTypeMetadata metadata) {
+            final List<String> localstackServices = LocalstackUtil.getLocalstackServices(context);
+            final Set<Service> requiredServiceDependencies = ServiceConditionUtil.getRequiredServiceDependencies(context);
+            return requiredServiceDependencies.contains(getService()) && !localstackServices.contains(getService().name());
         }
-    }
 
-    /**
-     * Determine if Kinesis service should be started locally.
-     */
-    public static class KinesisContainerCondition implements Condition {
-
-        @Override
-        public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            return ServiceConditionUtil.getRequiredServiceDependencies(context).contains(Service.KINESIS)
-                    && !ServiceConditionUtil.getLocalstackServices(context).contains(Service.KINESIS.name());
-        }
+        protected abstract Service getService();
     }
 
     /**
      * Determine if LocalStack container should be started locally.
      */
-    public static class LocalStackContainerCondition implements Condition {
+    static class LocalStackContainerCondition implements Condition {
 
         @Override
         public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            final List<String> localstackServices = ServiceConditionUtil.lookupRequiredServiceDependenciesInfo(context.getBeanFactory())
+            final List<String> localstackServices = LocalstackUtil.lookupRequiredServiceDependenciesInfo(context.getBeanFactory())
                     .stream()
                     .filter(LocalService.BeanInfo::isLocalstackService)
                     .map(LocalService.BeanInfo::getName)
                     .collect(Collectors.toList());
 
-            return ServiceConditionUtil.getLocalstackServices(context).stream()
+            return LocalstackUtil.getLocalstackServices(context).stream()
                     .anyMatch(localstackServices::contains);
         }
     }
