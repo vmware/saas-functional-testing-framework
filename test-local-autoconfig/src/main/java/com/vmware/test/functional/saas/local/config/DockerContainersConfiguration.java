@@ -72,7 +72,7 @@ public class DockerContainersConfiguration {
     /**
      * Trino container factory. To be used by auto config.
      *
-     * @param trinoEndpoint endpoint spec for the trino dpa service
+     * @param trinoEndpoint endpoint spec for the trino service
      * @return {@link Startable}
      */
     @Bean

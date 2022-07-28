@@ -13,7 +13,7 @@ import org.springframework.test.context.TestExecutionListener;
 import static com.vmware.test.functional.saas.TestScope.SCOPE_TEST_CLASS;
 
 /**
- * Execution Listener for the TestClassscope.
+ * Execution Listener for the TestClass scope.
  */
 @Order
 public class TestClassScopeExecutionListener implements TestExecutionListener {
