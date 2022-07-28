@@ -70,6 +70,7 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
             }
             addEndpointBeanDef(service, registry);
         });
+        addContainerNetworkBeanDefinition(registry);
     }
 
     private boolean isRequiredLocalstackService(final LocalService.BeanInfo serviceInfo) {
@@ -87,6 +88,17 @@ public class LocalstackServiceRegistrar implements BeanDefinitionRegistryPostPro
         definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         final ConstructorArgumentValues constructorArguments = definition.getConstructorArgumentValues();
         constructorArguments.addIndexedArgumentValue(0, serviceInfo.getService());
+        registry.registerBeanDefinition(beanName, definition);
+    }
+
+    private void addContainerNetworkBeanDefinition(
+          final BeanDefinitionRegistry registry) {
+        final String beanName = "containerNetworkManager";
+        if (registry.containsBeanDefinition(beanName)) {
+            return;
+        }
+        final RootBeanDefinition definition = new RootBeanDefinition(ContainerNetworkManager.class);
+        definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
         registry.registerBeanDefinition(beanName, definition);
     }
 

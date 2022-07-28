@@ -11,7 +11,6 @@ import java.util.Objects;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.lang3.StringUtils;
 
-import com.amazonaws.SDKGlobalConfiguration;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategy;
 import com.vmware.test.functional.saas.process.wait.strategy.WaitStrategyBuilder;
@@ -28,6 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class LocalAppProcessConfigTemplate {
 
+    private static final String AWS_CBOR_DISABLE_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableCbor";
+    private static final String DISABLE_CERT_CHECKING_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableCertChecking";
     private final DpaTestApp dpaTestApp;
     private final DpaTestAppDebug dpaTestAppDebug;
     private final ServiceEndpoint appEndpoint;
@@ -58,9 +59,9 @@ public final class LocalAppProcessConfigTemplate {
                 .addArgument("-Duser.language=en")
                 .addArgument("-Duser.country=US")
                 // kinesalite does not support CBOR: https://github.com/localstack/localstack/issues/592
-                .addArgument("-D" + SDKGlobalConfiguration.AWS_CBOR_DISABLE_SYSTEM_PROPERTY + "=1")
+                .addArgument("-D" + AWS_CBOR_DISABLE_SYSTEM_PROPERTY + "=1")
                 // KPL requires SSL, so we have to start all of the other services with SSL.
-                .addArgument("-D" + SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY + "=" + Boolean.TRUE);
+                .addArgument("-D" + DISABLE_CERT_CHECKING_SYSTEM_PROPERTY + "=" + Boolean.TRUE);
 
         // Add any additional command line arguments if provided via the additionalAppCommandLineArgs method
         if (Objects.nonNull(commandLineArgs) && !commandLineArgs.isEmpty()) {

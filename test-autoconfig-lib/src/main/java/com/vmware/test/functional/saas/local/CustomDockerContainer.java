@@ -57,6 +57,7 @@ public final class CustomDockerContainer extends GenericContainer<CustomDockerCo
      * @return a {@link CustomDockerContainer}
      */
     public static CustomDockerContainer createDockerContainer(final ServiceEndpoint serviceEndpoint,
+            final ContainerNetworkManager containerNetworkManager,
             final WaitStrategy waitStrategy) {
         final RemoteDockerImage dockerImage = initImage(serviceEndpoint);
         try (CustomDockerContainer customDockerContainer = new CustomDockerContainer(
@@ -64,7 +65,7 @@ public final class CustomDockerContainer extends GenericContainer<CustomDockerCo
                 serviceEndpoint)) {
             customDockerContainer
                     .withExposedPorts(serviceEndpoint.getContainerConfig().getPort())
-                    .withNetwork(serviceEndpoint.getContainerConfig().getNetworkInfo().getNetwork())
+                    .withNetwork(containerNetworkManager.getNetwork(serviceEndpoint.getContainerConfig().getNetworkInfo().getName()))
                     .waitingFor(waitStrategy);
 
             log.info("Container [{}] has identity [{}]", serviceEndpoint.getContainerConfig().getName(), System.identityHashCode(customDockerContainer));

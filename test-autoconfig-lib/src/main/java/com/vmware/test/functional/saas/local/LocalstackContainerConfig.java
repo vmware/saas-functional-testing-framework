@@ -28,10 +28,15 @@ public class LocalstackContainerConfig {
    private String testDefaultRegion;
    public static final String LOCALSTACK_REGION = "DEFAULT_REGION";
 
+   @Autowired
+   ContainerNetworkManager containerNetworkManager;
+
    @Bean
    @Conditional(ContainerCondition.LocalStackContainerCondition.class)
-   LocalstackContainerFactory localStackContainer(@Autowired(required = false)
-   final List<LocalStackContainer.Service> localstackServices, final ConfigurableListableBeanFactory listableBeanFactory,
+   LocalstackContainerFactory localStackContainer(
+         @Autowired(required = false)
+         final List<LocalStackContainer.Service> localstackServices,
+         final ConfigurableListableBeanFactory listableBeanFactory,
          final ServiceEndpoint localStackEndpoint) {
       return new LocalstackContainerFactory(
             listableBeanFactory,
@@ -42,7 +47,7 @@ public class LocalstackContainerConfig {
 
    private Consumer<LocalStackContainer> modifyLocalStackContainer(final ServiceEndpoint localStackEndpoint) {
       return container -> {
-         container.setNetwork(localStackEndpoint.getContainerConfig().getNetworkInfo().getNetwork());
+         container.setNetwork(containerNetworkManager.getNetwork(localStackEndpoint.getContainerConfig().getNetworkInfo().getName()));
          container.setEnv(List.of(LOCALSTACK_REGION + "=" + this.testDefaultRegion));
          container.withCreateContainerCmdModifier(cmd -> cmd.withName(localStackEndpoint.getContainerConfig().getName()));
          container.withStartupCheckStrategy(new IsRunningStartupCheckStrategy().withTimeout(DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT));

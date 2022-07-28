@@ -24,6 +24,7 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.ContainerCondition;
+import com.vmware.test.functional.saas.local.ContainerNetworkManager;
 import com.vmware.test.functional.saas.local.GenericRunner;
 import com.vmware.test.functional.saas.local.config.DockerConfig;
 
@@ -47,6 +48,9 @@ public class DockerContainersConfiguration {
     @Autowired
     private AwsSettings awsSettings;
 
+    @Autowired
+    ContainerNetworkManager containerNetworkManager;
+
     @Value("seed.yaml")
     private ClassPathResource seedFile;
 
@@ -66,6 +70,7 @@ public class DockerContainersConfiguration {
     @Lazy
     public Startable kinesisContainer(@Lazy final ServiceEndpoint kinesisEndpoint) {
         return createDockerContainer(kinesisEndpoint,
+                this.containerNetworkManager,
                 Wait.forListeningPort())
                         .withCommand(SSL_CLI_OPTION, Boolean.TRUE.toString());
     }
@@ -81,6 +86,7 @@ public class DockerContainersConfiguration {
     @Lazy
     public Startable dynamodbContainer(@Lazy final ServiceEndpoint dynamoDbEndpoint) {
         return createDockerContainer(dynamoDbEndpoint,
+                this.containerNetworkManager,
                 Wait.forListeningPort());
     }
 
@@ -97,6 +103,7 @@ public class DockerContainersConfiguration {
         final String logWaitRegex = "(.*)(Local KMS started on)(.*)";
 
         return createDockerContainer(kmsEndpoint,
+                this.containerNetworkManager,
                 new LogMessageWaitStrategy()
                         .withRegEx(logWaitRegex)
                         .withStartupTimeout(DEFAULT_WAIT_STRATEGY_TIMEOUT))
@@ -120,6 +127,7 @@ public class DockerContainersConfiguration {
 
         // For Redshift a simple postgres container is started and used
         return createDockerContainer(redshiftEndpoint,
+                this.containerNetworkManager,
                 new LogMessageWaitStrategy()
                         .withRegEx(logWaitRegex)
                         .withTimes(2)

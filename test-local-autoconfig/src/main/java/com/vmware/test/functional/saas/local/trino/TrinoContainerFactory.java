@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
 import com.vmware.test.functional.saas.ServiceEndpoint;
+import com.vmware.test.functional.saas.local.ContainerNetworkManager;
 import com.vmware.test.functional.saas.trino.TrinoCatalogSpecs;
 import com.vmware.test.functional.saas.local.CustomDockerContainer;
 
@@ -35,18 +36,21 @@ public class TrinoContainerFactory implements FactoryBean<CustomDockerContainer>
 
     private final ServiceEndpoint trinoEndpoint;
 
+    private final ContainerNetworkManager containerNetworkManager;
+
     private final TrinoCatalogCreator trinoCatalogCreator;
 
     private final Consumer<CustomDockerContainer> containerModifier;
-
 
     @Value("${trino.catalog.directory:/etc/trino/catalog/}")
     private String catalogDirectory;
 
     public TrinoContainerFactory(final ServiceEndpoint trinoEndpoint,
+            ContainerNetworkManager containerNetworkManager,
             TrinoCatalogCreator trinoCatalogCreator,
             final Consumer<CustomDockerContainer> containerModifier) {
         this.trinoEndpoint = trinoEndpoint;
+        this.containerNetworkManager = containerNetworkManager;
         this.trinoCatalogCreator = trinoCatalogCreator;
         this.containerModifier = containerModifier;
     }
@@ -56,6 +60,7 @@ public class TrinoContainerFactory implements FactoryBean<CustomDockerContainer>
         // create trino container with default waiting strategy
         final String logWaitRegex = "(.*) (SERVER STARTED) (.*)";
         final CustomDockerContainer trinoContainer = createDockerContainer(this.trinoEndpoint,
+                this.containerNetworkManager,
                 new CustomWaitStrategy(logWaitRegex, DEFAULT_WAIT_STRATEGY_TIMEOUT));
         mountCatalogs(trinoContainer);
         // Apply any custom modifications
