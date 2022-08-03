@@ -22,12 +22,12 @@ import com.vmware.test.functional.saas.local.aws.AwsSettings;
  * KMS Factory.
  * Provides local {@link KmsClient}. To be used by Functional tests.
  */
-public class KmsFactory implements FactoryBean<KmsClient> {
+public class KmsClientFactory implements FactoryBean<KmsClient> {
 
     private final AwsSettings awsSettings;
     private final ServiceEndpoint kmsEndpoint;
 
-    public KmsFactory(final ServiceEndpoint kmsEndpoint, final AwsSettings awsSettings) {
+    public KmsClientFactory(final ServiceEndpoint kmsEndpoint, final AwsSettings awsSettings) {
         this.kmsEndpoint = kmsEndpoint;
         this.awsSettings = awsSettings;
     }

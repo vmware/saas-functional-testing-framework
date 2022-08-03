@@ -27,13 +27,13 @@ import lombok.extern.slf4j.Slf4j;
  * Provides a local {@link LambdaClient}. To be used by Functional tests.
  */
 @Slf4j
-public class LambdaFactory implements FactoryBean<LambdaClient> {
+public class LambdaClientFactory implements FactoryBean<LambdaClient> {
 
     public static final int TIMEOUT_15_MINUTES = 15;
     private final AwsSettings awsSettings;
     private final ServiceEndpoint lambdaEndpoint;
 
-    public LambdaFactory(final ServiceEndpoint lambdaEndpoint, final AwsSettings awsSettings) {
+    public LambdaClientFactory(final ServiceEndpoint lambdaEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.lambdaEndpoint = lambdaEndpoint;
     }

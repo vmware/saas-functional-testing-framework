@@ -30,10 +30,10 @@ public class SqsResourceCreator extends AbstractResourceCreator {
 
     private final SqsClient sqsClient;
 
-    public SqsResourceCreator(final SQSFactory sqsFactory,
+    public SqsResourceCreator(final SQSClientFactory sqsClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.sqsClient = sqsFactory.getObject();
+        this.sqsClient = sqsClientFactory.getObject();
     }
 
     @Override

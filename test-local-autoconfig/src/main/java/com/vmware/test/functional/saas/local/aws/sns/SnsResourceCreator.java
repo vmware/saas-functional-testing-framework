@@ -31,10 +31,10 @@ public class SnsResourceCreator extends AbstractResourceCreator {
 
     private final SnsClient snsClient;
 
-    public SnsResourceCreator(final SnsFactory snsFactory,
+    public SnsResourceCreator(final SnsClientFactory snsClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.snsClient = snsFactory.getObject();
+        this.snsClient = snsClientFactory.getObject();
     }
 
     @Override
