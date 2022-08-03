@@ -24,12 +24,12 @@ import com.vmware.test.functional.saas.local.aws.AwsSettings;
  * Kinesis Factory.
  * Provides local {@link KinesisClient}. To be used by Functional tests.
  */
-public class KinesisFactory implements FactoryBean<KinesisClient> {
+public class KinesisClientFactory implements FactoryBean<KinesisClient> {
 
     private final AwsSettings awsSettings;
     private final ServiceEndpoint kinesisEndpoint;
 
-    public KinesisFactory(final ServiceEndpoint kinesisEndpoint, final AwsSettings awsSettings) {
+    public KinesisClientFactory(final ServiceEndpoint kinesisEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.kinesisEndpoint = kinesisEndpoint;
     }

@@ -30,10 +30,10 @@ public class DynamoDbResourceCreator extends AbstractResourceCreator {
 
     private final DynamoDbClient dynamoDbClient;
 
-    public DynamoDbResourceCreator(final DynamoDbFactory dynamoDbFactory,
+    public DynamoDbResourceCreator(final DynamoDbClientFactory dynamoDbClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.dynamoDbClient = dynamoDbFactory.getObject();
+        this.dynamoDbClient = dynamoDbClientFactory.getObject();
     }
 
     @Override
