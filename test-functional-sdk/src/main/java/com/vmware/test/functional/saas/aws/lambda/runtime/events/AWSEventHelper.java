@@ -31,7 +31,7 @@ public final class AWSEventHelper {
      *
      * @param event event
      * @param <T>   type of the event
-     * @return      {@class SdkBytes}
+     * @return      {@link SdkBytes}
      */
     public static <T> SdkBytes eventToSdkBytes(final T event) {
         final ObjectMapper mapper = new ObjectMapper()
