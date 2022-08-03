@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local;
@@ -30,7 +30,7 @@ public final class LocalServiceConstants {
         public static final String LAMBDA_ENDPOINT = "lambdaEndpoint";
         public static final String LOCALSTACK_ENDPOINT = "localStackEndpoint";
         public static final String POSTGRES_ENDPOINT = "postgresEndpoint";
-        public static final String PRESTO_ENDPOINT = "prestoEndpoint";
+        public static final String TRINO_ENDPOINT = "trinoEndpoint";
         public static final String REDIS_ENDPOINT = "redisEndpoint";
         public static final String REDSHIFT_ENDPOINT = "redshiftEndpoint";
         public static final String S3_ENDPOINT = "s3Endpoint";

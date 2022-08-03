@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.local;
 
@@ -20,7 +20,7 @@ import static com.vmware.test.functional.saas.local.LocalServiceConstants.Compon
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.KMS_ENDPOINT;
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.LAMBDA_ENDPOINT;
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.POSTGRES_ENDPOINT;
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.PRESTO_ENDPOINT;
+import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.TRINO_ENDPOINT;
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.REDIS_ENDPOINT;
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.REDSHIFT_ENDPOINT;
 import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.S3_ENDPOINT;
@@ -41,7 +41,7 @@ public enum LocalService {
     KMS(KMS_ENDPOINT, DockerContainerType.KMS, 10154),
     LAMBDA(LAMBDA_ENDPOINT, DockerContainerType.UNKNOWN, null, 10163),
     POSTGRES(POSTGRES_ENDPOINT, DockerContainerType.POSTGRES, 10155),
-    PRESTO(PRESTO_ENDPOINT, DockerContainerType.PRESTO, 10156),
+    TRINO(TRINO_ENDPOINT, DockerContainerType.TRINO, 10156),
     REDIS(REDIS_ENDPOINT, DockerContainerType.REDIS, 10157),
     REDSHIFT(REDSHIFT_ENDPOINT, DockerContainerType.REDSHIFT, 10162),
     S3(S3_ENDPOINT, DockerContainerType.LOCALSTACK, LocalStackContainer.Service.S3, 10158),

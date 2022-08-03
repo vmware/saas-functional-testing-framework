@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.local;
 
@@ -30,8 +30,8 @@ public class DockerConfig {
     private int kmsPort;
     private String redisImage;
     private int redisPort;
-    private String prestoImage;
-    private int prestoPort;
+    private String trinoImage;
+    private int trinoPort;
     private String postgresImage;
     private int postgresPort;
     private String elasticsearchImage;

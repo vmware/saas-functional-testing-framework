@@ -1,6 +1,6 @@
 /*
- * Copyright 2021 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local;
@@ -38,11 +38,11 @@ public class OnServicesConditionTest {
 
     @Test
     public void verifyOnServicesConditionMatchCurrentContext() {
-        final AnnotatedTypeMetadata metadata = mockAnnotatedTypeMetadata(SearchStrategy.CURRENT, Service.PRESTO);
+        final AnnotatedTypeMetadata metadata = mockAnnotatedTypeMetadata(SearchStrategy.CURRENT, Service.TRINO);
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, false))
-                    .thenReturn(Set.of(LocalService.PRESTO));
+                    .thenReturn(Set.of(LocalService.TRINO));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }

@@ -48,10 +48,10 @@
         <app.name>SaaS Functional Testing Framework</app.name>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-    <!--    Dependency versions    -->
-        <jetty.version>9.4.44.v20210927</jetty.version>
         <!-- Skip GPG signing by default -->
         <gpg.skip>true</gpg.skip>
+        <!--    Dependency versions    -->
+        <jetty.version>9.4.48.v20220622</jetty.version>
     </properties>
 
     <modules>
@@ -59,9 +59,9 @@
         <module>test-autoconfig-lib</module>
         <module>test-samples</module>
         <module>test-testng</module>
-        <module>test-aws-local-autoconfig</module>
+        <module>test-local-autoconfig</module>
         <module>test-functional</module>
-        <module>test-functional-aws-v2</module>
+        <module>test-functional-sdk</module>
         <module>test-wiremock</module>
         <module>test-aws-redshift-driver</module>
         <module>test-infrastructure-tools</module>
