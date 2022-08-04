@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testcontainers.containers.Network;
 
-import lombok.Setter;
-
 import com.vmware.test.functional.saas.ServiceEndpoint;
 
 /**
@@ -26,12 +24,23 @@ public class ContainerNetworkManager implements InitializingBean {
 
    private static final Map<String, Network> networkMap = new ConcurrentHashMap<>();
 
-
-   @Setter(onMethod_ = @Autowired(required = false))
    private List<ServiceEndpoint> serviceEndpoints;
 
    public Network getNetwork(String networkName) {
       return networkMap.computeIfAbsent(networkName,this::buildNetwork);
+   }
+
+   @Autowired(required = false)
+   public void setServiceEndpoints(List<ServiceEndpoint> serviceEndpoints) {
+      this.serviceEndpoints = serviceEndpoints;
+   }
+
+   @Override
+   public void afterPropertiesSet() {
+      if (serviceEndpoints != null) {
+         // Force docker networks initialization
+         serviceEndpoints.forEach(this::forceNetworkInit);
+      }
    }
 
    private Network buildNetwork(String name) {
@@ -45,13 +54,5 @@ public class ContainerNetworkManager implements InitializingBean {
 
    private void forceNetworkInit(ServiceEndpoint serviceEndpoint) {
       getNetwork(serviceEndpoint.getContainerConfig().getNetworkInfo().getName());
-   }
-
-   @Override
-   public void afterPropertiesSet() {
-      if (serviceEndpoints != null) {
-         // Force docker networks initialization
-         serviceEndpoints.forEach(this::forceNetworkInit);
-      }
    }
 }
