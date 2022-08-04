@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.sns;
@@ -22,12 +22,12 @@ import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
  * SNS Factory.
  * Provides local {@link SnsClient}. To be used by Functional tests.
  */
-public class SnsFactory implements FactoryBean<SnsClient> {
+public class SnsClientFactory implements FactoryBean<SnsClient> {
 
     private final AwsSettings awsSettings;
     private final ServiceEndpoint snsEndpoint;
 
-    public SnsFactory(final ServiceEndpoint snsEndpoint, final AwsSettings awsSettings) {
+    public SnsClientFactory(final ServiceEndpoint snsEndpoint, final AwsSettings awsSettings) {
         this.snsEndpoint = snsEndpoint;
         this.awsSettings = awsSettings;
     }

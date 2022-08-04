@@ -1,6 +1,6 @@
 /*
- * Copyright 2021 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.aws.lambda;
 
@@ -72,6 +72,7 @@ public final class LambdaServiceHelper {
      * @param record generic record.
      * @param <T> generic type
      * @return ByteBuffer
+     * @throws JsonProcessingException when record cannot be written as JSON string
      */
     public static <T> ByteBuffer mapGenericRecord(final T record) throws JsonProcessingException {
         final String recordAsString = OBJECT_MAPPER.writeValueAsString(record);

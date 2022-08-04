@@ -1,6 +1,6 @@
 /*
  * Copyright 2022 VMware, Inc.
- * All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.aws.lambda.runtime.events;
 
@@ -31,7 +31,7 @@ public final class AWSEventHelper {
      *
      * @param event event
      * @param <T>   type of the event
-     * @return      {@class SdkBytes}
+     * @return      {@link SdkBytes}
      */
     public static <T> SdkBytes eventToSdkBytes(final T event) {
         final ObjectMapper mapper = new ObjectMapper()

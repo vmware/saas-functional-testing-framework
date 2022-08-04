@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.sns;
@@ -31,10 +31,10 @@ public class SnsResourceCreator extends AbstractResourceCreator {
 
     private final SnsClient snsClient;
 
-    public SnsResourceCreator(final SnsFactory snsFactory,
+    public SnsResourceCreator(final SnsClientFactory snsClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.snsClient = snsFactory.getObject();
+        this.snsClient = snsClientFactory.getObject();
     }
 
     @Override

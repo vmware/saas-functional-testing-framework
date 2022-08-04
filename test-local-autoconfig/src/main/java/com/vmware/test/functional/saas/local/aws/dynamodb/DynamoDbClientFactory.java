@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.dynamodb;
@@ -21,12 +21,12 @@ import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
  * DynamoDb Factory.
  * Provides local {@link DynamoDbClient}. To be used by Functional tests.
  */
-public class DynamoDbFactory implements FactoryBean<DynamoDbClient> {
+public class DynamoDbClientFactory implements FactoryBean<DynamoDbClient> {
 
     private final AwsSettings awsSettings;
     private final ServiceEndpoint dynamoDbEndpoint;
 
-    public DynamoDbFactory(final ServiceEndpoint dynamoDbEndpoint, final AwsSettings awsSettings) {
+    public DynamoDbClientFactory(final ServiceEndpoint dynamoDbEndpoint, final AwsSettings awsSettings) {
         this.awsSettings = awsSettings;
         this.dynamoDbEndpoint = dynamoDbEndpoint;
     }

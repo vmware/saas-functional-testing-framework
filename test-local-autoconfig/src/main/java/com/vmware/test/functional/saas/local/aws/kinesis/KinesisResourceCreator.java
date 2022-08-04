@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 package com.vmware.test.functional.saas.local.aws.kinesis;
 
@@ -30,10 +30,10 @@ public class KinesisResourceCreator extends AbstractResourceCreator {
     private final KinesisClient kinesisClient;
     private final KinesisSettings kinesisSettings;
 
-    public KinesisResourceCreator(final KinesisFactory kinesisFactory, final AwsSettings awsSettings,
+    public KinesisResourceCreator(final KinesisClientFactory kinesisClientFactory, final AwsSettings awsSettings,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.kinesisClient = kinesisFactory.getObject();
+        this.kinesisClient = kinesisClientFactory.getObject();
         this.kinesisSettings = awsSettings.getKinesis();
     }
 

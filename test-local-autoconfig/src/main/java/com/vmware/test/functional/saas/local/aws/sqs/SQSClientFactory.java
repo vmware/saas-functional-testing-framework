@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.sqs;
@@ -24,12 +24,12 @@ import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
  * SQS Factory.
  * Provides a local {@link SqsClient}. To be used by Functional tests.
  */
-public class SQSFactory implements FactoryBean<SqsClient> {
+public class SQSClientFactory implements FactoryBean<SqsClient> {
 
     private final AwsSettings awsSettings;
     private final ServiceEndpoint sqsEndpoint;
 
-    public SQSFactory(final ServiceEndpoint sqsEndpoint, final AwsSettings awsSettings) {
+    public SQSClientFactory(final ServiceEndpoint sqsEndpoint, final AwsSettings awsSettings) {
         this.sqsEndpoint = sqsEndpoint;
         this.awsSettings = awsSettings;
     }

@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.sqs;
@@ -30,10 +30,10 @@ public class SqsResourceCreator extends AbstractResourceCreator {
 
     private final SqsClient sqsClient;
 
-    public SqsResourceCreator(final SQSFactory sqsFactory,
+    public SqsResourceCreator(final SQSClientFactory sqsClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.sqsClient = sqsFactory.getObject();
+        this.sqsClient = sqsClientFactory.getObject();
     }
 
     @Override

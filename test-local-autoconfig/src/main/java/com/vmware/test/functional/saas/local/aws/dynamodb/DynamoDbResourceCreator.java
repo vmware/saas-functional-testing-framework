@@ -1,6 +1,6 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
 package com.vmware.test.functional.saas.local.aws.dynamodb;
@@ -30,10 +30,10 @@ public class DynamoDbResourceCreator extends AbstractResourceCreator {
 
     private final DynamoDbClient dynamoDbClient;
 
-    public DynamoDbResourceCreator(final DynamoDbFactory dynamoDbFactory,
+    public DynamoDbResourceCreator(final DynamoDbClientFactory dynamoDbClientFactory,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.dynamoDbClient = dynamoDbFactory.getObject();
+        this.dynamoDbClient = dynamoDbClientFactory.getObject();
     }
 
     @Override

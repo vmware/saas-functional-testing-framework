@@ -1,15 +1,15 @@
 /*
- * Copyright 2020 VMware, Inc.
- * All rights reserved.
+ * Copyright 2022 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local.aws.ses;
+package com.vmware.test.functional.saas.local.aws.kms;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ses.SesClient;
+import software.amazon.awssdk.services.kms.KmsClient;
 
 import java.net.URI;
 
@@ -19,32 +19,32 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
 
 /**
- * SES Factory.
- * Provides local {@link SesClient}. To be used by Functional tests.
+ * KMS Factory.
+ * Provides local {@link KmsClient}. To be used by Functional tests.
  */
-public final class SesFactory implements FactoryBean<SesClient> {
+public class KmsClientFactory implements FactoryBean<KmsClient> {
 
     private final AwsSettings awsSettings;
-    private final ServiceEndpoint sesEndpoint;
+    private final ServiceEndpoint kmsEndpoint;
 
-    public SesFactory(final ServiceEndpoint sesEndpoint, final AwsSettings awsSettings) {
-        this.sesEndpoint = sesEndpoint;
+    public KmsClientFactory(final ServiceEndpoint kmsEndpoint, final AwsSettings awsSettings) {
+        this.kmsEndpoint = kmsEndpoint;
         this.awsSettings = awsSettings;
     }
 
     @Override
-    public SesClient getObject() {
+    public KmsClient getObject() {
         final AwsCredentials awsCredentials = AwsBasicCredentials.create(this.awsSettings.getTestAccessKey(), this.awsSettings.getTestSecretKey());
 
-        return SesClient.builder()
+        return KmsClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
-                .endpointOverride(URI.create(this.sesEndpoint.getEndpoint()))
+                .endpointOverride(URI.create(this.kmsEndpoint.getEndpoint()))
                 .region(Region.of(this.awsSettings.getTestDefaultRegion()))
                 .build();
     }
 
     @Override
     public Class<?> getObjectType() {
-        return SesClient.class;
+        return KmsClient.class;
     }
 }
