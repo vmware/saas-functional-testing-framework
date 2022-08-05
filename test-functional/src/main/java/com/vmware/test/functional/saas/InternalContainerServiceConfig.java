@@ -6,7 +6,6 @@
 package com.vmware.test.functional.saas;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.testcontainers.containers.Network;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,16 +18,6 @@ import lombok.NonNull;
 public class InternalContainerServiceConfig {
 
     private static final String NETWORK_NAME = "dpa_test_network_" + RandomUtils.nextInt();
-
-    private static final Network DPA_TEST_NETWORK = Network.builder()
-            .createNetworkCmdModifier(cmd -> cmd
-                    .withName(NETWORK_NAME))
-            .build();
-
-    // Calling getId() makes testContainers to create the network.
-    static {
-        DPA_TEST_NETWORK.getId();
-    }
 
     @NonNull
     private final String imageName;
@@ -44,19 +33,16 @@ public class InternalContainerServiceConfig {
         this.name = name;
         this.port = port;
         this.imageName = imageName;
-        this.networkInfo = new NetworkInfo(DPA_TEST_NETWORK, NETWORK_NAME);
+        this.networkInfo = new NetworkInfo(NETWORK_NAME);
     }
 
     /**
-     * Class used for holding information about custom docker network created for each
-     * internal container service.
+     * Information about the network the containerized service is connected to.
      */
     @Getter
     @AllArgsConstructor
     public static class NetworkInfo {
 
-        @NonNull
-        private final Network network;
         @NonNull
         private final String name;
     }

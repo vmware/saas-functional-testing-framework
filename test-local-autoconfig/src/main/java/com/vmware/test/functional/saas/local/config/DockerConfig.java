@@ -2,7 +2,7 @@
  * Copyright 2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,6 @@ import lombok.NoArgsConstructor;
 @ConfigurationProperties(prefix = "docker")
 public class DockerConfig {
 
-    public static final String LOCALSTACK_VERSION = "0.12.5";
-
     private String dynamoDbImage;
     private int dynamoDbPort;
     private String kinesisImage;
@@ -36,10 +34,4 @@ public class DockerConfig {
     private int postgresPort;
     private String elasticsearchImage;
     private int elasticsearchPort;
-    private String localstackImageNameFormat;
-    private int localstackDefaultServicePort;
-
-    public String getLocalstackImageName() {
-        return String.format(getLocalstackImageNameFormat(), LOCALSTACK_VERSION);
-    }
 }

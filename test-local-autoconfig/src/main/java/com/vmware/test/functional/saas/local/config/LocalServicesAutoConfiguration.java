@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.config;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -24,7 +23,7 @@ import org.testcontainers.containers.GenericContainer;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.local.aws.AwsSettings;
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.es.ElasticsearchResourceCreator;
 import com.vmware.test.functional.saas.local.es.JestClientFactory;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
@@ -47,7 +46,6 @@ import io.trino.jdbc.TrinoDriver;
 @Configuration
 @Import(DockerContainersConfiguration.class)
 @AutoConfigureOrder(Integer.MAX_VALUE)
-@EnableConfigurationProperties(AwsSettings.class)
 @PropertySource("classpath:aws-local.properties")
 public class LocalServicesAutoConfiguration {
 

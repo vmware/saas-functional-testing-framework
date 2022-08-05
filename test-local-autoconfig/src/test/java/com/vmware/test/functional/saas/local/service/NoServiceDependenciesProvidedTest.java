@@ -11,7 +11,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.FunctionalTest;
-import com.vmware.test.functional.saas.local.aws.DockerContainersConfiguration;
+import com.vmware.test.functional.saas.local.aws.config.DockerContainersConfiguration;
 import com.vmware.test.functional.saas.local.GenericRunner;
 
 import static org.hamcrest.MatcherAssert.*;

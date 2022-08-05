@@ -45,7 +45,7 @@ import org.testng.annotations.Test;
 
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.local.aws.AbstractFullContextTest;
-import com.vmware.test.functional.saas.local.aws.DockerContainersConfiguration;
+import com.vmware.test.functional.saas.local.aws.config.DockerContainersConfiguration;
 import com.vmware.test.functional.saas.local.context.TestContext;
 import com.vmware.test.functional.saas.local.utils.ServiceDependenciesHealthHelper;
 import com.vmware.test.functional.saas.aws.kinesis.KinesisHealthHelper;

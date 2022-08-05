@@ -59,7 +59,7 @@
       <!-- ============================ -->
       <dependency>
          <groupId>com.vmware.saas.functional.test</groupId>
-         <artifactId>test-aws-local-autoconfig</artifactId>
+         <artifactId>test-local-autoconfig</artifactId>
           <version>${project.version}</version>
          <scope>test</scope>
       </dependency>
@@ -71,9 +71,20 @@
        </dependency>
       <dependency>
          <groupId>com.vmware.saas.functional.test</groupId>
-         <artifactId>test-functional-aws-v2</artifactId>
+         <artifactId>test-functional-sdk</artifactId>
           <version>${project.version}</version>
           <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>com.amazonaws</groupId>
+         <artifactId>aws-java-sdk-core</artifactId>
+         <scope>test</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>commons-logging</groupId>
+               <artifactId>commons-logging</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>com.zaxxer</groupId>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,8 +15,6 @@ import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import com.vmware.test.functional.saas.Service;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -42,7 +40,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, false))
-                    .thenReturn(Set.of(LocalService.TRINO));
+                    .thenReturn(Set.of(Service.TRINO));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }
@@ -54,7 +52,7 @@ public class OnServicesConditionTest {
 
         try (MockedStatic<ServiceConditionUtil> utilities = mockStatic(ServiceConditionUtil.class)) {
             utilities.when(() -> ServiceConditionUtil.getRequiredServiceDependencies(this.context, true))
-                    .thenReturn(Set.of(LocalService.S3));
+                    .thenReturn(Set.of(Service.S3));
             final boolean result = this.onServicesCondition.matches(this.context, metadata);
             assertThat(result, is(true));
         }

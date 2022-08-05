@@ -2,7 +2,7 @@
  * Copyright 2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-package com.vmware.test.functional.saas.local.aws;
+package com.vmware.test.functional.saas.local.aws.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -36,7 +36,7 @@ import com.vmware.test.functional.saas.aws.kinesis.KinesisResourceAwaitingInitia
 import com.vmware.test.functional.saas.aws.s3.S3ResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sns.SnsResourceAwaitingInitializer;
 import com.vmware.test.functional.saas.aws.sqs.SqsResourceAwaitingInitializer;
-import com.vmware.test.functional.saas.local.ConditionalOnService;
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 
 /**

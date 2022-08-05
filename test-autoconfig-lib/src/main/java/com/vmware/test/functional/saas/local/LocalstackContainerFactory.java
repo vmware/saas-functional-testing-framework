@@ -4,6 +4,7 @@
  */
 package com.vmware.test.functional.saas.local;
 
+import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.vmware.test.functional.saas.local.ServiceConditionUtil.getRequiredServiceDependencies;
+import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.ServiceConditionUtil.getRequiredServiceDependencies;
 
 /**
  * Creates {@code LocalStackContainer} instances. The implementation keeps track of all
@@ -35,7 +37,7 @@ import static com.vmware.test.functional.saas.local.ServiceConditionUtil.getRequ
  */
 @Slf4j
 @AllArgsConstructor
-public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
+public class LocalstackContainerFactory implements FactoryBean<LocalStackContainer> {
 
     private static final ConcurrentMap<LocalStackContainer, List<LocalStackServiceInfo>> localStackServicesByContainer = new ConcurrentHashMap<>();
 
@@ -48,8 +50,8 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
     public LocalStackContainer getObject() {
         // check if initialized localstack containers have required services started on the correct ports!--
         final List<LocalStackServiceInfo> requestedLocalStackServices = getRequiredServiceDependencies(this.listableBeanFactory).stream()
-                .filter(srv -> this.localstackServices.contains(srv.getService()))
-                .map(s -> new LocalStackServiceInfo(s.getService(), mapPortBinding(s)))
+                .filter(this::isLocalstackService)
+                .map(this::toLocalstackServiceInfo)
                 .collect(Collectors.toList());
         final List<LocalStackServiceInfo> services =  diffServices(requestedLocalStackServices);
 
@@ -65,14 +67,22 @@ public class LocalStackFactory implements FactoryBean<LocalStackContainer> {
         return init(services);
     }
 
+    private LocalStackServiceInfo toLocalstackServiceInfo(Service srv) {
+        return new LocalStackServiceInfo(mapLocalStackService(srv), mapPortBinding(srv));
+    }
+
+    private boolean isLocalstackService(Service srv) {
+        return this.localstackServices.contains(mapLocalStackService(srv));
+    }
+
     @Override
     public Class<?> getObjectType() {
         return LocalStackContainer.class;
     }
 
-    private String mapPortBinding(final LocalService service) {
+    private String mapPortBinding(final Service service) {
         final int serviceEndpointPort = this.listableBeanFactory
-                .getBean(service.getEndpoint(), ServiceEndpoint.class)
+                .getBean(service.getEndpointName(), ServiceEndpoint.class)
                 .getPort();
         return String.format("%d:%d/%s", serviceEndpointPort, this.localStackServiceEndpoint.getContainerConfig().getPort(), InternetProtocol.TCP);
     }

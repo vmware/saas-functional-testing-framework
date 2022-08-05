@@ -17,7 +17,7 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.local.aws.lambda.constants.TestConstants;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
 
-import static com.vmware.test.functional.saas.local.LocalServiceConstants.Components.LAMBDA_ENDPOINT;
+import static com.vmware.test.functional.saas.ServiceConstants.Components.LAMBDA_ENDPOINT;
 
 public final class SamLambdaRequestContextFactoryTestConfigurations {
 

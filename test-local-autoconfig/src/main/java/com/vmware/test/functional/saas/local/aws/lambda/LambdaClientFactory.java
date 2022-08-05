@@ -18,7 +18,7 @@ import java.time.Duration;
 import org.springframework.beans.factory.FactoryBean;
 
 import com.vmware.test.functional.saas.ServiceEndpoint;
-import com.vmware.test.functional.saas.local.aws.AwsSettings;
+import com.vmware.test.functional.saas.local.aws.config.AwsSettings;
 
 import lombok.extern.slf4j.Slf4j;
 

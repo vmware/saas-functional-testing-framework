@@ -29,7 +29,7 @@ import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceDependencies;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
-import com.vmware.test.functional.saas.local.aws.DockerContainersConfiguration;
+import com.vmware.test.functional.saas.local.aws.config.DockerContainersConfiguration;
 
 import com.google.common.base.Preconditions;
 

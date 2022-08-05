@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.config;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,9 @@ import org.testcontainers.lifecycle.Startable;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
+import com.vmware.test.functional.saas.ConditionalOnService;
+import com.vmware.test.functional.saas.local.ContainerNetworkManager;
+import com.vmware.test.functional.saas.local.GenericRunner;
 import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
 import com.vmware.test.functional.saas.local.trino.TrinoContainerFactory;
 
@@ -42,6 +46,8 @@ public class DockerContainersConfiguration {
      */
     public static final String ELASTICSEARCH_CLUSTER_DISK_THRESHOLD_ENABLED = "cluster.routing.allocation.disk.threshold_enabled";
 
+    @Autowired
+    ContainerNetworkManager containerNetworkManager;
 
     @Bean
     GenericRunner genericRunner(final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
@@ -59,13 +65,14 @@ public class DockerContainersConfiguration {
     @Lazy
     public Startable redisContainer(@Lazy final ServiceEndpoint redisEndpoint) {
         return createDockerContainer(redisEndpoint,
+                this.containerNetworkManager,
                 Wait.forListeningPort());
     }
 
     /**
      * Trino container factory. To be used by auto config.
      *
-     * @param trinoEndpoint endpoint spec for the trino dpa service
+     * @param trinoEndpoint endpoint spec for the trino service
      * @return {@link Startable}
      */
     @Bean
@@ -73,7 +80,7 @@ public class DockerContainersConfiguration {
     @Lazy
     public TrinoContainerFactory trinoContainer(@Lazy final ServiceEndpoint trinoEndpoint,
           TrinoCatalogCreator trinoCatalogCreator) {
-        return new TrinoContainerFactory(trinoEndpoint, trinoCatalogCreator, container -> { });
+        return new TrinoContainerFactory(trinoEndpoint, containerNetworkManager, trinoCatalogCreator, container -> { });
     }
 
     /**
@@ -89,6 +96,7 @@ public class DockerContainersConfiguration {
         final String logWaitRegex = "(.*)(database system is ready to accept connections)(.*)";
 
         return createDockerContainer(postgresEndpoint,
+                this.containerNetworkManager,
                 new LogMessageWaitStrategy()
                         .withRegEx(logWaitRegex)
                         .withTimes(2)
@@ -106,6 +114,7 @@ public class DockerContainersConfiguration {
     @Lazy
     public Startable elasticsearchContainer(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
         return createDockerContainer(elasticsearchEndpoint,
+                this.containerNetworkManager,
                 new HttpWaitStrategy()
                         .forPath("/_cat/health")
                         .withStartupTimeout(DEFAULT_WAIT_STRATEGY_TIMEOUT))
