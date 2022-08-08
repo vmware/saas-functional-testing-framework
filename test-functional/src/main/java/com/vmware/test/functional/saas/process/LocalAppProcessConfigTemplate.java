@@ -29,8 +29,8 @@ public final class LocalAppProcessConfigTemplate {
 
     private static final String AWS_CBOR_DISABLE_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableCbor";
     private static final String DISABLE_CERT_CHECKING_SYSTEM_PROPERTY = "com.amazonaws.sdk.disableCertChecking";
-    private final DpaTestApp dpaTestApp;
-    private final DpaTestAppDebug dpaTestAppDebug;
+    private final TestAppSettings testAppSettings;
+    private final TestAppDebugSettings testAppDebugSettings;
     private final ServiceEndpoint appEndpoint;
     @Builder.Default
     private final List<String> additionalAppCommandLineArgs = List.of();
@@ -43,14 +43,14 @@ public final class LocalAppProcessConfigTemplate {
     public LocalTestProcessCtl.LocalTestProcessCtlBuilder defaultTestProcessBuilder() {
         return LocalTestProcessCtl.builder()
                 .command(() -> this.createAppCommand(this.additionalAppCommandLineArgs))
-                .debugModeEnable(this.dpaTestAppDebug.getDebugModeEnable())
-                .debugPort(this.dpaTestAppDebug.getDebugPort())
-                .debugSuspendMode(this.dpaTestAppDebug.getDebugSuspend())
+                .debugModeEnable(this.testAppDebugSettings.isDebugModeEnable())
+                .debugPort(this.testAppDebugSettings.getDebugPort())
+                .debugSuspendMode(this.testAppDebugSettings.getDebugSuspend())
                 .waitingFor(this.createDefaultAppHealthEndpointWaitStrategy(this.appEndpoint));
     }
 
     CommandLine createAppCommand(final List<String> commandLineArgs) {
-        if (StringUtils.isBlank(this.dpaTestApp.getExecutableJar())) {
+        if (StringUtils.isBlank(this.testAppSettings.getExecutableJar())) {
             throw new IllegalArgumentException("Executable JAR not configured - cannot be null/empty");
         }
 
@@ -73,7 +73,7 @@ public final class LocalAppProcessConfigTemplate {
         }
 
         // Lastly, add the required executable jar reference
-        commandLine.addArgument("-jar").addArgument(this.dpaTestApp.getExecutableJar());
+        commandLine.addArgument("-jar").addArgument(this.testAppSettings.getExecutableJar());
         log.debug("Using CommandLine: [{}]", commandLine);
 
         return commandLine;

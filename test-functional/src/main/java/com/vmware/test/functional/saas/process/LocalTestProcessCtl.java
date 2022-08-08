@@ -65,9 +65,9 @@ public final class LocalTestProcessCtl implements Lifecycle {
     @Getter(AccessLevel.PACKAGE)
     private final Supplier<Map<String, String>> environmentSupplier;
     @Getter(AccessLevel.PACKAGE)
-    private final String debugModeEnable;
+    private final boolean debugModeEnable;
     @Getter(AccessLevel.PACKAGE)
-    private final String debugPort;
+    private final int debugPort;
     @Getter(AccessLevel.PACKAGE)
     private final String debugSuspendMode;
     private final Environment environment;
@@ -242,8 +242,7 @@ public final class LocalTestProcessCtl implements Lifecycle {
 
     private CommandLine setDebugArguments() {
         final CommandLine cmd = new CommandLine(this.command.get().getExecutable());
-        if (Boolean.parseBoolean(this.debugModeEnable)
-                && StringUtils.isNotBlank(this.debugPort)) {
+        if (this.isDebugModeEnable()) {
             final String suspendMode = StringUtils.equals(this.debugSuspendMode, "y") ? this.debugSuspendMode : "n";
             final String[] arguments = {
                     "-Xdebug",

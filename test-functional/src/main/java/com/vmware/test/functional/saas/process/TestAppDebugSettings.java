@@ -13,17 +13,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Test application configuration properties.
+ * Debug options for a test application.
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Qualifier("dpaTestApp")
-public class DpaTestApp {
+@Qualifier("testAppDebugSettings")
+public class TestAppDebugSettings {
 
-    @Value("${app.apphome}")
-    private String apphome;
+    private boolean debugModeEnable = false;
 
-    @Value("${app.executable.jar}")
-    private String executableJar;
+    private int debugPort = 8998;
+
+    private String debugSuspend = "n";
 }
