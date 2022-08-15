@@ -12,8 +12,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
-import com.vmware.test.functional.saas.process.DpaTestApp;
-import com.vmware.test.functional.saas.process.DpaTestAppDebug;
+import com.vmware.test.functional.saas.process.TestAppSettings;
+import com.vmware.test.functional.saas.process.TestAppDebugSettings;
 import com.vmware.test.functional.saas.process.TestProcessGenericRunner;
 import com.vmware.test.functional.saas.process.TestProcessLifecycle;
 
@@ -38,13 +38,13 @@ public class FunctionalConfig {
     }
 
     @Bean
-    DpaTestApp defaultDpaTestApp() {
-        return new DpaTestApp();
+    TestAppSettings defaultTestAppSettings() {
+        return new TestAppSettings();
     }
 
     @Bean
-    DpaTestAppDebug defaultDpaTestAppDebug() {
-        return new DpaTestAppDebug();
+    TestAppDebugSettings defaultTestAppDebugSettings() {
+        return new TestAppDebugSettings();
     }
 
     @Bean

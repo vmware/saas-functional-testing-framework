@@ -25,8 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class CustomDockerContainer extends GenericContainer<CustomDockerContainer> {
 
-    public static final Duration DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT = Duration.ofSeconds(240);
-    public static final Duration DEFAULT_WAIT_STRATEGY_TIMEOUT = Duration.ofSeconds(240);
+    public static final Duration DEFAULT_DOCKER_CONTAINER_STARTUP_TIMEOUT = Duration.ofSeconds(480);
+    public static final Duration DEFAULT_WAIT_STRATEGY_TIMEOUT = Duration.ofSeconds(480);
 
     CustomDockerContainer(final RemoteDockerImage image,
             final ServiceEndpoint serviceEndpoint) {

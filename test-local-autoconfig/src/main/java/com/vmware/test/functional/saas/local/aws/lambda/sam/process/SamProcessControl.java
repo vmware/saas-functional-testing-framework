@@ -76,7 +76,7 @@ public class SamProcessControl implements SmartLifecycle {
     private final ServiceEndpoint lambdaEndpoint;
     private final List<LambdaFunctionSpecs> lambdaFunctionSpecs;
     private final boolean debugModeEnabled;
-    private final String debugPort;
+    private final int debugPort;
     private final String[] additionalCommandLineArgs;
     private final FunctionalTestExecutionSettings functionalTestExecutionSettings;
 
@@ -95,7 +95,7 @@ public class SamProcessControl implements SmartLifecycle {
     public SamProcessControl(@NonNull final ServiceEndpoint lambdaEndpoint,
             @NonNull final List<LambdaFunctionSpecs> lambdaFunctionSpecs,
             final boolean debugModeEnabled,
-            final String debugPort,
+            final int debugPort,
             final String[] additionalCommandLineArgs,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         this.lambdaEndpoint = lambdaEndpoint;
@@ -301,7 +301,7 @@ public class SamProcessControl implements SmartLifecycle {
         this.cmd.addArguments(new String[] { "--log-file", this.lambdaLogFile });
 
         if (this.debugModeEnabled) {
-            this.cmd.addArguments(new String[] { "-d", this.debugPort });
+            this.cmd.addArguments(new String[] { "-d", String.valueOf(this.debugPort) });
             this.cmd.addArgument("--debug");
         }
     }

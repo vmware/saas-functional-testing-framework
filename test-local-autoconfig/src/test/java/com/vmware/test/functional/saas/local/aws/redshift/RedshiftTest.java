@@ -67,7 +67,7 @@ public class RedshiftTest extends AbstractFullContextTest {
 
     @BeforeClass(alwaysRun = true)
     public void createTable() {
-        this.testTable = "test_dpa";
+        this.testTable = "test_table";
         this.testColumn = "test_id";
         final String createTableCmd = String.format("CREATE TABLE %s (%s VARCHAR(256) NOT NULL)",
                 this.testTable, this.testColumn);

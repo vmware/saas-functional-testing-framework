@@ -30,7 +30,6 @@ import static org.hamcrest.Matchers.*;
 @TestPropertySource(properties = {
         "pizza.executableJar=my-pizza.jar",
         "pizza.apphome=/spaghetti",
-        "dpa.test.app.debug.mode.enable=false",
         "pizza.debug.debugModeEnable=true"})
 public class LocalAppProcessConfigTemplateTest extends AbstractTestNGSpringContextTests {
 
@@ -40,14 +39,14 @@ public class LocalAppProcessConfigTemplateTest extends AbstractTestNGSpringConte
 
         @Bean
         @ConfigurationProperties(prefix = "pizza")
-        DpaTestApp dpaTestPizzaApp() {
-            return new DpaTestApp();
+        TestAppSettings testPizzaAppSettings() {
+            return new TestAppSettings();
         }
 
         @Bean
         @ConfigurationProperties(prefix = "pizza.debug")
-        DpaTestAppDebug dpaTestPizzaAppDebug() {
-            return new DpaTestAppDebug();
+        TestAppDebugSettings testPizzaAppDebugSettings() {
+            return new TestAppDebugSettings();
         }
 
         @Bean
@@ -60,11 +59,11 @@ public class LocalAppProcessConfigTemplateTest extends AbstractTestNGSpringConte
         public LocalTestProcessCtl pizzaAppProcess() {
             final LocalAppProcessConfigTemplate template = LocalAppProcessConfigTemplate
                     .builder().appEndpoint(pizzaAppEndpoint())
-                    .dpaTestApp(dpaTestPizzaApp())
-                    .dpaTestAppDebug(dpaTestPizzaAppDebug())
+                    .testAppSettings(testPizzaAppSettings())
+                    .testAppDebugSettings(testPizzaAppDebugSettings())
                     .build();
             return template.defaultTestProcessBuilder()
-                    .environmentSupplier(() -> Map.of("APP_HOME", dpaTestPizzaApp().getApphome()))
+                    .environmentSupplier(() -> Map.of("APP_HOME", testPizzaAppSettings().getApphome()))
                     .build();
         }
     }
@@ -74,8 +73,8 @@ public class LocalAppProcessConfigTemplateTest extends AbstractTestNGSpringConte
 
     @Test
     public void ensureDebugEnabledIsCorrect() {
-        final String debugEnabled = this.pizzaAppProcess.getDebugModeEnable();
-        assertThat("debug enabled", debugEnabled, is("true"));
+        final boolean debugEnabled = this.pizzaAppProcess.isDebugModeEnable();
+        assertThat("debug enabled", debugEnabled, is(true));
     }
 
     @Test

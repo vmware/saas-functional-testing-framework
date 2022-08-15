@@ -14,13 +14,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.local.aws.lambda.sam.process.SamProcessControl;
 import com.vmware.test.functional.saas.aws.lambda.LambdaFunctionSpecs;
-import com.vmware.test.functional.saas.ConditionalOnService;
-import com.vmware.test.functional.saas.process.DpaTestAppDebug;
+import com.vmware.test.functional.saas.local.aws.lambda.sam.process.SamProcessControl;
+import com.vmware.test.functional.saas.process.TestAppDebugSettings;
 
 /**
  * Sam Process Autoconfiguration.
@@ -42,13 +42,13 @@ public class SamAutoConfiguration {
      * Note: In the above case, we should also ensure that all autowire points in the app are qualified
      * (e.g. @Qualifier or by parameter name) so that no DuplicateBeanDefinitionException for these instances.
      *
-     * @return {@code DpaTestAppDebug} bean.
+     * @return {@code TestAppDebugSettings} bean.
      */
     @Bean
     @ConfigurationProperties(prefix = "default.test.lambda")
     @ConditionalOnService(value = Service.LAMBDA)
-    DpaTestAppDebug dpaTestAppDebug() {
-        return new DpaTestAppDebug();
+    TestAppDebugSettings testAppDebug() {
+        return new TestAppDebugSettings();
     }
 
     @Bean
@@ -60,8 +60,8 @@ public class SamAutoConfiguration {
         return SamProcessControl.builder()
                 .lambdaEndpoint(lambdaEndpoint)
                 .lambdaFunctionSpecs(lambdaFunctionSpecs)
-                .debugPort(dpaTestAppDebug().getDebugPort())
-                .debugModeEnabled(Boolean.parseBoolean(dpaTestAppDebug().getDebugModeEnable()))
+                .debugPort(testAppDebug().getDebugPort())
+                .debugModeEnabled(testAppDebug().isDebugModeEnable())
                 .functionalTestExecutionSettings(functionalTestExecutionSettings)
                 .additionalCommandLineArgs(this.additionalCommandLineArgs)
                 .build();

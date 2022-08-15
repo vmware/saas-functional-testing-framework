@@ -17,7 +17,7 @@ import lombok.NonNull;
 @Getter
 public class InternalContainerServiceConfig {
 
-    private static final String NETWORK_NAME = "dpa_test_network_" + RandomUtils.nextInt();
+    private static final String NETWORK_NAME = "test_network_" + RandomUtils.nextInt();
 
     @NonNull
     private final String imageName;
