@@ -31,7 +31,7 @@ import static org.hamcrest.MatcherAssert.*;
 public class TestPortAllocationTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    private LocalTestProcess testProcessToStart;
+    private SimpleProcessLifecycle testProcessToStart;
 
     @Test
     public void ensureProcessPortIsCalculatedJustBeforeTheProcessStarted() {
@@ -55,8 +55,8 @@ public class TestPortAllocationTest extends AbstractTestNGSpringContextTests {
         }
 
         @Bean
-        LocalTestProcess testProcessToStart(@Lazy final ServiceEndpoint serviceEndpoint) {
-            return LocalTestProcess.builder()
+        SimpleProcessLifecycle testProcessToStart(@Lazy final ServiceEndpoint serviceEndpoint) {
+            return SimpleProcessLifecycle.builder()
                     .lifecycleDelegate(LocalTestProcessCtl.builder()
                             .command(() -> TestCommand.createCommand(serviceEndpoint.getPort()))
                             .environmentSupplier(() -> buildEnv(serviceEndpoint))

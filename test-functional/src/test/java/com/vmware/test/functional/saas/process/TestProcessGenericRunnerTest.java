@@ -31,8 +31,8 @@ public class TestProcessGenericRunnerTest extends AbstractTestNGSpringContextTes
         private CommandLine command = TestCommand.createCommand();
 
         @Bean
-        LocalTestProcess firstTestProcessToStart() {
-            return LocalTestProcess.builder()
+        SimpleProcessLifecycle firstTestProcessToStart() {
+            return SimpleProcessLifecycle.builder()
                     .lifecycleDelegate(LocalTestProcessCtl.builder()
                             .command(() -> this.command)
                             .waitingFor(new WaitStrategyBuilder().forLogMessagePattern("Test App Log Line : 1").build())
@@ -41,8 +41,8 @@ public class TestProcessGenericRunnerTest extends AbstractTestNGSpringContextTes
         }
 
         @Bean
-        LocalTestProcess secondTestProcessToStart() {
-            return LocalTestProcess.builder()
+        SimpleProcessLifecycle secondTestProcessToStart() {
+            return SimpleProcessLifecycle.builder()
                     .lifecycleDelegate(LocalTestProcessCtl.builder()
                             .command(() -> this.command)
                             .waitingFor(new WaitStrategyBuilder().forLogMessagePattern("Test App Log Line : 1").build())
@@ -52,10 +52,10 @@ public class TestProcessGenericRunnerTest extends AbstractTestNGSpringContextTes
     }
 
     @Autowired
-    private LocalTestProcess firstTestProcessToStart;
+    private SimpleProcessLifecycle firstTestProcessToStart;
 
     @Autowired
-    private LocalTestProcess secondTestProcessToStart;
+    private SimpleProcessLifecycle secondTestProcessToStart;
 
     @Test
     public void twoTestProcessesStarted() {
