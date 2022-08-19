@@ -15,7 +15,7 @@ import lombok.experimental.Delegate;
  * Implements TestProcessLifecycle contract for a given LocalTestProcessCtl.
  */
 @Builder
-public class TestProcessLifecycleDelegate implements TestProcessLifecycle {
+public class SimpleProcessLifecycle implements TestProcessLifecycle {
 
     @Delegate
     @Getter(AccessLevel.PACKAGE)

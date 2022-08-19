@@ -35,8 +35,8 @@ public class TestProcessGenericRunnerSingleBeanInstanceTest extends AbstractTest
         private CommandLine command = TestCommand.createCommand();
 
         @Bean
-        LocalTestProcess testProcessToStart() {
-            return LocalTestProcess.builder()
+        SimpleProcessLifecycle testProcessToStart() {
+            return SimpleProcessLifecycle.builder()
                     .lifecycleDelegate(LocalTestProcessCtl.builder()
                             .command(() -> this.command)
                             .waitingFor(new WaitStrategyBuilder().forLogMessagePattern("Test App Log Line : 1").build())
@@ -51,7 +51,7 @@ public class TestProcessGenericRunnerSingleBeanInstanceTest extends AbstractTest
     }
 
     @Autowired
-    private LocalTestProcess testProcessToStart;
+    private SimpleProcessLifecycle testProcessToStart;
 
     @Test
     public void testProcessesStarted() {
