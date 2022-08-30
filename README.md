@@ -4,7 +4,7 @@
 
 One of the major challenges of the SaaS delivery train is the difficulty the engineering teams face when trying to replicate the production environments in their CI/CD pipelines.
 
-Saas Functional Testing Framework provides the engineers with the possibility to write tests ones and run them seamlessly with different execution contexts (local dev environment as well as CI or Production)
+Saas Functional Testing Framework provides the engineers with the possibility to write tests and run them seamlessly with different execution contexts (local dev environment as well as CI or Production)
 
 As a consequence of the above, Saas Functional Testing Framework allow us to use the same programming model to get the feedback build-time (fail-fast) as well as on each stage of the CI/CD pipeline.
 
@@ -17,7 +17,8 @@ Saas Functional Testing Framework provides the option to plug any 3rd party serv
 
 * Latest java
 * Latest maven
-* Docker - the minimum is [Docker CLI]( https://github.com/docker/cli), but docker desctop will also work
+* Docker - the minimum is [Docker CLI]( https://github.com/docker/cli), but docker desktop will also work
+* [Sam CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 
 ### Build & Run
 
