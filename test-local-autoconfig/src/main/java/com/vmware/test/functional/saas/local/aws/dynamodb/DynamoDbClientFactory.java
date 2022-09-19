@@ -8,6 +8,7 @@ package com.vmware.test.functional.saas.local.aws.dynamodb;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.net.URI;
@@ -38,6 +39,7 @@ public class DynamoDbClientFactory implements FactoryBean<DynamoDbClient> {
         return  DynamoDbClient.builder()
                 .endpointOverride(URI.create(this.dynamoDbEndpoint.getEndpoint()))
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .region(Region.of(this.awsSettings.getTestDefaultRegion()))
                 .build();
     }
 

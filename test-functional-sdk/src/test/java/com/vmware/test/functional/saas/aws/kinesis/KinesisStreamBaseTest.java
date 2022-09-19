@@ -10,6 +10,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.SdkSystemSetting;
 import software.amazon.awssdk.http.SdkHttpConfigurationOption;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.services.kinesis.model.CreateStreamRequest;
 import software.amazon.awssdk.services.kinesis.model.DeleteStreamRequest;
@@ -59,6 +60,7 @@ public class KinesisStreamBaseTest {
                 .endpointOverride(URI.create(getKinesaliteEndpoint()))
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials
                         .create(TEST_ACCESS_KEY_ID, TEST_SECRET_KEY_ID)))
+                .region(Region.US_WEST_1)
                 // Kinesalite configured with ssl and TrustAllCertificates needs to be true
                 .httpClient(ApacheHttpClient.builder()
                         .buildWithDefaults(AttributeMap.builder()
