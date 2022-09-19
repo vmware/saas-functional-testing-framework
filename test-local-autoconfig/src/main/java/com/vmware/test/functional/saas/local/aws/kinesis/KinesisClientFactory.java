@@ -10,6 +10,7 @@ import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.internal.http.loader.DefaultSdkHttpClientBuilder;
 import software.amazon.awssdk.http.SdkHttpConfigurationOption;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kinesis.KinesisClient;
 import software.amazon.awssdk.utils.AttributeMap;
 
@@ -41,6 +42,7 @@ public class KinesisClientFactory implements FactoryBean<KinesisClient> {
         return KinesisClient.builder()
                 .endpointOverride(URI.create(this.kinesisEndpoint.getEndpoint()))
                 .credentialsProvider(StaticCredentialsProvider.create(credentials))
+                .region(Region.of(this.awsSettings.getTestDefaultRegion()))
                 // Kinesalite configured with ssl and TrustAllCertificates needs to be true
                 .httpClient(
                         new DefaultSdkHttpClientBuilder().buildWithDefaults(AttributeMap
