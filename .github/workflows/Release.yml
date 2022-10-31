@@ -1,0 +1,47 @@
+name: release version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version-major:
+        description: "Increase major version"
+        type: boolean
+        required: false
+        default: false
+      version-minor:
+        description: "Increase minor version"
+        type: boolean
+        required: false
+        default: false
+      version-patch:
+        description: "Increase patch version"
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: qcastel/github-actions-maven-release@master
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
+        with:
+          release-branch-name: "release"
+          version-major: ${{ inputs.version-major }}
+          version-minor: ${{ inputs.version-minor }}
+          version-patch: ${{ inputs.version-patch }}
+          maven-release-version-number: ${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.patchVersion}
+
+          maven-servers: ${{ secrets.MVN_REPO_SERVERS }}
+          git-release-bot-name: "d0ivanov"
+          git-release-bot-email: "dobromir0ivanov@gmail.com"
+
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+          maven-args: "-DskipTests -DskipITs -Dgpg.skip=false"
+
+          gpg-enabled: true
+          gpg-key-id: ${{ secrets.GPG_KEY_ID }}
+          gpg-key: ${{ secrets.GPG_KEY }}
