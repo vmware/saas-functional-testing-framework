@@ -28,7 +28,7 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
         with:
-          release-branch-name: "release"
+          release-branch-name: "main"
           version-major: ${{ inputs.version-major }}
           version-minor: ${{ inputs.version-minor }}
           version-patch: ${{ inputs.version-patch }}
