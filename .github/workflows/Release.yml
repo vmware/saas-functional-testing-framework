@@ -30,6 +30,10 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+      - name: set JDK_11_R environment variable
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        run: echo ::set-env name=JDK_9_R::$(echo $JAVA_HOME)
       - name: Build and Test
         uses: qcastel/github-actions-maven-cmd@master
         with:
