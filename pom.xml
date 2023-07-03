@@ -51,7 +51,7 @@
         <!-- Skip GPG signing by default -->
         <gpg.skip>true</gpg.skip>
         <!--    Dependency versions    -->
-        <jetty.version>9.4.48.v20220622</jetty.version>
+        <jetty.version>9.4.51.v20230217</jetty.version>
     </properties>
 
     <modules>
