@@ -8,7 +8,7 @@ package com.vmware.test.functional.saas.process;
 import java.time.Duration;
 
 import org.apache.commons.exec.CommandLine;
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;

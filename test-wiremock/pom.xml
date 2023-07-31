@@ -39,16 +39,20 @@
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>jakarta.annotation-api</artifactId>
-                    <groupId>jakarta.annotation</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>jul-to-slf4j</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.github.tomakehurst</groupId>
                     <artifactId>wiremock-jre8-standalone</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -84,11 +88,11 @@
         <!-- ============================ -->
         <!-- Provided scope dependencies -->
         <!-- ============================ -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>javax.servlet</groupId>-->
+<!--            <artifactId>javax.servlet-api</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

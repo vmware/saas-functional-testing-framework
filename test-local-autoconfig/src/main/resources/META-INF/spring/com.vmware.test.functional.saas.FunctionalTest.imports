@@ -1,0 +1,5 @@
+com.vmware.test.functional.saas.local.config.LocalServicesXmlConfiguration
+com.vmware.test.functional.saas.local.aws.config.LocalAwsServicesAutoConfiguration
+com.vmware.test.functional.saas.local.config.LocalServicesAutoConfiguration
+com.vmware.test.functional.saas.local.LocalstackContainerConfig
+com.vmware.test.functional.saas.local.aws.lambda.sam.SamAutoConfiguration

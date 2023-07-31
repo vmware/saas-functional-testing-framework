@@ -134,12 +134,6 @@
         </dependency>
         <dependency>
             <groupId>com.vmware.saas.functional.test</groupId>
-            <artifactId>simple-lambda</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.vmware.saas.functional.test</groupId>
             <artifactId>test-testng</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
