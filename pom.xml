@@ -46,12 +46,15 @@
 
     <properties>
         <app.name>SaaS Functional Testing Framework</app.name>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- Skip GPG signing by default -->
         <gpg.skip>true</gpg.skip>
         <!--    Dependency versions    -->
-        <jetty.version>9.4.51.v20230217</jetty.version>
+        <jetty.version>11.0.15</jetty.version>
+        <spring.version>6.0.11</spring.version>
+        <spring-boot.version>3.1.2</spring-boot.version>
+        <logback.version>1.4.8</logback.version>
     </properties>
 
     <modules>
@@ -73,13 +76,13 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <type>jar</type>
-                <version>1.2.10</version>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-core</artifactId>
                 <type>jar</type>
-                <version>1.2.10</version>
+                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>
@@ -139,7 +142,7 @@
                 <groupId>com.github.tomakehurst</groupId>
                 <artifactId>wiremock</artifactId>
                 <type>jar</type>
-                <version>2.27.2</version>
+                <version>3.0.0-beta-10</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -469,41 +472,41 @@
                 <type>jar</type>
                 <version>1.18.22</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <type>jar</type>
-                <version>1.7.36</version>
+                <version>2.0.7</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jcl</artifactId>
                 <type>jar</type>
-                <version>5.3.18</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-autoconfigure</artifactId>
                 <type>jar</type>
-                <version>2.5.15</version>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-test-autoconfigure</artifactId>
                 <type>jar</type>
-                <version>2.5.9</version>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-test</artifactId>
                 <type>jar</type>
-                <version>2.5.9</version>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-wiremock</artifactId>
                 <type>jar</type>
-                <version>3.0.2</version>
+                <version>4.0.4</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.data</groupId>
@@ -515,31 +518,31 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <type>jar</type>
-                <version>5.3.18</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <type>jar</type>
-                <version>5.3.15</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <type>jar</type>
-                <version>5.3.15</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <type>jar</type>
-                <version>5.3.15</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <type>jar</type>
-                <version>5.3.15</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>

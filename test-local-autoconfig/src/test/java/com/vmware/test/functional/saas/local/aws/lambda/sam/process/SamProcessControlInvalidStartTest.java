@@ -8,10 +8,13 @@ package com.vmware.test.functional.saas.local.aws.lambda.sam.process;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.PortSupplier;
 import com.vmware.test.functional.saas.local.aws.lambda.constants.TestConstants;
@@ -22,6 +25,8 @@ import static org.hamcrest.MatcherAssert.*;
 /**
  * Tests for {@link SamProcessControl}.
  */
+@FunctionalTest
+@ContextHierarchy(@ContextConfiguration(classes = SamProcessControlInvalidStartTest.LocalConfig.class))
 public class SamProcessControlInvalidStartTest extends AbstractTestNGSpringContextTests {
 
     @Value("${lambda.code.uri}")
@@ -63,5 +68,8 @@ public class SamProcessControlInvalidStartTest extends AbstractTestNGSpringConte
     @AfterMethod(alwaysRun = true)
     public void stopSamProcess() {
         this.samProcessControl.stop();
+    }
+
+    static class LocalConfig {
     }
 }

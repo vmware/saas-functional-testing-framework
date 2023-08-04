@@ -7,18 +7,21 @@ package com.vmware.test.functional.saas.wiremock;
 
 import java.io.IOException;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import com.vmware.test.functional.saas.FunctionalTest;
 import com.vmware.test.functional.saas.ServiceEndpoint;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
@@ -31,14 +34,14 @@ import static org.hamcrest.MatcherAssert.*;
  * Test for {@link WireMockAutoConfiguration}.
  */
 @ContextConfiguration(classes = WireMockAutoConfiguration.class)
-@Test
+@FunctionalTest
 public class WireMockAutoConfigurationTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     ServiceEndpoint wireMockEndpoint;
 
     @Test
-    public void startWireMockServer() throws IOException {
+    public void startWireMockServer() throws IOException, ParseException {
         createStubs();
 
         final int port = this.wireMockEndpoint.getPort();
@@ -48,9 +51,9 @@ public class WireMockAutoConfigurationTest extends AbstractTestNGSpringContextTe
 
         //Create a web request to localhost:port/api/test and expect ok with body = "tes
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
-                CloseableHttpResponse response = httpClient.execute(request)) {
+             CloseableHttpResponse response = httpClient.execute(request)) {
 
-            assertThat("Expected HTTP.OK", response.getStatusLine().getStatusCode() == HttpStatus.OK.value());
+            assertThat("Expected HTTP.OK", response.getCode() == HttpStatus.OK.value());
 
             final HttpEntity entity = response.getEntity();
             assertThat("Expected response entity", entity != null);

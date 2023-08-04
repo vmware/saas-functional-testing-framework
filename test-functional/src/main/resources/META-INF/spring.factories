@@ -1,4 +1,3 @@
-com.vmware.test.functional.saas.FunctionalTest=com.vmware.test.functional.saas.FunctionalConfig
 org.springframework.test.context.TestExecutionListener=\
   com.vmware.test.functional.saas.FunctionalTestExecutionListener,\
   com.vmware.test.functional.saas.TestClassScopeExecutionListener

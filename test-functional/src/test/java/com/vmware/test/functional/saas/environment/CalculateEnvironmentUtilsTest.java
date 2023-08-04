@@ -10,10 +10,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import com.vmware.test.functional.saas.FunctionalTest;
+import com.vmware.test.functional.saas.SharedConfig;
 import com.vmware.test.functional.saas.process.LocalTestProcessCtl;
 import com.vmware.test.functional.saas.process.TestApp;
 import com.vmware.test.functional.saas.process.TestCommand;
@@ -25,6 +29,8 @@ import static org.hamcrest.MatcherAssert.*;
  * Tests to verify how {@link LocalTestProcessCtl} environment is calculated.
  */
 @TestPropertySource(properties = { "prefix.app.env.var1=newValue1", "app.env.var2=newValue2" })
+@ContextHierarchy(@ContextConfiguration(classes = SharedConfig.class))
+@FunctionalTest
 public class CalculateEnvironmentUtilsTest extends AbstractTestNGSpringContextTests {
 
     private static final String TEST_EVN_VAR_1_VALUE = "value1";
