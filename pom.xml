@@ -29,7 +29,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/vmware/saas-functional-testing-framework.git</connection>
-        <developerConnection>scm:git:ssh://github.com:vmware/saas-functional-testing-framework.git</developerConnection>
+        <developerConnection>scm:git:ssh://github.com/vmware/saas-functional-testing-framework.git</developerConnection>
         <url>https://github.com/vmware/saas-functional-testing-framework/tree/main</url>
     </scm>
 
