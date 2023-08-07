@@ -33,7 +33,6 @@ jobs:
           version-major: ${{ inputs.version-major }}
           version-minor: ${{ inputs.version-minor }}
           version-patch: ${{ inputs.version-patch }}
-          maven-release-version-number: ${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.patchVersion}
 
           maven-servers: ${{ secrets.MVN_REPO_SERVERS }}
           git-release-bot-name: "d0ivanov"
