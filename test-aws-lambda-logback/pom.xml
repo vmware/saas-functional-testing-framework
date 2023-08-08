@@ -3,7 +3,7 @@
     <parent>
         <groupId>com.vmware.saas.functional.test</groupId>
         <artifactId>test-functional-base</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>test-aws-lambda-logback</artifactId>
