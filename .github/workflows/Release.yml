@@ -1,4 +1,4 @@
-name: release version
+name: Release and update the development version with Maven
 
 on:
   workflow_dispatch:
