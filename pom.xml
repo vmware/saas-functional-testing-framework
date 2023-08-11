@@ -4,7 +4,7 @@
 
     <groupId>com.vmware.saas.functional.test</groupId>
     <artifactId>test-functional-base</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${app.name} POM</name>
@@ -31,7 +31,7 @@
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
         <url>git@github.com:vmware/saas-functional-testing-framework.git</url>
-        <tag>test-functional-base-1.0.6</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
