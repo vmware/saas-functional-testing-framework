@@ -22,7 +22,7 @@ Saas Functional Testing Framework provides the option to plug any 3rd party serv
 
 ### Build & Run
 
-1. Build the project
+Build the project
 ```shell
 mvn clean install
 ```
