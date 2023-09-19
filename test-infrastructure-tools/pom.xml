@@ -44,9 +44,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
                     <excludedGroups>infra-tools:await-user-interaction, infra-tools:report-allocated-ports</excludedGroups>
                     <systemPropertyVariables>
                         <aws.cborEnabled>false</aws.cborEnabled>
