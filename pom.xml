@@ -52,7 +52,7 @@
         <!-- Skip GPG signing by default -->
         <gpg.skip>true</gpg.skip>
         <!--    Dependency versions    -->
-        <jetty.version>11.0.15</jetty.version>
+        <jetty.version>11.0.16</jetty.version>
         <spring.version>6.0.11</spring.version>
         <spring-boot.version>3.1.2</spring-boot.version>
         <logback.version>1.4.8</logback.version>
