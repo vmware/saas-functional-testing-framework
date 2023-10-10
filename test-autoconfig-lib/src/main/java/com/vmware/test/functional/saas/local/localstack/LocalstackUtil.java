@@ -1,4 +1,9 @@
-package com.vmware.test.functional.saas.local;
+/*
+ * Copyright 2023 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
+package com.vmware.test.functional.saas.local.localstack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.testcontainers.containers.localstack.LocalStackContainer;
@@ -76,19 +80,10 @@ final class LocalstackUtil {
     * @param listableBeanFactory {@link ConfigurableListableBeanFactory}
     * @return Set of required {@link Service}
     */
-   static Set<LocalService.BeanInfo> lookupRequiredServiceDependenciesInfo(final ConfigurableListableBeanFactory listableBeanFactory) {
+   static Set<Service> lookupRequiredLocalstackServices(final ConfigurableListableBeanFactory listableBeanFactory) {
       return getRequiredServiceDependencies(listableBeanFactory).stream()
-            .map(LocalstackUtil::localService)
+            .filter(LocalstackUtil::isLocalstackService)
             .collect(Collectors.toSet());
-   }
-
-   private static LocalService.BeanInfo localService(Service service) {
-      return LocalService.BeanInfo.builder()
-            .beanRef(new RuntimeBeanReference(service.name()))
-            .service(service)
-            .localstackService(isLocalstackService(service))
-            .endpointName(service.getEndpointName())
-            .build();
    }
 
    private static boolean isLocalstackService(Service service) {

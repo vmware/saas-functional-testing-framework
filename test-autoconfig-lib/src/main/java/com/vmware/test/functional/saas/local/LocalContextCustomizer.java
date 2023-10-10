@@ -23,6 +23,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
+import com.vmware.test.functional.saas.local.localstack.LocalstackContainerServiceRegistrar;
+
 /**
  * Customizes the {@link ConfigurableApplicationContext application contexts}
  * by adding a {@link PropertySources property source} used to resolve the names and settings
@@ -75,6 +77,7 @@ public class LocalContextCustomizer implements ContextCustomizer {
         }
         final BeanDefinitionRegistry registry = (BeanDefinitionRegistry)context;
         final AnnotatedBeanDefinitionReader reader = new AnnotatedBeanDefinitionReader(registry);
-        reader.registerBean(LocalstackServiceRegistrar.class, LocalstackServiceRegistrar.class.getName());
+        reader.registerBean(LocalstackContainerServiceRegistrar.class, LocalstackContainerServiceRegistrar.class.getName());
+        reader.registerBean(LocalServiceEndpointRegistrar.class, LocalServiceEndpointRegistrar.class.getName());
     }
 }

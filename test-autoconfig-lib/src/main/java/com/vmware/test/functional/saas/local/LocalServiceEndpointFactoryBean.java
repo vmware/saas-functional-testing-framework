@@ -45,6 +45,10 @@ class LocalServiceEndpointFactoryBean implements FactoryBean<ServiceEndpoint> {
         return ServiceEndpoint.class;
     }
 
+    /*
+      TODO: Bug?
+      This factory always returns a new object as opposed to the same reference;
+     */
     @Override
     public boolean isSingleton() {
         return FactoryBean.super.isSingleton();

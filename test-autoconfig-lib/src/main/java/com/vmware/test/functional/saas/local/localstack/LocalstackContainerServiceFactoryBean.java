@@ -1,9 +1,9 @@
 /*
- * Copyright 2022 VMware, Inc.
+ * Copyright 2022-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.localstack;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +14,7 @@ import com.vmware.test.functional.saas.Service;
 
 import lombok.RequiredArgsConstructor;
 
-import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.local.localstack.LocalstackUtil.mapLocalStackService;
 
 
 @RequiredArgsConstructor

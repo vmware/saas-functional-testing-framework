@@ -1,8 +1,8 @@
 /*
- * Copyright 2022 VMware, Inc.
+ * Copyright 2022-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.localstack;
 
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceEndpoint;
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.vmware.test.functional.saas.local.LocalstackUtil.mapLocalStackService;
+import static com.vmware.test.functional.saas.local.localstack.LocalstackUtil.mapLocalStackService;
 import static com.vmware.test.functional.saas.ServiceConditionUtil.getRequiredServiceDependencies;
 
 /**
