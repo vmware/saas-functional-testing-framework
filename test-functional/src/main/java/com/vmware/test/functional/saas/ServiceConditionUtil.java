@@ -13,12 +13,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.TypedStringValue;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.MergedAnnotations;
-
-import com.vmware.test.functional.saas.Service;
-import com.vmware.test.functional.saas.ServiceDependencies;
 
 /**
  * Utility class to retrieve services, requested through {@link ServiceDependencies}.
@@ -75,10 +71,6 @@ public final class ServiceConditionUtil {
         if (searchAll && parentBeanFactory instanceof ConfigurableListableBeanFactory) {
             collectRequiredServiceDependencies((ConfigurableListableBeanFactory)parentBeanFactory, true, requestedServices);
         }
-    }
-
-    private static String getEndpointName(TypedStringValue endpointNameArgumentValue) {
-        return endpointNameArgumentValue.getValue();
     }
 
 }

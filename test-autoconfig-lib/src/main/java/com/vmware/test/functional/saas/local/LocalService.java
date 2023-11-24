@@ -4,8 +4,6 @@
  */
 package com.vmware.test.functional.saas.local;
 
-import org.testcontainers.containers.localstack.LocalStackContainer;
-
 import com.vmware.test.functional.saas.InternalContainerServiceConfig;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ServiceEndpoint;
@@ -41,7 +39,6 @@ public class LocalService {
         String endpointName;
         Object beanRef;
         Service service;
-        boolean localstackService;
 
         String getName() {
             return service.name();

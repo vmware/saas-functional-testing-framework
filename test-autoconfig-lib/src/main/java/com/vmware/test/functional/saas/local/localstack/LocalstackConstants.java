@@ -1,9 +1,9 @@
 /*
- * Copyright 2022 VMware, Inc.
+ * Copyright 2022-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-package com.vmware.test.functional.saas.local;
+package com.vmware.test.functional.saas.local.localstack;
 
 /**
  * Local Service Constants.

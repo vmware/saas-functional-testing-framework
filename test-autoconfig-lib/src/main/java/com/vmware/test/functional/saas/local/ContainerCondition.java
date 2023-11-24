@@ -6,7 +6,6 @@ package com.vmware.test.functional.saas.local;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
@@ -37,23 +36,5 @@ public final class ContainerCondition {
         }
 
         protected abstract Service getService();
-    }
-
-    /**
-     * Determine if LocalStack container should be started locally.
-     */
-    static class LocalStackContainerCondition implements Condition {
-
-        @Override
-        public boolean matches(@NotNull final ConditionContext context, @NotNull final AnnotatedTypeMetadata metadata) {
-            final List<String> localstackServices = LocalstackUtil.lookupRequiredServiceDependenciesInfo(context.getBeanFactory())
-                    .stream()
-                    .filter(LocalService.BeanInfo::isLocalstackService)
-                    .map(LocalService.BeanInfo::getName)
-                    .collect(Collectors.toList());
-
-            return LocalstackUtil.getLocalstackServices(context).stream()
-                    .anyMatch(localstackServices::contains);
-        }
     }
 }

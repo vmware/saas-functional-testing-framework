@@ -5,9 +5,9 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
    <alias name="docker-com.vmware.test.functional.saas.local.config.DockerConfig" alias="dockerConfig" />
    <bean id="_localstackContainerConfig" class="com.vmware.test.functional.saas.InternalContainerServiceConfig">
-      <constructor-arg index="0" value="#{ T(com.vmware.test.functional.saas.local.LocalstackConstants).LOCALSTACK_IMAGE_NAME }"/>
+      <constructor-arg index="0" value="#{ T(com.vmware.test.functional.saas.local.localstack.LocalstackConstants).LOCALSTACK_IMAGE_NAME }"/>
       <constructor-arg index="1" value="localstack"/>
-      <constructor-arg index="2" value="#{ T(com.vmware.test.functional.saas.local.LocalstackConstants).LOCALSTACK_DEFAULT_SERVICE_PORT }"/>
+      <constructor-arg index="2" value="#{ T(com.vmware.test.functional.saas.local.localstack.LocalstackConstants).LOCALSTACK_DEFAULT_SERVICE_PORT }"/>
    </bean>
 <!--       DYNAMO_DB(DYNAMODB_ENDPOINT, DockerContainerType.DYNAMODB, LocalStackContainer.Service.DYNAMODB, 10151) -->
    <bean name="DYNAMO_DB" class="com.vmware.test.functional.saas.local.LocalService" >
