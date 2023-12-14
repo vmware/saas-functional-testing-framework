@@ -57,6 +57,7 @@
         <spring-boot.version>3.1.2</spring-boot.version>
         <logback.version>1.4.8</logback.version>
         <slf4j.version>2.0.7</slf4j.version>
+        <fasterxml.jackson.version>2.13.1</fasterxml.jackson.version>  <!-- Important -->
     </properties>
 
     <modules>
@@ -108,25 +109,31 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <type>jar</type>
-                <version>2.13.3</version>
+                <version>${fasterxml.jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <type>jar</type>
+                <version>${fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <type>jar</type>
-                <version>2.13.4.2</version>
+                <version>${fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jdk8</artifactId>
                 <type>jar</type>
-                <version>2.13.1</version>
+                <version>${fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <type>jar</type>
-                <version>2.13.1</version>
+                <version>${fasterxml.jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.spotbugs</groupId>
