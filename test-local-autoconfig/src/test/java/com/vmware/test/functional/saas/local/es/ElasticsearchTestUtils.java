@@ -8,11 +8,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.searchbox.client.JestClient;
-import io.searchbox.indices.Refresh;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.BulkRequest;
 
 import lombok.SneakyThrows;
 
@@ -21,31 +19,22 @@ import lombok.SneakyThrows;
  */
 public final class ElasticsearchTestUtils {
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     private ElasticsearchTestUtils() {
 
     }
 
     @SneakyThrows
-    static void processBulkIndexRequest(final JestClient jestClient, final String indexAlias, final List<Map<String, Object>> source) {
-        final io.searchbox.core.Bulk.Builder bulkBuilder = new io.searchbox.core.Bulk.Builder();
-        source.forEach((doc) -> {
-            final Map<String, Object> sourceMap = new LinkedHashMap<>(doc);
-            final Object id = sourceMap.remove("_id");
-            try {
-                bulkBuilder.addAction(new io.searchbox.core.Index.Builder(OBJECT_MAPPER.writeValueAsString(sourceMap))
-                        .index(indexAlias)
-                        .type("default")
-                        .id(id == null ? null : String.valueOf(id))
-                        .build());
-            } catch (final JsonProcessingException e) {
-                throw new IllegalStateException(e);
-            }
-        });
-        jestClient.execute(bulkBuilder.build());
+    static void processBulkIndexRequest(final ElasticsearchClient esClient, final String indexAlias, final List<Map<String, Object>> source) {
+        BulkRequest.Builder br = new BulkRequest.Builder();
+        source.stream()
+              .map(LinkedHashMap::new)
+              .forEach(doc -> br.operations(op -> op
+                    .index(idx -> idx
+                          .index(indexAlias)
+                          .id(doc.containsValue("_id") ? String.valueOf(doc.remove("_id")) : null)
+                          .document(doc))));
+        esClient.bulk(br.build());
 
-        final Refresh request = new io.searchbox.indices.Refresh.Builder().addIndex(indexAlias).build();
-        jestClient.execute(request);
+        esClient.indices().refresh(idx -> idx.index(indexAlias));
     }
 }

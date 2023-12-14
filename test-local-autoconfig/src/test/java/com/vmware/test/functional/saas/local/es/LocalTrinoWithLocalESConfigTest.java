@@ -31,11 +31,12 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
 import com.vmware.test.functional.saas.local.aws.config.DockerContainersConfiguration;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 import com.google.common.base.Preconditions;
 
-import io.searchbox.client.JestClient;
-import io.searchbox.core.Search;
-import io.searchbox.indices.DeleteIndex;
 import io.trino.jdbc.TrinoDriver;
 
 import lombok.SneakyThrows;
@@ -56,15 +57,6 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
     private static final String ES_TEST_DATA_FIELD = "data_field";
     private static final String ES_CATALOG = "elasticsearch";
     private static final String ES_SCHEMA = "es";
-    private static final String ES_RECORD_QUERY_MATCH = "{"
-            + "  \"query\": {"
-            + "    \"bool\": {"
-            + "      \"must\": ["
-            + "        { \"match\": { \"%s\":   \"%s\" }}"
-            + "      ]"
-            + "    }"
-            + "  }"
-            + "}";
     private static final String SELECT_FROM_TABLE_CMD = "select %s from %s";
     private static final String SHOW_TABLES_CMD = "show tables";
 
@@ -77,7 +69,7 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
     }
 
     @Autowired
-    private JestClient jestClient;
+    private ElasticsearchClient esClient;
 
     @Autowired
     private ServiceEndpoint trinoEndpoint;
@@ -85,15 +77,16 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws IOException {
         // create ES index
-        assertThat("ElasticSearchClient cannot be null", this.jestClient, notNullValue());
+        assertThat("ElasticSearchClient cannot be null", this.esClient, notNullValue());
         this.testEsIndex = "test_" + StringUtils.replace(UUID.randomUUID().toString(), "-", "");
 
-        ElasticsearchUtils.createIndex(this.jestClient, this.testEsIndex,
-                ElasticsearchUtils.emptyIndexSettings(),
-                ElasticsearchUtils.dynamicIndexMappings(),
+        ElasticsearchUtils.createIndex(this.esClient, this.testEsIndex,
+                null,
+                null,
                 "");
         // Verify index was created
-        await("Await ES index creation.").until(() -> ElasticsearchHealthHelper.checkHealth(this.jestClient, this.testEsIndex), is(true));
+        await("Await ES index creation.").until(() -> ElasticsearchHealthHelper.checkHealth(this.esClient, this.testEsIndex)
+              , is(true));
 
         // Create record
         this.testData = UUID.randomUUID().toString();
@@ -103,17 +96,23 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
 
         // Put record in ES
         ElasticsearchTestUtils.processBulkIndexRequest(
-                this.jestClient, this.testEsIndex,
+                this.esClient, this.testEsIndex,
                 esTestDataToSeed);
 
         // Verify record is included in the index
-        final String getRecordQuery = String.format(ES_RECORD_QUERY_MATCH, ES_TEST_DATA_FIELD, this.testData);
-        final String searchResultSource = this.jestClient
-                .execute(new Search.Builder(getRecordQuery)
-                        .build())
-                .getSourceAsString();
-        assertThat("Retrieved record from ES is not null or empty.", searchResultSource, not(emptyOrNullString()));
-        assertThat("Retrieved record from ES is matching the test data.", searchResultSource.contains(this.testData), is(true));
+        final SearchResponse<Object> searchResult = this.esClient.search(s -> s
+                    .index(this.testEsIndex)
+                    .query(q -> q
+                          .bool(b -> b
+                                .must(MatchQuery.of(m -> m
+                                      .field(ES_TEST_DATA_FIELD)
+                                      .query(this.testData)
+                                )._toQuery())
+                          )
+                    ),
+              Object.class);
+        assertThat("Retrieved record from ES is not null or empty.", searchResult.toString(), not(emptyOrNullString()));
+        assertThat("Retrieved record from ES is matching the test data.", searchResult.toString().contains(this.testData), is(true));
     }
 
     @AfterMethod(alwaysRun = true)
@@ -122,7 +121,7 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
         assertThat(dropIndex(this.testEsIndex), is(true));
     }
 
-    @Test(enabled = true)
+    @Test
     public void localTrinoConfigWithLocalES() {
         final SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
         dataSource.setDriverClass(TrinoDriver.class);
@@ -166,7 +165,6 @@ public class LocalTrinoWithLocalESConfigTest extends AbstractTestNGSpringContext
     @SneakyThrows
     public boolean dropIndex(final String index) {
         Preconditions.checkArgument(index != null && !index.isBlank(), "index name is required");
-        final DeleteIndex request = (new io.searchbox.indices.DeleteIndex.Builder(index)).build();
-        return this.jestClient.execute(request).isSucceeded();
+        return this.esClient.indices().delete( idx -> idx.index(index)).acknowledged();
     }
 }

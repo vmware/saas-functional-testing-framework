@@ -14,12 +14,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.AbstractResourceCreator;
 import com.vmware.test.functional.saas.es.ElasticsearchIndexBuildConfiguration;
 import com.vmware.test.functional.saas.es.ElasticsearchIndexSettings;
-
-import io.searchbox.client.JestClient;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -31,12 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ElasticsearchResourceCreator extends AbstractResourceCreator {
 
-    private final JestClient jestClient;
+    private final ElasticsearchClient esClient;
 
-    public ElasticsearchResourceCreator(final JestClient jestClient,
+    public ElasticsearchResourceCreator(final ElasticsearchClient esClient,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.jestClient = jestClient;
+        this.esClient = esClient;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ElasticsearchResourceCreator extends AbstractResourceCreator {
     private void createIndex(final ElasticsearchIndexSettings elasticsearchIndexSettings) {
         final String index = elasticsearchIndexSettings.getIndex();
         try {
-            ElasticsearchUtils.createIndex(this.jestClient, index,
+            ElasticsearchUtils.createIndex(this.esClient, index,
                     elasticsearchIndexSettings.getIndexSettingsSupplier().get(),
                     elasticsearchIndexSettings.getIndexMappingsSupplier().get(),
                     elasticsearchIndexSettings.getIndexAlias());

@@ -5,9 +5,9 @@
 
 package com.vmware.test.functional.saas.es;
 
-import io.searchbox.client.JestClient;
-import io.searchbox.indices.IndicesExists;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 
+import co.elastic.clients.elasticsearch.indices.ExistsRequest;
 import lombok.SneakyThrows;
 
 /**
@@ -22,13 +22,12 @@ public final class ElasticsearchHealthHelper {
     /**
      * Elasticsearch Health Helper - verifying the index creation.
      *
-     * @param jestClient {@link JestClient}.
+     * @param esClient {@link ElasticsearchClient}.
      * @param index               The Elasticsearch index name.
      * @return {@code true} if the index exists, {@code true} if index is not created.
      */
     @SneakyThrows
-    public static boolean checkHealth(final JestClient jestClient, final String index) {
-        final IndicesExists request = (new IndicesExists.Builder(index)).build();
-        return jestClient.execute(request).isSucceeded();
+    public static boolean checkHealth(final ElasticsearchClient esClient, final String index) {
+        return esClient.indices().exists(ExistsRequest.of(builder -> builder.index(index))).value();
     }
 }

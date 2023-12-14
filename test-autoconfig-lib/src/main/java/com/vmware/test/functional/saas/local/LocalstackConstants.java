@@ -12,7 +12,7 @@ public final class LocalstackConstants {
 
     private LocalstackConstants() {
     }
-    public static final String LOCALSTACK_VERSION = "0.12.5";
+    public static final String LOCALSTACK_VERSION = "0.13.3";
 
     public static final String LOCALSTACK_IMAGE_NAME = String.format("localstack/localstack:%s", LOCALSTACK_VERSION);
 
