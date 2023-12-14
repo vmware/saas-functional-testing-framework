@@ -9,6 +9,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.jlib.cloud.aws.lambda.logback.AwsLambdaAppender;
 import org.slf4j.MDC;
@@ -34,6 +37,7 @@ public final class LambdaAppender extends AwsLambdaAppender {
 
     private final Logger logger;
     private String requestId;
+    private boolean printStatus;
 
     public LambdaAppender() {
         super();
@@ -42,9 +46,21 @@ public final class LambdaAppender extends AwsLambdaAppender {
 
     @Override
     public void start() {
+        if (printStatus) {
+            getStatusManager().add(status -> System.out.println("!!!Status!!! " + status.toString()));
+        }
+
         super.start();
         this.requestId = readTestRequestId();
-        final ILoggingEvent event = getLogEvent(Level.INFO, CONTEXT_INITIALIZED, null);
+
+        // deferred to not pollute the MDC
+        Executors.newScheduledThreadPool(1).schedule(this::setRequestIdAndAppend,
+              100, TimeUnit.MILLISECONDS);
+    }
+
+    private void setRequestIdAndAppend() {
+        final LoggingEvent event = getLogEvent(Level.INFO, CONTEXT_INITIALIZED, null);
+        event.setMDCPropertyMap(Map.of(FUNCTIONAL_TEST_REQUEST_ID, this.requestId));
         this.append(event);
     }
 
@@ -61,7 +77,11 @@ public final class LambdaAppender extends AwsLambdaAppender {
         super.append(event);
     }
 
-    private ILoggingEvent getLogEvent(final Level level, final String message, final Throwable throwable) {
+    public void setPrintStatus(boolean printStatus) {
+        this.printStatus = printStatus;
+    }
+
+    private LoggingEvent getLogEvent(final Level level, final String message, final Throwable throwable) {
         return new LoggingEvent(
                 this.getClass().getCanonicalName(),
                 this.logger,
