@@ -60,7 +60,7 @@ public class SamProcessControl implements SmartLifecycle {
     private static final String DEFAULT_JAVA_OPTIONS = "-XX:MaxHeapSize=2834432k -XX:MaxMetaspaceSize=163840k";
     private static final long ONE_SECOND = TimeUnit.SECONDS.toMillis(1);
     // SAM requires a few seconds to open start-lambda endpoint to listen to
-    private static final Duration STARTUP_TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration STARTUP_TIMEOUT = Duration.ofSeconds(10);
     private static final String TEMPLATE_FILE_NAME = "template.yaml";
     private static final String LAMBDA_LOG_FILE_NAME = "lambda.log";
     private static final String SAM_COMMAND_LOGS_FILE_NAME = "sam.log";
