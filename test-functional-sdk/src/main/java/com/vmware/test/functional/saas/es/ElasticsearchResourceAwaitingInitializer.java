@@ -12,7 +12,7 @@ import java.util.List;
 import com.vmware.test.functional.saas.FunctionalTestExecutionSettings;
 import com.vmware.test.functional.saas.common.AbstractResourceAwaitingInitializer;
 
-import io.searchbox.client.JestClient;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,12 +25,12 @@ import static org.awaitility.Awaitility.await;
 @Slf4j
 public class ElasticsearchResourceAwaitingInitializer extends AbstractResourceAwaitingInitializer {
 
-    private final JestClient jestClient;
+    private final ElasticsearchClient esClient;
 
-    public ElasticsearchResourceAwaitingInitializer(final JestClient jestClient,
+    public ElasticsearchResourceAwaitingInitializer(final ElasticsearchClient esClient,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
         super(functionalTestExecutionSettings);
-        this.jestClient = jestClient;
+        this.esClient = esClient;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ElasticsearchResourceAwaitingInitializer extends AbstractResourceAw
     }
 
     private void verifyIndex(final ElasticsearchIndexSettings elasticsearchIndexSettings) {
-        await().until(() -> ElasticsearchHealthHelper.checkHealth(this.jestClient, elasticsearchIndexSettings.getIndex()));
+        await().until(() -> ElasticsearchHealthHelper.checkHealth(this.esClient, elasticsearchIndexSettings.getIndex()));
         log.info("Verified ES index [{}] exists", elasticsearchIndexSettings.getIndex());
     }
 }

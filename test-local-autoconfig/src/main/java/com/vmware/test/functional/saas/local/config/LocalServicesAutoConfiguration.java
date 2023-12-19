@@ -7,6 +7,8 @@ package com.vmware.test.functional.saas.local.config;
 
 import java.util.List;
 
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.SearchStrategy;
@@ -25,7 +27,6 @@ import com.vmware.test.functional.saas.ServiceEndpoint;
 import com.vmware.test.functional.saas.Service;
 import com.vmware.test.functional.saas.ConditionalOnService;
 import com.vmware.test.functional.saas.local.es.ElasticsearchResourceCreator;
-import com.vmware.test.functional.saas.local.es.JestClientFactory;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 import com.vmware.test.functional.saas.local.pg.PostgresDatabaseInitializer;
 import com.vmware.test.functional.saas.local.pg.PostgresDbSettings;
@@ -37,7 +38,9 @@ import com.vmware.test.functional.saas.trino.TrinoCatalogAwaitingInitializer;
 import com.vmware.test.functional.saas.trino.TrinoCatalogSettings;
 import com.vmware.test.functional.saas.trino.TrinoCatalogSpecs;
 
-import io.searchbox.client.JestClient;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import io.trino.jdbc.TrinoDriver;
 
 /**
@@ -52,25 +55,27 @@ public class LocalServicesAutoConfiguration {
     @Bean
     @ConditionalOnService(Service.ELASTICSEARCH)
     @Lazy
-    JestClientFactory jestClient(@Lazy final ServiceEndpoint elasticsearchEndpoint,
-            final ConfigurableEnvironment env) {
-        return new JestClientFactory(elasticsearchEndpoint, env);
+    ElasticsearchClient esClient(@Lazy final ServiceEndpoint elasticsearchEndpoint) {
+        return new ElasticsearchClient(new RestClientTransport(
+              RestClient.builder(HttpHost.create(elasticsearchEndpoint.getEndpoint()))
+                    .build(),
+              new JacksonJsonpMapper()));
     }
 
     @Bean
     @ConditionalOnService(value = Service.ELASTICSEARCH, search = SearchStrategy.ALL, conditionalOnMissingBean = true)
     @Lazy
-    ElasticsearchResourceCreator elasticsearchResourceCreator(@Lazy final JestClient jestClient,
+    ElasticsearchResourceCreator elasticsearchResourceCreator(@Lazy final ElasticsearchClient esClient,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
-        return new ElasticsearchResourceCreator(jestClient, functionalTestExecutionSettings);
+        return new ElasticsearchResourceCreator(esClient, functionalTestExecutionSettings);
     }
 
     @Bean
     @ConditionalOnService(value = Service.ELASTICSEARCH, search = SearchStrategy.ALL)
     @Lazy
-    ElasticsearchResourceAwaitingInitializer elasticsearchResourceAwaitingInitializer(@Lazy final JestClient jestClient,
+    ElasticsearchResourceAwaitingInitializer elasticsearchResourceAwaitingInitializer(@Lazy final ElasticsearchClient esClient,
             final FunctionalTestExecutionSettings functionalTestExecutionSettings) {
-        return new ElasticsearchResourceAwaitingInitializer(jestClient,
+        return new ElasticsearchResourceAwaitingInitializer(esClient,
                 functionalTestExecutionSettings);
     }
 

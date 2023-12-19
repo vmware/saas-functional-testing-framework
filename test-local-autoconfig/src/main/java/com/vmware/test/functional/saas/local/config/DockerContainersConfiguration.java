@@ -118,6 +118,9 @@ public class DockerContainersConfiguration {
                 new HttpWaitStrategy()
                         .forPath("/_cat/health")
                         .withStartupTimeout(DEFAULT_WAIT_STRATEGY_TIMEOUT))
-                .withEnv(Map.of(ELASTICSEARCH_CLUSTER_DISK_THRESHOLD_ENABLED, Boolean.FALSE.toString()));
+                .withEnv(Map.of(ELASTICSEARCH_CLUSTER_DISK_THRESHOLD_ENABLED, Boolean.FALSE.toString()))
+                .withEnv("xpack.security.enabled", "false")
+                .withEnv("discovery.type", "single-node")
+                .withEnv("ES_JAVA_OPTS", "-Xms1g -Xmx1g");
     }
 }

@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
@@ -19,9 +17,9 @@ import org.testng.annotations.Test;
 import com.vmware.test.functional.saas.local.aws.AbstractFullContextTest;
 import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
 
-import io.searchbox.client.JestClient;
-import io.searchbox.core.Search;
-import io.searchbox.core.SearchResult;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -38,31 +36,39 @@ public class ElasticsearchTest extends AbstractFullContextTest {
     private String elasticsearchIndexAlias;
 
     @Autowired
-    private JestClient jestClient;
+    private ElasticsearchClient esClient;
 
     @Test
     public void localElasticsearchAutoconfiguration() throws IOException {
-        assertThat("ElasticSearchClient cannot be null", this.jestClient, notNullValue());
+        assertThat("ElasticSearchClient cannot be null", this.esClient, notNullValue());
         // verify index was created by ElasticsearchInitializer
         assertThat(ElasticsearchHealthHelper
-                .checkHealth(this.jestClient, this.elasticsearchIndex), is(true));
+                .checkHealth(this.esClient, this.elasticsearchIndex), is(true));
 
         final String testEsField = "test_org_id";
         final String testData = UUID.randomUUID().toString();
         // Put data in ES index
         ElasticsearchTestUtils.processBulkIndexRequest(
-                this.jestClient,
+                this.esClient,
                 this.elasticsearchIndexAlias,
                 List.of(Map.of(testEsField, testData))
         );
 
         // Verify data exists in ES
-        final SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder()
-                .query(QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(testEsField, testData)));
-
-        final SearchResult searchResultSource = this.jestClient
-                .execute(new Search.Builder(searchSourceBuilder.toString()).addIndex(this.elasticsearchIndex).build());
-        assertThat("Retrieved record from ES total count is 1.", searchResultSource.getTotal(), is(1L));
-        assertThat("Retrieved record from ES is matching the test data.", searchResultSource.getSourceAsString().contains(testData), is(true));
+        final SearchResponse<Object> searchResult = this.esClient.search(s -> s
+                    .index(this.elasticsearchIndex)
+                    .query(q -> q
+                          .bool(b -> b
+                                .must(MatchQuery.of(m -> m
+                                      .field(testEsField)
+                                      .query(testData)
+                                )._toQuery())
+                          )
+                    ),
+              Object.class);
+        assertThat("Retrieved record from ES total count is 1.", searchResult.hits().total(), notNullValue());
+        assertThat("Retrieved record from ES total count is 1.", searchResult.hits().total().value(), is(1L));
+        assertThat("Retrieved record from ES is matching the test data.", searchResult.toString().contains(testData),
+              is(true));
     }
 }

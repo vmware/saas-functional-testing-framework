@@ -7,6 +7,8 @@ package com.vmware.test.functional.saas.es;
 
 import java.util.function.Supplier;
 
+import co.elastic.clients.elasticsearch._types.mapping.TypeMapping;
+import co.elastic.clients.elasticsearch.indices.IndexSettings;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,7 +23,7 @@ public class ElasticsearchIndexSettings {
     @Builder.Default
     private String indexAlias = "";
     @Builder.Default
-    private Supplier<String> indexMappingsSupplier = () -> "{\"default\":{\"dynamic\":\"true\"}}";
+    private Supplier<TypeMapping> indexMappingsSupplier = () -> null;
     @Builder.Default
-    private Supplier<String> indexSettingsSupplier = () -> "";
+    private Supplier<IndexSettings> indexSettingsSupplier = () -> null;
 }

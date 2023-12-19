@@ -7,12 +7,16 @@ package com.vmware.test.functional.saas.local.es;
 
 import org.apache.commons.lang3.StringUtils;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+
 import com.vmware.test.functional.saas.es.ElasticsearchHealthHelper;
+
+import co.elastic.clients.elasticsearch._types.mapping.DynamicMapping;
+import co.elastic.clients.elasticsearch._types.mapping.TypeMapping;
+import co.elastic.clients.elasticsearch.indices.CreateIndexRequest;
+import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import co.elastic.clients.elasticsearch.indices.IndexSettings;
 import com.google.common.base.Preconditions;
-
-import io.searchbox.client.JestClient;
-import io.searchbox.client.JestResult;
-
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,59 +26,51 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class ElasticsearchUtils {
 
-    private static final String EMPTY_ELASTICSEARCH_SETTINGS = "";
-    private static final String DYNAMIC_INDEX_MAPPINGS = "{\"default\":{\"dynamic\":\"true\"}}";
-
     private ElasticsearchUtils() {
 
-    }
-
-    static String emptyIndexSettings() {
-        return EMPTY_ELASTICSEARCH_SETTINGS;
-    }
-
-    static String dynamicIndexMappings() {
-        return DYNAMIC_INDEX_MAPPINGS;
     }
 
     /**
      * Create Elasticsearch index.
      * Index is created with settings and mappings loaded from elasticsearch bootstrap project.
      *
-     * @param jestClient JestClient client.
+     * @param esClient ElasticsearchClient client.
      * @param index Index to be created in Elasticsearch.
      * @param settings .
      * @param mappings .
      * @param alias Index alias.
      */
     @SneakyThrows
-    static void createIndex(final JestClient jestClient, final String index, final String settings,
-                                   final String mappings, final String alias) {
+    static void createIndex(final ElasticsearchClient esClient, final String index, final IndexSettings settings,
+                                   final TypeMapping mappings, final String alias) {
         Preconditions.checkArgument(index != null && !index.isBlank(), "Index reference cannot be null/empty");
 
-        if (ElasticsearchHealthHelper.checkHealth(jestClient, index)) {
+        if (ElasticsearchHealthHelper.checkHealth(esClient, index)) {
             log.info("Elasticsearch Index [{}] exists...moving on", index);
             return;
         }
 
-        final io.searchbox.indices.CreateIndex.Builder createIndexBuilder = new io.searchbox.indices.CreateIndex.Builder(index);
+        CreateIndexResponse result = esClient.indices().create(CreateIndexRequest.of(builder -> {
+            if (StringUtils.isNotBlank(alias)) {
+                builder.aliases(alias, aliasBuilder -> aliasBuilder.isWriteIndex(true));
+            }
+            if (settings != null) {
+                builder.settings(settings);
+            }
+            if (mappings == null) {
+                builder.mappings(mappingsBuilder -> mappingsBuilder.dynamic(DynamicMapping.True));
+            } else {
+                builder.mappings(mappings);
+            }
 
-        if (StringUtils.isNotBlank(alias)) {
-            final String json = "{\"" + alias + "\":{ \"" + "is_write_index" + "\" : true }}";
-            createIndexBuilder.aliases(json);
-        }
-
-        if (StringUtils.isNotBlank(settings)) {
-            createIndexBuilder.settings(settings);
-        }
-
-        createIndexBuilder.mappings(mappings);
-        final JestResult result = jestClient.execute(createIndexBuilder.build());
-        if (result.isSucceeded()) {
+            builder.index(index);
+            return builder;
+        }));
+        if (result.acknowledged()) {
             log.info("Creating index [{}] with alias [{}] with configured settings and mappings", index, alias);
         } else {
-            log.info("Creating index [{}] failed with error: {}", index, result.getErrorMessage());
-            throw new RuntimeException(result.getErrorMessage());
+            log.info("Creating index [{}] failed with error: {}", index, result);
+            throw new RuntimeException(result.toString());
         }
     }
 }

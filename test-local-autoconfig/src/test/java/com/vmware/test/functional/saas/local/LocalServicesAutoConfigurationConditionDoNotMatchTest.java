@@ -20,9 +20,9 @@ import com.vmware.test.functional.saas.local.pg.PostgresDatabaseCreator;
 import com.vmware.test.functional.saas.local.trino.TrinoCatalogCreator;
 import com.vmware.test.functional.saas.es.ElasticsearchResourceAwaitingInitializer;
 
-import io.searchbox.client.JestClient;
-
 import static org.hamcrest.MatcherAssert.*;
+
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
 
 /**
  * This test verifies that if a service (i.e. Service.Trino) is NOT specified in a test context configuration,
@@ -43,7 +43,8 @@ public class LocalServicesAutoConfigurationConditionDoNotMatchTest extends Abstr
     @Test
     public void beanConditionsDoNotMatch() {
         // The following are not specified as service dependencies for this test...and should not be created
-        assertThat("Elasticsearch client has been created - unexpected based on condition.", this.context.getBeansOfType(JestClient.class).size() == 0);
+        assertThat("Elasticsearch client has been created - unexpected based on condition.",
+              this.context.getBeansOfType(ElasticsearchClient.class).size() == 0);
         assertThat("ElasticsearchResourceCreator has been created - unexpected based on condition.",
                 this.context.getBeansOfType(ElasticsearchResourceCreator.class).size() == 0);
         assertThat("ElasticsearchResourceAwaitingInitializer has been created - unexpected based on condition.", this.context.getBeansOfType(
